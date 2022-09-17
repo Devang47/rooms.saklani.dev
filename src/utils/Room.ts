@@ -8,15 +8,13 @@ import {
   collection,
   query,
   orderBy,
-  limitToLast,
+  deleteDoc,
+  onSnapshot,
 } from "firebase/firestore";
-
-import { onSnapshot } from "firebase/firestore";
 
 import CryptoJS from "crypto-js";
 import { encrypt } from "./crypt";
 import { roomMessages } from "$stores/app";
-import { get } from "svelte/store";
 
 const db = getFirestore(app);
 
@@ -25,7 +23,7 @@ const getRand = () => {
 };
 
 export const createRoom = async () => {
-  const roomId = getRand();
+  const roomId = getRand().toUpperCase();
   const cryptedRoomId = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
 
   await setDoc(doc(db, "rooms", cryptedRoomId), {
@@ -51,29 +49,34 @@ export const addMessage = async ({
 
   await addDoc(collection(db, "rooms", cryptedKey, "data"), {
     data: encryptedMessage,
-    timestamp: new Date().toLocaleString(),
+    timestamp: new Date(),
     device: cryptedDeviceDetails,
   });
 };
 
-export const getRoomMessages = async (roomId: string) => {
+export const getRoomMessages = async (
+  roomId: string,
+  scrollToBottom: () => void
+) => {
   const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
 
   const dataCollection = collection(db, "rooms", cryptedKey, "data");
 
-  const dataQuery = query(
-    dataCollection,
-    orderBy("timestamp"),
-    limitToLast(15)
-  );
+  const dataQuery = query(dataCollection, orderBy("timestamp"));
 
   onSnapshot(dataQuery, (snapshot) => {
     roomMessages.set(snapshot.docs.map((doc) => doc.data()) || []);
+
+    setTimeout(() => {
+      scrollToBottom();
+    }, 100);
   });
 };
 
 export const checkIfRoomExists = async (roomId: string) =>
   new Promise((resolve, reject) => {
+    roomId = roomId.toUpperCase();
+
     const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
 
     var docRef = doc(db, "rooms", cryptedKey);
@@ -90,3 +93,10 @@ export const checkIfRoomExists = async (roomId: string) =>
         reject("Error getting document: " + error.message);
       });
   });
+
+export const deleteRoom = async (roomId: string) => {
+  roomId = roomId.toUpperCase();
+  const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
+  const docRef = doc(db, "rooms", cryptedKey);
+  await deleteDoc(docRef);
+};

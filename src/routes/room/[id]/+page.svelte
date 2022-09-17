@@ -2,58 +2,79 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Message from "$lib/components/Message.svelte";
+  import Dustbin from "$lib/icons/Dustbin.svelte";
   import SendIcon from "$lib/icons/SendIcon.svelte";
   import UploadIcon from "$lib/icons/UploadIcon.svelte";
-  import { chatInput, loading, roomMessages } from "$stores/app";
-  import { addMessage, checkIfRoomExists, getRoomMessages } from "$utils/Room";
+  import ChatHeader from "$lib/sections/ChatHeader.svelte";
+  import { loading, roomMessages } from "$stores/app";
+  import {
+    addMessage,
+    checkIfRoomExists,
+    deleteRoom,
+    getRoomMessages,
+  } from "$utils/Room";
   import { uploadFile } from "$utils/storage";
   import { onMount } from "svelte";
 
   let roomId: string;
   let scrollToElement: HTMLDivElement;
+  let chatInput = "";
+
   onMount(async () => {
-    roomId = $page.params.id as string;
+    roomId = $page.params.id.toUpperCase() as string;
 
     if (!(await checkIfRoomExists(roomId))) {
       goto("/");
     } else {
-      getRoomMessages(roomId);
-      scrollToElement.scrollIntoView({
-        behavior: "smooth",
-      });
+      await getRoomMessages(roomId, scrollToBottom);
       loading.set(false);
     }
   });
 
-  const handleAddMsg = async () => {
-    await addMessage({ roomId, message: $chatInput });
+  $: roomId = $page.params.id.toUpperCase() as string;
 
-    scrollToElement.scrollIntoView({
-      behavior: "smooth",
-    });
+  const handleAddMsg = async () => {
+    await addMessage({ roomId, message: chatInput });
+    chatInput = "";
+    scrollToBottom();
   };
 
-  const handleInputChange = (e: any) => {
-    console.log(e);
+  const handleInputChange = async (e: any) => {
     if (e?.target?.files) {
       $loading = true;
-      uploadFile(roomId, e.target.files[0]);
+      try {
+        let url = await uploadFile(roomId, e.target.files[0]);
+
+        chatInput += " " + url;
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+
+  const scrollToBottom = () => {
+    if (scrollToElement) {
+      scrollToElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
+  const handleDeleteRoom = async () => {
+    $loading = true;
+    await deleteRoom(roomId);
+    goto("/");
+
+    $loading = false;
+  };
+
+  $: console.log($roomMessages);
 </script>
 
 <section class="chat-ui">
   <div class="container">
-    <header>
-      <h1 on:click={() => goto("/")} class="sans cursor-pointer">Rooms</h1>
-      <div class="room-id">
-        {#each "324324".split("") as letter}
-          <span class="letter sans">
-            {letter}
-          </span>
-        {/each}
-      </div>
-    </header>
+    <ChatHeader {roomId} {handleDeleteRoom} />
 
     <div class="chat-messages-wrapper">
       <div class="messages-wrapper">
@@ -71,7 +92,7 @@
           id="input"
           cols="30"
           rows="10"
-          bind:value={$chatInput}
+          bind:value={chatInput}
         />
         <div class="buttons">
           <button on:click={handleAddMsg} title="Send message">

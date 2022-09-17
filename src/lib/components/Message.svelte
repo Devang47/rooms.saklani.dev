@@ -2,6 +2,8 @@
   import { onMount } from "svelte";
   import CryptoJS from "crypto-js";
   import { decrypt } from "$utils/crypt";
+  import { formatMessage } from "$utils/notifications";
+  import { fade, fly, scale } from "svelte/transition";
 
   export let messageData: Message;
   export let roomId = "";
@@ -24,8 +26,12 @@
   });
 </script>
 
-<div class="message-item" class:left-aligned={sameDevice}>
-  <p class="w-full">
-    {message}
+<div
+  class="message-item"
+  transition:scale={{ start: 0.9, opacity: 0.8 }}
+  class:left-aligned={sameDevice}
+>
+  <p class="w-full font-medium">
+    {@html formatMessage(message)}
   </p>
 </div>

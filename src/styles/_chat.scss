@@ -4,11 +4,11 @@ section.chat-ui {
 
   .container {
     @apply bg-[#EFEFEF] rounded-[30px] md:rounded-[40px] w-full h-[90vh] mx-auto relative max-w-[1000px];
-    box-shadow: 0px 0.5px 1.1px rgba(0, 0, 0, 0.019),
-      0px 1.2px 2.5px rgba(0, 0, 0, 0.028), 0px 2px 4.4px rgba(0, 0, 0, 0.034),
-      0px 3.3px 7px rgba(0, 0, 0, 0.04), 0px 5px 10.8px rgba(0, 0, 0, 0.046),
-      0px 7.8px 16.9px rgba(0, 0, 0, 0.052), 0px 13px 28px rgba(0, 0, 0, 0.061),
-      0px 26px 56px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 0px 1.2px rgba(0, 0, 0, 0.017),
+      0px 0px 2.8px rgba(0, 0, 0, 0.024), 0px 0px 4.8px rgba(0, 0, 0, 0.03),
+      0px 0px 7.6px rgba(0, 0, 0, 0.035), 0px 0px 11.8px rgba(0, 0, 0, 0.04),
+      0px 0px 18.4px rgba(0, 0, 0, 0.046), 0px 0px 30.5px rgba(0, 0, 0, 0.053),
+      0px 0px 61px rgba(0, 0, 0, 0.07);
   }
 
   header {
@@ -20,7 +20,25 @@ section.chat-ui {
     }
 
     .room-id {
-      @apply bg-[#D9D9D9] py-1 px-4 text-[#38404A] flex items-center justify-center gap-1 rounded;
+      @apply bg-[#D9D9D9] py-1 px-4 text-[#38404A] text-[15px] font-extrabold flex items-center justify-center gap-1 rounded cursor-pointer relative overflow-hidden;
+
+      box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.11),
+        0px 2.50666px 10.4444px rgba(0, 0, 0, 0.079074),
+        0px 1.34018px 5.58408px rgba(0, 0, 0, 0.0655718),
+        0px 0.751293px 3.13039px rgba(0, 0, 0, 0.055),
+        0px 0.399006px 1.66253px rgba(0, 0, 0, 0.0444282),
+        0px 0.166035px 0.691814px rgba(0, 0, 0, 0.030926);
+
+      .copy-btn {
+        @apply absolute inset-0 w-full h-full opacity-0 bg-light flex items-center justify-center text-center font-extrabold hover:opacity-100 backdrop-blur-md duration-100 ease-in;
+      }
+    }
+
+    .delete-btn {
+      @apply border border-light border-opacity-30 flex items-center justify-center w-9 h-9 rounded-full hover:bg-light hover:bg-opacity-10 duration-150 cursor-pointer;
+      svg {
+        @apply w-4;
+      }
 
       box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.11),
         0px 2.50666px 10.4444px rgba(0, 0, 0, 0.079074),
@@ -36,14 +54,14 @@ section.chat-ui {
   }
 
   .messages-wrapper {
-    @apply grid gap-8;
+    @apply grid gap-5;
   }
 
   .chat-input {
     @apply absolute bottom-0 left-0 right-0 flex items-start gap-x-4 md:gap-x-6 pb-8 px-6 md:px-12 bg-gradient-to-t from-light to-transparent rounded-b-[38px];
 
     textarea {
-      @apply resize-none rounded-[38px] h-32 bg-light border py-6 w-full px-10 outline-none text-[15px] text-dark border-black/10;
+      @apply resize-none rounded-[38px] h-32 bg-light border py-6 w-full px-10 outline-none text-[15px] text-dark border-black/10 font-medium;
 
       box-shadow: 0px 0.4px 1.1px rgba(0, 0, 0, 0.005),
         0px 1px 2.5px rgba(0, 0, 0, 0.007), 0px 1.7px 4.4px rgba(0, 0, 0, 0.009),
@@ -53,7 +71,7 @@ section.chat-ui {
     }
 
     .buttons {
-      @apply flex flex-col gap-2 md:gap-4 md:flex-row-reverse;
+      @apply flex flex-col gap-2 md:gap-4;
 
       button,
       label {
@@ -76,10 +94,14 @@ section.chat-ui {
 }
 
 .message-item {
-  @apply rounded-[34px] border-black/10 border bg-light text-[15px] w-fit max-w-md text-left py-6 px-8 leading-6 text-[#38404A];
+  @apply rounded-[34px] border-black/10 border bg-light text-[15px] w-fit max-w-md text-left py-5 px-8 leading-6 text-[#38404A];
 
   p {
     overflow-wrap: break-word;
+  }
+
+  a {
+    @apply underline;
   }
 
   box-shadow: 0px 0.4px 1.1px rgba(0, 0, 0, 0.005),

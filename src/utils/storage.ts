@@ -13,34 +13,35 @@ import CryptoJS from "crypto-js";
 export const uploadFile = (
   roomId: string,
   file: Blob | Uint8Array | ArrayBuffer
-) => {
-  const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
+) =>
+  new Promise((resolve, reject) => {
+    const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
 
-  const storage = getStorage(app);
-  const storageRef = ref(storage, cryptedKey);
+    const storage = getStorage(app);
+    const storageRef = ref(storage, cryptedKey);
 
-  const uploadTask = uploadBytesResumable(storageRef, file);
-  uploadTask.on(
-    "state_changed",
-    (snapshot) => {
-      if (snapshot.totalBytes > 20485760) {
-        uploadTask.cancel();
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        if (snapshot.totalBytes > 20485760) {
+          uploadTask.cancel();
+          loading.set(false);
+
+          addNotification("File size exceeds 20mb limit!");
+          return;
+        }
+      },
+      (error) => {
         loading.set(false);
-
-        addNotification("File size exceeds 20mb limit!");
-        return;
+        addNotification("Error while uploading file!");
+        reject(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((e) => {
+          loading.set(false);
+          resolve(e);
+        });
       }
-    },
-    (error) => {
-      loading.set(false);
-
-      addNotification("Error while uploading file!");
-    },
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((e) => {
-        loading.set(false);
-        chatInput.set(get(chatInput) + " " + e);
-      });
-    }
-  );
-};
+    );
+  });
