@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { loading, notifications, roomMessages } from "$stores/app";
-  import { checkIfRoomExists, getRoomMessages } from "$utils/Room";
+  import { loading } from "$stores/app";
+  import { checkIfRoomExists } from "$utils/Room";
   import Button from "$lib/components/Button.svelte";
   import CircleAnimation from "$lib/components/CircleAnimation.svelte";
   import ArrowRight from "$lib/icons/ArrowRight.svelte";
@@ -60,7 +60,7 @@
     <div class="relative w-fit mx-auto group">
       <Button error={!roomExists} class="w-[120px]" on:click={joinRoom}>
         {#if formLoading}
-          <CircleAnimation />
+          <CircleAnimation class="w-[80px]" />
         {:else if !roomExists}
           <span in:fly={{ y: 12 }}> Not Found </span>
         {/if}

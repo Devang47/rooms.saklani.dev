@@ -2,7 +2,7 @@
   import { fly } from "svelte/transition";
 </script>
 
-<div class="spinner" in:fly={{ y: -24 }} out:fly={{ y: -24 }}>
+<div class="spinner {$$props.class}" in:fly={{ y: -24 }}>
   <div class="bounce1" />
   <div class="bounce2" />
   <div class="bounce3" />
@@ -11,7 +11,6 @@
 <style lang="postcss">
   .spinner {
     margin: 0 auto 0;
-    width: 80px;
     text-align: center;
   }
 

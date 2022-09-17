@@ -454,75 +454,6 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
-"@motionone/animation@^10.14.0":
-  version "10.14.0"
-  resolved "https://registry.yarnpkg.com/@motionone/animation/-/animation-10.14.0.tgz#2f2a3517183bb58d82e389aac777fe0850079de6"
-  integrity sha512-h+1sdyBP8vbxEBW5gPFDnj+m2DCqdlAuf2g6Iafb1lcMnqjsRXWlPw1AXgvUMXmreyhqmPbJqoNfIKdytampRQ==
-  dependencies:
-    "@motionone/easing" "^10.14.0"
-    "@motionone/types" "^10.14.0"
-    "@motionone/utils" "^10.14.0"
-    tslib "^2.3.1"
-
-"@motionone/dom@^10.14.2":
-  version "10.14.2"
-  resolved "https://registry.yarnpkg.com/@motionone/dom/-/dom-10.14.2.tgz#85ddd1cfd39dd907dc3bac08d18b08de1afbe519"
-  integrity sha512-GbGtvTSelXfT4TeQUQ3Y31PllAu0Uvghqr68FSPAJsh1hjbuYPaiPJWpP6+t/t50cHtvUbl4m2SgnGKJ0NCgWA==
-  dependencies:
-    "@motionone/animation" "^10.14.0"
-    "@motionone/generators" "^10.14.0"
-    "@motionone/types" "^10.14.0"
-    "@motionone/utils" "^10.14.0"
-    hey-listen "^1.0.8"
-    tslib "^2.3.1"
-
-"@motionone/easing@^10.14.0":
-  version "10.14.0"
-  resolved "https://registry.yarnpkg.com/@motionone/easing/-/easing-10.14.0.tgz#d8154b7f71491414f3cdee23bd3838d763fffd00"
-  integrity sha512-2vUBdH9uWTlRbuErhcsMmt1jvMTTqvGmn9fHq8FleFDXBlHFs5jZzHJT9iw+4kR1h6a4SZQuCf72b9ji92qNYA==
-  dependencies:
-    "@motionone/utils" "^10.14.0"
-    tslib "^2.3.1"
-
-"@motionone/generators@^10.14.0":
-  version "10.14.0"
-  resolved "https://registry.yarnpkg.com/@motionone/generators/-/generators-10.14.0.tgz#e05d9dd56da78a4b92db99185848a0f3db62242d"
-  integrity sha512-6kRHezoFfIjFN7pPpaxmkdZXD36tQNcyJe3nwVqwJ+ZfC0e3rFmszR8kp9DEVFs9QL/akWjuGPSLBI1tvz+Vjg==
-  dependencies:
-    "@motionone/types" "^10.14.0"
-    "@motionone/utils" "^10.14.0"
-    tslib "^2.3.1"
-
-"@motionone/svelte@^10.14.2":
-  version "10.14.2"
-  resolved "https://registry.yarnpkg.com/@motionone/svelte/-/svelte-10.14.2.tgz#b9eb39afc0cb8527fd809237bb00046ed99d2530"
-  integrity sha512-WKgER0eH7b8q0/ODElHIbzMM3uIINdcdCw87jf7xqs4daidsy6e1ckh2XJF2Z8zyWyUEtO4VHvGumRX7EjrxFA==
-  dependencies:
-    "@motionone/dom" "^10.14.2"
-    tslib "^2.3.1"
-
-"@motionone/types@^10.14.0":
-  version "10.14.0"
-  resolved "https://registry.yarnpkg.com/@motionone/types/-/types-10.14.0.tgz#148c34f3270b175397e49c3058b33fab405c21e3"
-  integrity sha512-3bNWyYBHtVd27KncnJLhksMFQ5o2MSdk1cA/IZqsHtA9DnRM1SYgN01CTcJ8Iw8pCXF5Ocp34tyAjY7WRpOJJQ==
-
-"@motionone/utils@^10.14.0":
-  version "10.14.0"
-  resolved "https://registry.yarnpkg.com/@motionone/utils/-/utils-10.14.0.tgz#a19a3464ed35b08506747b062d035c7bc9bbe708"
-  integrity sha512-sLWBLPzRqkxmOTRzSaD3LFQXCPHvDzyHJ1a3VP9PRzBxyVd2pv51/gMOsdAcxQ9n+MIeGJnxzXBYplUHKj4jkw==
-  dependencies:
-    "@motionone/types" "^10.14.0"
-    hey-listen "^1.0.8"
-    tslib "^2.3.1"
-
-"@motionone/vue@^10.14.2":
-  version "10.14.2"
-  resolved "https://registry.yarnpkg.com/@motionone/vue/-/vue-10.14.2.tgz#6a2bee6f672b23cc71855ca5961ae4404ba050b2"
-  integrity sha512-nxC/j4WhOsXxVDUdWHJDUIvHSb97eu0Kn1HNzGp08Fm9WTFkKy0HtJtTqTdkGVks2jB/XBh/FO3wU2OzyDFZNw==
-  dependencies:
-    "@motionone/dom" "^10.14.2"
-    tslib "^2.3.1"
-
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -1392,6 +1323,11 @@ graceful-fs@^4.1.3, graceful-fs@^4.2.9:
   resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.10.tgz"
   integrity sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==
 
+gsap@^3.11.1:
+  version "3.11.1"
+  resolved "https://registry.npmjs.org/gsap/-/gsap-3.11.1.tgz"
+  integrity sha512-UKuJ0UPhntFHMwT6URFQ4cTQv88xc7Kd9Dhxt7qX9IPhC+d+/a5wKW5E5Vn33hZ53nBI1JfApcEbzKgXkcuPZw==
+
 has-unicode@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/has-unicode/-/has-unicode-2.0.1.tgz"
@@ -1408,11 +1344,6 @@ he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/he/-/he-1.2.0.tgz"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
-
-hey-listen@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/hey-listen/-/hey-listen-1.0.8.tgz#8e59561ff724908de1aa924ed6ecc84a56a9aa68"
-  integrity sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==
 
 html-minifier@^4.0.0:
   version "4.0.0"
@@ -1653,18 +1584,6 @@ mkdirp@^1.0.3:
   version "1.0.4"
   resolved "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
-
-motion@^10.14.2:
-  version "10.14.2"
-  resolved "https://registry.yarnpkg.com/motion/-/motion-10.14.2.tgz#814bdaaf39655247f40101984ef4245029360029"
-  integrity sha512-zZp9PL4/O7nSgQBWBDdyvGm25Ef/hQUUVAOnyzxn2IvAhp496M+RB9p1ce4nN7cYLizox2Bq77/dTIjFGkJmAw==
-  dependencies:
-    "@motionone/animation" "^10.14.0"
-    "@motionone/dom" "^10.14.2"
-    "@motionone/svelte" "^10.14.2"
-    "@motionone/types" "^10.14.0"
-    "@motionone/utils" "^10.14.0"
-    "@motionone/vue" "^10.14.2"
 
 mri@^1.1.0:
   version "1.2.0"
@@ -2335,11 +2254,6 @@ util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
-
-uuid@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.npmjs.org/uuid/-/uuid-9.0.0.tgz"
-  integrity sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==
 
 vite@^3.1.0:
   version "3.1.0"

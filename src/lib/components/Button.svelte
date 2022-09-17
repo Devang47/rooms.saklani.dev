@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { animate } from "motion";
-
   let btn: HTMLButtonElement;
 
   export let error: boolean = false;

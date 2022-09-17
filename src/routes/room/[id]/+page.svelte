@@ -2,7 +2,6 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Message from "$lib/components/Message.svelte";
-  import Dustbin from "$lib/icons/Dustbin.svelte";
   import SendIcon from "$lib/icons/SendIcon.svelte";
   import UploadIcon from "$lib/icons/UploadIcon.svelte";
   import ChatHeader from "$lib/sections/ChatHeader.svelte";
@@ -52,6 +51,12 @@
     }
   };
 
+  const handleDeleteRoom = async () => {
+    $loading = true;
+    await deleteRoom(roomId);
+    goto("/", { replaceState: true });
+  };
+
   const scrollToBottom = () => {
     if (scrollToElement) {
       scrollToElement.scrollIntoView({
@@ -60,16 +65,6 @@
       });
     }
   };
-
-  const handleDeleteRoom = async () => {
-    $loading = true;
-    await deleteRoom(roomId);
-    goto("/");
-
-    $loading = false;
-  };
-
-  $: console.log($roomMessages);
 </script>
 
 <section class="chat-ui">

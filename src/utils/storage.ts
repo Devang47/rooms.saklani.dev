@@ -1,4 +1,4 @@
-import { chatInput, loading } from "$stores/app";
+import { loading } from "$stores/app";
 import {
   ref,
   uploadBytesResumable,

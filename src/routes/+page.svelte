@@ -5,55 +5,109 @@
   import ArrowRight from "$lib/icons/ArrowRight.svelte";
   import CurvedArrowLine from "$lib/icons/CurvedArrowLine.svelte";
   import DashedUnderline from "$lib/icons/DashedUnderline.svelte";
+  import FloatingImages from "$lib/sections/FloatingImages.svelte";
   import { loading } from "$stores/app";
   import { createRoom } from "$utils/Room";
   import { onMount } from "svelte";
+  import gsap, { Power3 } from "gsap";
 
   let roomId = "";
 
-  let formLoading = false;
+  let formLoading = "false";
   const handleCreateRoom = async () => {
-    formLoading = true;
+    formLoading = "true";
     roomId = await createRoom();
-    goto(`/room/${roomId}`);
+    formLoading = "complete";
+
+    gsap.to(".moveable-block", {
+      opacity: 0,
+      duration: 0.1,
+    });
+
+    gsap.to(".arrow-button", {
+      scale: 100,
+      duration: 0.3,
+      ease: "linear",
+    });
+
+    setTimeout(() => {
+      $loading = true;
+      goto(`/room/${roomId}`);
+    }, 800);
   };
 
   onMount(() => {
     loading.set(false);
+
+    const tl = gsap.timeline({});
+
+    tl.to(".bg", {
+      delay: 0.2,
+      width: "100%",
+      duration: 0.8,
+      ease: Power3.easeOut,
+    })
+      .to(".content", {
+        delay: -0.5,
+        opacity: 1,
+        duration: 0.4,
+      })
+      .to(".moveable-block", {
+        delay: -0.6,
+        x: 0,
+        y: 0,
+        opacity: 1,
+        duration: 0.4,
+      });
   });
 </script>
 
+<FloatingImages />
+
 <section class="homepage">
   <div class="container">
-    <div class="relative w-fit mx-auto">
-      <h1 class="sans">Rooms</h1>
-      <span class="heading-underline"><DashedUnderline /> </span>
-    </div>
-    <p>
-      In this website you can create a private chat room, when you click the
-      button below it will generate a 6 digit room code which can be then used
-      to join the room from different devices.
-    </p>
+    <div class="content opacity-0">
+      <div class="relative w-fit mx-auto">
+        <h1 class="sans">Rooms</h1>
+        <span class="heading-underline"><DashedUnderline /> </span>
+      </div>
+      <p>
+        In this website you can create a private chat room, when you click the
+        button below it will generate a 6 digit room code which can be then used
+        to join the room from different devices.
+      </p>
 
-    <div class="relative w-fit mx-auto group">
-      <Button class="w-[175px] md:w-[189px]" on:click={handleCreateRoom}>
-        {#if formLoading}
-          <CircleAnimation />
-        {/if}
+      <div class="relative w-fit mx-auto group">
+        <Button
+          class="w-[175px] md:w-[189px] z-20 relative"
+          on:click={handleCreateRoom}
+        >
+          {#if formLoading === "true"}
+            <CircleAnimation class='w-[80px]' />
+          {/if}
 
-        <span class:btn-remove-text={formLoading}>
-          Create a room
-          <ArrowRight />
+          <span class:btn-remove-text={formLoading !== "false"}>
+            Create a room
+            <ArrowRight />
+          </span>
+        </Button>
+
+        <span class="curved-arrow-line">
+          <CurvedArrowLine />
         </span>
-      </Button>
+      </div>
 
-      <span class="curved-arrow-line">
-        <CurvedArrowLine />
-      </span>
+      <div class="join-btn">
+        or <a href="/room" class=""> Join room </a>
+      </div>
     </div>
 
-    <div class="join-btn">
-      or <a href="/room" class=""> Join room </a>
-    </div>
+    <div class="bg" />
   </div>
 </section>
+
+<style lang="postcss">
+  .container {
+    /* @apply translate-y-[50px] opacity-80; */
+  }
+</style>
