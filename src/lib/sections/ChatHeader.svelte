@@ -26,7 +26,7 @@
         </span>
       {/each}
 
-      <button class="copy-btn">{copyBtnText}</button>
+      <button title="Copy code" class="copy-btn">{copyBtnText}</button>
     </div>
 
     <button title="delete room" on:click={handleDeleteRoom} class="delete-btn">

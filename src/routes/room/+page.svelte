@@ -10,16 +10,18 @@
   import { fly } from "svelte/transition";
   import { goto } from "$app/navigation";
   import { addNotification } from "$utils/notifications";
+  import gsap, { Power3 } from "gsap";
+  import FloatingImages from "$lib/sections/FloatingImages.svelte";
 
   let inputVal = "";
-  let formLoading = false;
+  let formLoading = "false";
   let roomExists = true;
   const joinRoom = async () => {
     if (!inputVal || inputVal.length < 6) return;
-    formLoading = true;
+    formLoading = "true";
 
     if (!(await checkIfRoomExists(inputVal))) {
-      formLoading = false;
+      formLoading = "false";
       roomExists = false;
 
       addNotification("404 Not found!");
@@ -27,48 +29,118 @@
       return null;
     }
 
-    goto("/room/" + inputVal);
+    roomExists = true;
+    formLoading = "complete";
+
+    gsap.to(".moveable-block", {
+      opacity: 0,
+      duration: 0.1,
+    });
+
+    gsap.to(".arrow-button", {
+      scale: 100,
+      duration: 0.3,
+      ease: "linear",
+    });
+
+    setTimeout(() => {
+      goto("/room/" + inputVal);
+    }, 800);
   };
 
   onMount(() => {
     loading.set(false);
+    loading.set(false);
+
+    const tl = gsap.timeline({});
+
+    tl.to(".bg", {
+      delay: 0.2,
+      width: "100%",
+      duration: 0.8,
+      ease: Power3.easeOut,
+    })
+      .to(".content", {
+        delay: -0.5,
+        opacity: 1,
+        duration: 0.4,
+      })
+      .to(".moveable-block", {
+        delay: -0.6,
+        x: 0,
+        y: 0,
+        opacity: 1,
+        duration: 0.4,
+      });
   });
+
+  const handleGotoCreatePage = () => {
+    gsap
+      .to(".transition-join-page", {
+        height: "100%",
+        duration: 0.7,
+        ease: Power3.easeOut,
+      })
+      .then(() => {
+        setTimeout(() => {
+          goto("/");
+        }, 100);
+      });
+  };
 </script>
+
+<FloatingImages />
+
+<div class="transition-join-page" />
 
 <section class="join-room-page">
   <div class="container">
-    <div class="relative w-fit mx-auto">
-      <h1 class="sans">Join Room</h1>
-      <span class="heading-underline"><DashedUnderline /> </span>
-    </div>
+    <div class="content opacity-0">
+      <div class="relative w-fit mx-auto">
+        <h1 class="sans">Join Room</h1>
+        <span class="heading-underline"><DashedUnderline /> </span>
+      </div>
 
-    <div class="roomid-input">
-      <input
-        bind:value={inputVal}
-        class=""
-        placeholder="xxxxxx"
-        maxlength="6"
-        type="text"
-        name=""
-        id=" "
-      />
-      <span class="curved-arrow-line">
-        <CurvedArrowLine />
-      </span>
-    </div>
-
-    <div class="relative w-fit mx-auto group">
-      <Button error={!roomExists} class="w-[120px]" on:click={joinRoom}>
-        {#if formLoading}
-          <CircleAnimation class="w-[80px]" />
-        {:else if !roomExists}
-          <span in:fly={{ y: 12 }}> Not Found </span>
-        {/if}
-
-        <span class:btn-remove-text={formLoading || !roomExists}>
-          Join <ArrowRight />
+      <div class="roomid-input">
+        <input
+          bind:value={inputVal}
+          class=""
+          placeholder="xxxxxx"
+          maxlength="6"
+          type="text"
+          name=""
+          id=" "
+        />
+        <span class="curved-arrow-line">
+          <CurvedArrowLine />
         </span>
-      </Button>
+      </div>
+
+      <div class="relative w-fit mx-auto group">
+        <Button error={!roomExists} class="arrow-button" on:click={joinRoom}>
+          {#if formLoading === "true"}
+            <CircleAnimation class="w-[80px]" />
+          {:else if !roomExists}
+            <span in:fly={{ y: 12 }}> Not Found </span>
+          {/if}
+
+          <span class:btn-remove-text={formLoading !== "false" || !roomExists}>
+            Join <ArrowRight />
+          </span>
+        </Button>
+
+        <div class="create-btn">
+          or <button
+            title="Create room"
+            on:click={handleGotoCreatePage}
+            class=""
+          >
+            Create room
+          </button>
+        </div>
+      </div>
     </div>
+
+    <div class="bg" />
   </div>
 </section>

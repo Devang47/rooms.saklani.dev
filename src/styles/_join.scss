@@ -2,13 +2,15 @@ section.join-room-page {
   @apply bg-[#F2F2F2] px-4 py-4 md:px-14 md:py-8 h-full w-full max-w-[1500px] mx-auto text-center;
 
   .container {
-    @apply bg-[#555E69] rounded-[30px] md:rounded-[40px] w-full h-full py-3 px-6 bg-center bg-cover mx-auto;
-    background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/q_80/v1663210261/bg2_m6wgnr.webp);
+    @apply rounded-[30px] md:rounded-[40px] w-full h-full py-3 px-6 mx-auto relative z-[1];
+    .bg {
+      @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-full bg-[#555E69] rounded-[30px] mx-auto z-[-1] bg-center bg-cover;
+      background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/q_80/v1663210261/bg2_m6wgnr.webp);
+    }
   }
 
   h1 {
-    @apply text-white text-opacity-90 mt-20 relative;
-    @apply text-[55px] md:text-[70px] lg:text-[80px] font-bold;
+    @apply text-white text-opacity-90 mt-20 relative text-[55px] md:text-[70px] lg:text-[80px] font-bold;
   }
 
   .heading-underline {
@@ -40,14 +42,33 @@ section.join-room-page {
     }
   }
 
-  button {
-    @apply mt-10;
+  .arrow-button {
+    @apply mt-10 w-[120px];
   }
 
   .curved-arrow-line {
     @apply absolute left-[115%] bottom-8;
     svg {
       @apply w-14;
+    }
+  }
+
+  .create-btn {
+    @apply mt-5 text-white text-sm;
+
+    button {
+      @apply relative z-[1] duration-[0.3s] ease-cubic-ease;
+      &::before {
+        content: "";
+        @apply bg-white h-[1px] w-full left-0 bottom-0 absolute ease-cubic-ease duration-[0.5s] z-[-1];
+      }
+
+      &:hover {
+        @apply text-dark font-medium;
+        &::before {
+          @apply h-full;
+        }
+      }
     }
   }
 }

@@ -30,6 +30,10 @@ body {
   font-family: "JetBrains Mono", monospace;
 }
 
+.transition-join-page {
+  @apply fixed top-0 w-full bg-light h-0 z-40 left-0 right-0;
+}
+
 @import "homepage";
 @import "join";
 @import "chat";

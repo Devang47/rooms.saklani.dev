@@ -36,6 +36,20 @@
     }, 800);
   };
 
+  const handleGotoJoinPage = () => {
+    gsap
+      .to(".transition-join-page", {
+        height: "100%",
+        duration: 0.7,
+        ease: Power3.easeOut,
+      })
+      .then(() => {
+        setTimeout(() => {
+          goto("/room");
+        }, 100);
+      });
+  };
+
   onMount(() => {
     loading.set(false);
 
@@ -64,6 +78,8 @@
 
 <FloatingImages />
 
+<div class="transition-join-page" />
+
 <section class="homepage">
   <div class="container">
     <div class="content opacity-0">
@@ -78,12 +94,9 @@
       </p>
 
       <div class="relative w-fit mx-auto group">
-        <Button
-          class="w-[175px] md:w-[189px] z-20 relative"
-          on:click={handleCreateRoom}
-        >
+        <Button class="create-btn" on:click={handleCreateRoom}>
           {#if formLoading === "true"}
-            <CircleAnimation class='w-[80px]' />
+            <CircleAnimation class="w-[80px]" />
           {/if}
 
           <span class:btn-remove-text={formLoading !== "false"}>
@@ -98,16 +111,16 @@
       </div>
 
       <div class="join-btn">
-        or <a href="/room" class=""> Join room </a>
+        or <button
+          title="Join existing room"
+          on:click={handleGotoJoinPage}
+          class=""
+        >
+          Join room
+        </button>
       </div>
     </div>
 
     <div class="bg" />
   </div>
 </section>
-
-<style lang="postcss">
-  .container {
-    /* @apply translate-y-[50px] opacity-80; */
-  }
-</style>

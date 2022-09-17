@@ -1,9 +1,9 @@
 section.chat-ui {
-  @apply bg-[#F2F2F2] px-4 py-4 md:px-14 md:py-8 h-full w-full  mx-auto text-center bg-center bg-cover;
+  @apply bg-[#F2F2F2] px-4 py-4 md:px-14 md:py-8 h-full w-full  mx-auto text-center bg-center bg-cover opacity-0;
   background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/q_80/v1663210261/bg2_m6wgnr.webp);
 
   .container {
-    @apply bg-[#EFEFEF] rounded-[30px] md:rounded-[40px] w-full h-[90vh] mx-auto relative max-w-[1000px] bg-center bg-cover;
+    @apply bg-[#EFEFEF] rounded-[30px] md:rounded-[40px] w-full h-[90vh] mx-auto relative max-w-[1000px] bg-center bg-cover translate-y-4 opacity-10;
     background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/v1663409445/bg-3_ttnqmb.webp);
     box-shadow: 0px 0px 1.2px rgba(0, 0, 0, 0.017),
       0px 0px 2.8px rgba(0, 0, 0, 0.024), 0px 0px 4.8px rgba(0, 0, 0, 0.03),

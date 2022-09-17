@@ -10,8 +10,7 @@ section.homepage {
   }
 
   h1 {
-    @apply text-white text-opacity-90 mt-20;
-    @apply text-[55px] md:text-[70px] lg:text-[80px] font-bold;
+    @apply text-white text-opacity-90 mt-20 relative text-[55px] md:text-[70px] lg:text-[80px] font-bold;
   }
 
   .heading-underline {
@@ -26,14 +25,14 @@ section.homepage {
     @apply mt-4 text-white text-opacity-60 max-w-xl mx-auto text-[14px] md:text-[16px];
   }
 
-  button {
-    @apply mt-14;
+  .create-btn {
+    @apply mt-14 w-[175px] md:w-[189px] z-20 relative;
   }
 
   .join-btn {
     @apply mt-5 text-white text-sm;
 
-    a {
+    button {
       @apply relative z-[1] duration-[0.3s] ease-cubic-ease;
       &::before {
         content: "";
