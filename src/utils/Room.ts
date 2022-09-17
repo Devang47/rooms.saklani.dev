@@ -1,19 +1,22 @@
 import { app } from "./config";
 import {
-  getFirestore,
-  collection,
   doc,
   addDoc,
   setDoc,
+  getDoc,
+  getFirestore,
+  collection,
   query,
   orderBy,
   limitToLast,
 } from "firebase/firestore";
+
 import { onSnapshot } from "firebase/firestore";
 
 import CryptoJS from "crypto-js";
 import { encrypt } from "./crypt";
 import { roomMessages } from "$stores/app";
+import { get } from "svelte/store";
 
 const db = getFirestore(app);
 
@@ -64,9 +67,26 @@ export const getRoomMessages = async (roomId: string) => {
     limitToLast(15)
   );
 
-  console.log({ cryptedKey, dataCollection, dataQuery });
-
   onSnapshot(dataQuery, (snapshot) => {
-    roomMessages.set(snapshot.docs.map((doc) => doc.data()));
+    roomMessages.set(snapshot.docs.map((doc) => doc.data()) || []);
   });
 };
+
+export const checkIfRoomExists = async (roomId: string) =>
+  new Promise((resolve, reject) => {
+    const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
+
+    var docRef = doc(db, "rooms", cryptedKey);
+
+    getDoc(docRef)
+      .then((doc) => {
+        if (doc.exists()) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      })
+      .catch((error) => {
+        reject("Error getting document: " + error.message);
+      });
+  });

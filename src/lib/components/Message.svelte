@@ -25,5 +25,7 @@
 </script>
 
 <div class="message-item" class:left-aligned={sameDevice}>
-  {message}
+  <p class="w-full">
+    {message}
+  </p>
 </div>

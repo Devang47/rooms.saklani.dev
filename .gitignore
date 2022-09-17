@@ -2,3 +2,4 @@
 /.vscode
 /.svelte-kit
 /.env
+.DS_Store

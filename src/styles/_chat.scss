@@ -1,0 +1,99 @@
+section.chat-ui {
+  @apply bg-[#F2F2F2] px-4 py-4 md:px-14 md:py-8 h-full w-full  mx-auto text-center bg-center bg-cover;
+  background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/q_80/v1663210261/bg2_m6wgnr.webp);
+
+  .container {
+    @apply bg-[#EFEFEF] rounded-[30px] md:rounded-[40px] w-full h-[90vh] mx-auto relative max-w-[1000px];
+    box-shadow: 0px 0.5px 1.1px rgba(0, 0, 0, 0.019),
+      0px 1.2px 2.5px rgba(0, 0, 0, 0.028), 0px 2px 4.4px rgba(0, 0, 0, 0.034),
+      0px 3.3px 7px rgba(0, 0, 0, 0.04), 0px 5px 10.8px rgba(0, 0, 0, 0.046),
+      0px 7.8px 16.9px rgba(0, 0, 0, 0.052), 0px 13px 28px rgba(0, 0, 0, 0.061),
+      0px 26px 56px rgba(0, 0, 0, 0.08);
+  }
+
+  header {
+    background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/v1663294019/Group_7_jjdeln.webp);
+    @apply bg-cover bg-center w-full py-4 px-6 md:px-12 flex items-center justify-between rounded-t-[30px];
+
+    h1 {
+      @apply text-white text-[20px];
+    }
+
+    .room-id {
+      @apply bg-[#D9D9D9] py-1 px-4 text-[#38404A] flex items-center justify-center gap-1 rounded;
+
+      box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.11),
+        0px 2.50666px 10.4444px rgba(0, 0, 0, 0.079074),
+        0px 1.34018px 5.58408px rgba(0, 0, 0, 0.0655718),
+        0px 0.751293px 3.13039px rgba(0, 0, 0, 0.055),
+        0px 0.399006px 1.66253px rgba(0, 0, 0, 0.0444282),
+        0px 0.166035px 0.691814px rgba(0, 0, 0, 0.030926);
+    }
+  }
+
+  .chat-messages-wrapper {
+    @apply w-full overflow-y-scroll h-[calc(90vh-65.6px)] pb-[200px] px-6 md:px-12 py-10;
+  }
+
+  .messages-wrapper {
+    @apply grid gap-8;
+  }
+
+  .chat-input {
+    @apply absolute bottom-0 left-0 right-0 flex items-start gap-x-4 md:gap-x-6 pb-8 px-6 md:px-12 bg-gradient-to-t from-light to-transparent rounded-b-[38px];
+
+    textarea {
+      @apply resize-none rounded-[38px] h-32 bg-light border py-6 w-full px-10 outline-none text-[15px] text-dark border-black/10;
+
+      box-shadow: 0px 0.4px 1.1px rgba(0, 0, 0, 0.005),
+        0px 1px 2.5px rgba(0, 0, 0, 0.007), 0px 1.7px 4.4px rgba(0, 0, 0, 0.009),
+        0px 2.6px 7px rgba(0, 0, 0, 0.01), 0px 4.1px 10.8px rgba(0, 0, 0, 0.011),
+        0px 6.3px 16.9px rgba(0, 0, 0, 0.013),
+        0px 10.5px 28px rgba(0, 0, 0, 0.015), 0px 21px 56px rgba(0, 0, 0, 0.02);
+    }
+
+    .buttons {
+      @apply flex flex-col gap-2 md:gap-4 md:flex-row-reverse;
+
+      button,
+      label {
+        @apply rounded-full px-[0.9rem] py-4 bg-dark block cursor-pointer;
+        box-shadow: 0px 0.2px 1.2px rgba(0, 0, 0, 0.034),
+          0px 0.5px 2.8px rgba(0, 0, 0, 0.048),
+          0px 0.9px 5.3px rgba(0, 0, 0, 0.06),
+          0px 1.6px 9.4px rgba(0, 0, 0, 0.072),
+          0px 2.9px 17.5px rgba(0, 0, 0, 0.086),
+          0px 7px 42px rgba(0, 0, 0, 0.12);
+      }
+      .upload-icon {
+        @apply py-3.5 px-3;
+        svg {
+          @apply w-5 h-4;
+        }
+      }
+    }
+  }
+}
+
+.message-item {
+  @apply rounded-[34px] border-black/10 border bg-light text-[15px] w-fit max-w-md text-left py-6 px-8 leading-6 text-[#38404A];
+
+  p {
+    overflow-wrap: break-word;
+  }
+
+  box-shadow: 0px 0.4px 1.1px rgba(0, 0, 0, 0.005),
+    0px 1px 2.5px rgba(0, 0, 0, 0.007), 0px 1.7px 4.4px rgba(0, 0, 0, 0.009),
+    0px 2.6px 7px rgba(0, 0, 0, 0.01), 0px 4.1px 10.8px rgba(0, 0, 0, 0.011),
+    0px 6.3px 16.9px rgba(0, 0, 0, 0.013), 0px 10.5px 28px rgba(0, 0, 0, 0.015),
+    0px 21px 56px rgba(0, 0, 0, 0.02);
+}
+
+.message-item.left-aligned {
+  @apply ml-auto bg-[#555E69] text-white border-none;
+
+  box-shadow: 0px 0.2px 1.2px rgba(0, 0, 0, 0.034),
+    0px 0.5px 2.8px rgba(0, 0, 0, 0.048), 0px 0.9px 5.3px rgba(0, 0, 0, 0.06),
+    0px 1.6px 9.4px rgba(0, 0, 0, 0.072), 0px 2.9px 17.5px rgba(0, 0, 0, 0.086),
+    0px 7px 42px rgba(0, 0, 0, 0.12);
+}

@@ -1,0 +1,55 @@
+section.homepage {
+  @apply bg-[#F2F2F2] px-4 py-4 md:px-14 md:py-8 h-full w-full max-w-[1500px] mx-auto text-center;
+
+  .container {
+    @apply bg-[#555E69] rounded-[30px] md:rounded-[40px] w-full h-full py-3 px-6 bg-center bg-cover mx-auto;
+    background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/q_80/v1663210261/bg2_m6wgnr.webp);
+  }
+
+  h1 {
+    @apply text-white text-opacity-90 mt-20;
+    @apply text-[55px] md:text-[70px] lg:text-[80px] font-bold;
+  }
+
+  .heading-underline {
+    @apply absolute bottom-3.5 left-0 w-full;
+
+    svg {
+      @apply w-full;
+    }
+  }
+
+  p {
+    @apply mt-4 text-white text-opacity-60 max-w-xl mx-auto text-[14px] md:text-[16px];
+  }
+
+  button {
+    @apply mt-14;
+  }
+
+  .join-btn {
+    @apply mt-5 text-white text-sm;
+
+    a {
+      @apply relative z-[1] duration-[0.3s] ease-cubic-ease;
+      &::before {
+        content: "";
+        @apply bg-white h-[1px] w-full left-0 bottom-0 absolute ease-cubic-ease duration-[0.5s] z-[-1];
+      }
+
+      &:hover {
+        @apply text-dark font-medium;
+        &::before {
+          @apply h-full;
+        }
+      }
+    }
+  }
+
+  .curved-arrow-line {
+    @apply absolute left-[110%] bottom-4;
+    svg {
+      @apply w-14;
+    }
+  }
+}

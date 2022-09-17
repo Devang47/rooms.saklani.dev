@@ -1,0 +1,53 @@
+section.join-room-page {
+  @apply bg-[#F2F2F2] px-4 py-4 md:px-14 md:py-8 h-full w-full max-w-[1500px] mx-auto text-center;
+
+  .container {
+    @apply bg-[#555E69] rounded-[30px] md:rounded-[40px] w-full h-full py-3 px-6 bg-center bg-cover mx-auto;
+    background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/q_80/v1663210261/bg2_m6wgnr.webp);
+  }
+
+  h1 {
+    @apply text-white text-opacity-90 mt-20 relative;
+    @apply text-[55px] md:text-[70px] lg:text-[80px] font-bold;
+  }
+
+  .heading-underline {
+    @apply absolute bottom-3.5 left-0 w-full;
+
+    svg {
+      @apply w-full;
+    }
+  }
+
+  .roomid-input {
+    @apply py-[15px] px-4 border-dashed border-2 border-[#7F8691] w-fit rounded-[10px] mx-auto mt-14 relative;
+    input {
+      @apply py-3 px-6 tracking-[0.8rem] pr-[10px] rounded-[10px] bg-[#818791] outline-none border-none w-[170px] font-bold placeholder:text-white placeholder:text-opacity-50 text-white duration-100 ease-in;
+      box-shadow: 0px 0.4px 0.5px rgba(0, 0, 0, 0.012),
+        0px 1px 1.1px rgba(0, 0, 0, 0.017), 0px 1.7px 1.9px rgba(0, 0, 0, 0.021),
+        0px 2.6px 3px rgba(0, 0, 0, 0.025), 0px 4.1px 4.6px rgba(0, 0, 0, 0.029),
+        0px 6.3px 7.2px rgba(0, 0, 0, 0.033),
+        0px 10.5px 12px rgba(0, 0, 0, 0.038), 0px 21px 24px rgba(0, 0, 0, 0.05);
+
+      &:focus {
+        box-shadow: 0px 0.6px 0.5px rgba(0, 0, 0, 0.012),
+          0px 1.4px 1.1px rgba(0, 0, 0, 0.017),
+          0px 2.5px 1.9px rgba(0, 0, 0, 0.021), 0px 4px 3px rgba(0, 0, 0, 0.025),
+          0px 6.2px 4.6px rgba(0, 0, 0, 0.029),
+          0px 9.6px 7.2px rgba(0, 0, 0, 0.033),
+          0px 16px 12px rgba(0, 0, 0, 0.038), 0px 32px 24px rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+  button {
+    @apply mt-10;
+  }
+
+  .curved-arrow-line {
+    @apply absolute left-[115%] bottom-8;
+    svg {
+      @apply w-14;
+    }
+  }
+}

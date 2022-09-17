@@ -3,3 +3,7 @@ interface Message {
   timestamp: string;
   device: string;
 }
+
+interface CustomNotification {
+  data: string;
+}
