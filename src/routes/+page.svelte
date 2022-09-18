@@ -9,7 +9,7 @@
   import { loading } from "$stores/app";
   import { createRoom } from "$utils/Room";
   import { onMount } from "svelte";
-  import gsap, { Power3 } from "gsap";
+  import gsap, { Power3, Power2 } from "gsap";
 
   let roomId = "";
 
@@ -58,16 +58,16 @@
     tl.to(".bg", {
       delay: 0.2,
       width: "100%",
-      duration: 0.8,
+      duration: 1,
       ease: Power3.easeOut,
     })
       .to(".content", {
-        delay: -0.5,
+        delay: -0.6,
         opacity: 1,
         duration: 0.4,
       })
       .to(".moveable-block", {
-        delay: -0.6,
+        delay: -0.7,
         x: 0,
         y: 0,
         opacity: 1,
