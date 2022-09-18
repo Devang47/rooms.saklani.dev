@@ -7,10 +7,6 @@
   import "$styles/global.scss";
 </script>
 
-<svelte:head>
-  <title>Rooms | Devang Saklani</title>
-</svelte:head>
-
 {#if $loading}
   <LoadingScreen />
 {/if}
@@ -20,11 +16,11 @@
 <slot />
 
 <SvelteSeo
-  title="Rooms | Devang Saklani"
+  title="Chat Rooms | Devang Saklani"
   description="At rooms.saklani.dev you can create a private chat room and share data across multiple devices, the chat room will automatically delete after 15min.."
   openGraph={{
     type: "website",
-    title: "Rooms | Devang Saklani",
+    title: "Chat Rooms | Devang Saklani",
     description:
       "At rooms.saklani.dev you can create a private chat room and share data across multiple devices, the chat room will automatically delete after 15min.",
     url: "https://saklani.dev",

@@ -125,3 +125,9 @@
     <div class="bg" />
   </div>
 </section>
+
+<style lang="postcss">
+  :global(html) {
+    @apply !overflow-hidden;
+  }
+</style>

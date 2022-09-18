@@ -2,8 +2,10 @@
   import { onMount } from "svelte";
   import CryptoJS from "crypto-js";
   import { decrypt } from "$utils/crypt";
-  import { formatMessage } from "$utils/notifications";
+  import { addNotification, formatMessage } from "$utils/notifications";
   import { fade, fly, scale } from "svelte/transition";
+  import CodeInput from "./CodeInput.svelte";
+  import CopyIcon from "$lib/icons/CopyIcon.svelte";
 
   export let messageData: Message;
   export let roomId = "";
@@ -24,14 +26,26 @@
 
     message = decrypt(cryptedKey, messageData.data);
   });
+
+  let done = false;
+  const copyText = () => {
+    navigator.clipboard.writeText(message);
+    done = true;
+    addNotification("Copied to clipboard!", false);
+  };
 </script>
 
 <div
   class="message-item"
   transition:scale={{ start: 0.9, opacity: 0.8 }}
-  class:left-aligned={sameDevice}
+  class:right-aligned={sameDevice}
+  class:left-aligned={!sameDevice}
 >
   <p class="w-full font-medium">
-    {@html formatMessage(message)}
+    {message}
   </p>
+
+  <button class:done on:click={copyText} class="copy-btn">
+    <CopyIcon />
+  </button>
 </div>

@@ -28,13 +28,13 @@ export const uploadFile = (roomId: string, file: any) =>
           uploadTask.cancel();
           loading.set(false);
 
-          addNotification("File size exceeds 20mb limit!");
+          addNotification("File size exceeds 20mb limit!", true);
           return;
         }
       },
       (error) => {
         loading.set(false);
-        addNotification("Error while uploading file!");
+        addNotification("Error while uploading file!", true);
         reject(error);
       },
       () => {

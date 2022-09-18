@@ -10,15 +10,7 @@ section.join-room-page {
   }
 
   h1 {
-    @apply text-white text-opacity-90 mt-20 relative text-[55px] md:text-[70px] lg:text-[80px] font-bold;
-  }
-
-  .heading-underline {
-    @apply absolute bottom-3.5 left-0 w-full;
-
-    svg {
-      @apply w-full;
-    }
+    @apply text-white text-opacity-90 mt-20 relative text-[40px] sm:text-[55px] md:text-[70px] lg:text-[80px] font-bold;
   }
 
   .roomid-input {
@@ -70,5 +62,13 @@ section.join-room-page {
         }
       }
     }
+  }
+}
+
+.heading-underline {
+  @apply absolute bottom-1 md:bottom-3.5 left-0 w-full;
+
+  svg {
+    @apply w-full;
   }
 }

@@ -6,4 +6,5 @@ interface Message {
 
 interface CustomNotification {
   data: string;
+  error: boolean;
 }

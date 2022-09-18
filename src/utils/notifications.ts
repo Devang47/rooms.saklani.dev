@@ -1,8 +1,8 @@
 import { notifications } from "$stores/app";
 import { get } from "svelte/store";
 
-export let addNotification = (msg: string) => {
-  notifications.set([...get(notifications), { data: "404 Not found" }]);
+export let addNotification = (msg: string, error: boolean) => {
+  notifications.set([...get(notifications), { data: msg, error }]);
 
   setTimeout(() => {
     get(notifications).pop();

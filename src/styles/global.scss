@@ -22,7 +22,7 @@
 
 html,
 body {
-  @apply h-full w-full antialiased overflow-hidden;
+  @apply h-full w-full antialiased overflow-x-hidden;
   background-color: #f2f2f2;
 }
 

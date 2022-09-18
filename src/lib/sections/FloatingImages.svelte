@@ -50,7 +50,7 @@
 </script>
 
 <div
-  class="moveable-block block-{i++} top-20 left-[-100px] !w-[20rem] !h-[10rem] translate-x-[-80px]"
+  class="moveable-block block-{i++} top-[-3rem] sm:top-[6rem] left-[-170px] lg:top-20 md:left-[-130px] lg:left-[-100px] !w-[15rem] md:w-[17rem] lg:!w-[20rem] !h-[10rem] translate-x-[-80px]"
 >
   <img
     src="https://res.cloudinary.com/dyn3sdtfm/image/upload/c_scale,w_600/v1663411910/s-o-c-i-a-l-c-u-t-OjnmCKmzr3A-unsplash_wwntkj.webp"
@@ -59,7 +59,7 @@
 </div>
 
 <div
-  class="moveable-block block-{i++} top-[60vh] left-[14vw] !w-[18rem] !h-[10rem] translate-x-[-100px]"
+  class="hidden sm:block moveable-block block-{i++} top-[60vh] left-[-8rem] lg:left-[7rem] !w-[18rem] !h-[10rem] translate-x-[-100px]"
 >
   <img
     src="https://res.cloudinary.com/dyn3sdtfm/image/upload/c_scale,w_600/v1663412785/robert-keane-HFcxrs5u4uE-unsplash_qxzngi.webp"
@@ -68,7 +68,7 @@
 </div>
 
 <div
-  class="moveable-block block-{i++} top-[80vh] right-[15vw] !w-[18rem] !h-[20rem] translate-x-[80px]"
+  class="moveable-block block-{i++} top-[75vh] right-[-15rem] sm:right-[-12rem] lg:top-[80vh] lg:right-[15vw] w-[10rem] lg:!w-[18rem] !h-[10rem] lg:!h-[9rem] translate-x-[80px]"
 >
   <img
     src="https://res.cloudinary.com/dyn3sdtfm/image/upload/c_scale,w_600/v1663412879/kobu-agency-k41cAJvJ7h0-unsplash_atqohj.webp"
@@ -77,7 +77,7 @@
 </div>
 
 <div
-  class="hidden md:block moveable-block block-{i++} top-28 right-[-4vw] !w-[18rem] !h-[15rem] translate-x-[100px]"
+  class="hidden sm:block moveable-block block-{i++} top-28 right-[-12rem] lg:right-[-4rem] !w-[18rem] !h-[15rem] translate-x-[100px]"
 >
   <img
     src="https://res.cloudinary.com/dyn3sdtfm/image/upload/c_scale,w_600/v1663411907/engin-akyurt-G26eJNYZA24-unsplash_kffjfa.webp"

@@ -44,11 +44,14 @@
     });
   });
 
-  $: roomId = $page.params.id.toUpperCase() as string;
+  $: roomId = ($page.params.id || "").toUpperCase() as string;
 
   const handleAddMsg = async () => {
-    await addMessage({ roomId, message: chatInput });
+    if (!chatInput) return;
+
+    let msg = chatInput;
     chatInput = "";
+    await addMessage({ roomId, message: msg });
     scrollToBottom();
   };
 

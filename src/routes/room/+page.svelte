@@ -24,7 +24,7 @@
       formLoading = "false";
       roomExists = false;
 
-      addNotification("404 Not found!");
+      addNotification("404 Not found!", true);
 
       return null;
     }

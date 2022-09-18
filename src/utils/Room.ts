@@ -18,8 +18,10 @@ import {
 import CryptoJS from "crypto-js";
 import { encrypt } from "./crypt";
 import { roomMessages } from "$stores/app";
+import { getStorage, listAll, ref, deleteObject } from "firebase/storage";
 
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 const getRand = () => {
   return (Math.random() + 1).toString(36).substring(6.5);
@@ -101,5 +103,17 @@ export const deleteRoom = async (roomId: string) => {
   roomId = roomId.toUpperCase();
   const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
   const docRef = doc(db, "rooms", cryptedKey);
+
+  const filesRef = ref(storage, cryptedKey + "/");
+  const files = await listAll(filesRef);
+
+  files.items.forEach(async (e) => {
+    // @ts-ignore
+    let path = e._location.path;
+
+    const filesRef = ref(storage, path);
+    await deleteObject(filesRef);
+  });
+
   await deleteDoc(docRef);
 };
