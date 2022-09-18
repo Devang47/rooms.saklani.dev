@@ -10,7 +10,10 @@ import {
   orderBy,
   deleteDoc,
   onSnapshot,
+  Timestamp,
 } from "firebase/firestore";
+
+// import {  } from "firebase/firestore/lite";
 
 import CryptoJS from "crypto-js";
 import { encrypt } from "./crypt";
@@ -27,7 +30,7 @@ export const createRoom = async () => {
   const cryptedRoomId = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
 
   await setDoc(doc(db, "rooms", cryptedRoomId), {
-    timestamp: new Date().toLocaleString(),
+    timestamp: Timestamp.fromDate(new Date()),
   });
 
   return roomId;

@@ -1,5 +1,6 @@
-/node_modules
+node_modules
 /.vscode
 /.svelte-kit
-/.env
+.env
 .DS_Store
+wrangler.toml

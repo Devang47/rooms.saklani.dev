@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import gsap from "gsap";
+  import { browser } from "$app/environment";
 
   let elements: any;
   onMount(() => {
@@ -8,8 +9,14 @@
     window.addEventListener("mousemove", (e) => {
       animateCircle(e, elements);
     });
+  });
 
-    function animateCircle(event: any, elements: any) {
+  function animateCircle(event: any, elements: any) {
+    if (browser) {
+      if (document.querySelector(".block-3") == null) {
+        return;
+      }
+
       let mouseX = event.clientX / window.innerWidth - 0.5;
       let mouseY = event.clientY / window.innerHeight - 0.5;
 
@@ -27,6 +34,14 @@
         x: 10 * mouseX,
         y: 10 * mouseY,
         duration: 0.5,
+      });
+    }
+  }
+
+  onDestroy(() => {
+    if (browser) {
+      window.removeEventListener("mousemove", (e) => {
+        animateCircle(e, elements);
       });
     }
   });
