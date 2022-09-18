@@ -1,4 +1,4 @@
-# Rooms
+# ChatRooms
 
 In this website you can create a private chat room and share data across
 multiple devices. When you click the create btn it will generate a 6
