@@ -10,6 +10,8 @@ import {
   deleteDoc,
 } from "firebase/firestore/lite";
 
+import { ref, deleteObject, listAll, getStorage } from "firebase/storage";
+
 export interface Env {
   API_KEY: string;
   AUTH_DOMAIN: string;
@@ -37,6 +39,25 @@ async function getRooms(db: any) {
   return documents;
 }
 
+const deleteAllFiles = async (storage: any, id: string) => {
+  const filesRef = ref(storage, id + "/");
+  const files = await listAll(filesRef);
+
+  files.items.forEach(async (e) => {
+    // @ts-ignore
+    let path = e._location.path;
+
+    const filesRef = ref(storage, path);
+    await deleteObject(filesRef)
+      .then((e) => {
+        console.log("Success");
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  });
+};
+
 export default {
   async fetch(
     request: Request,
@@ -45,6 +66,7 @@ export default {
   ): Promise<Response> {
     const app = getFirebaseApp(env);
     const db = getFirestore(app);
+    const storage = getStorage(app);
 
     const docs = await getRooms(db);
 
@@ -54,6 +76,7 @@ export default {
 
       if (docDate < dateBefore15Min) {
         deleteRoom(db, e._id);
+        deleteAllFiles(storage, e._id);
       }
     });
 
