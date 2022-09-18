@@ -71,6 +71,7 @@
   const handleDeleteRoom = async () => {
     $loading = true;
     await deleteRoom(roomId);
+    $roomMessages = [];
     goto("/", { replaceState: true });
   };
 
