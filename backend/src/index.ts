@@ -23,8 +23,14 @@ export interface Env {
 }
 
 async function deleteRoom(db: any, cryptedKey: string) {
-  const docRef = doc(db, "rooms", cryptedKey);
-  await deleteDoc(docRef);
+  const q = query(collection(db, "rooms", cryptedKey, "data"));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach(async (doData) => {
+    await deleteDoc(doc(db, "rooms", cryptedKey, "data", doData.id));
+  });
+
+  await deleteDoc(doc(db, "rooms", cryptedKey));
 }
 
 async function getRooms(db: any) {

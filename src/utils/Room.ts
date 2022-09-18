@@ -11,6 +11,7 @@ import {
   deleteDoc,
   onSnapshot,
   Timestamp,
+  getDocs,
 } from "firebase/firestore";
 
 // import {  } from "firebase/firestore/lite";
@@ -102,7 +103,6 @@ export const checkIfRoomExists = async (roomId: string) =>
 export const deleteRoom = async (roomId: string) => {
   roomId = roomId.toUpperCase();
   const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
-  const docRef = doc(db, "rooms", cryptedKey);
 
   const filesRef = ref(storage, cryptedKey + "/");
   const files = await listAll(filesRef);
@@ -113,6 +113,15 @@ export const deleteRoom = async (roomId: string) => {
 
     const filesRef = ref(storage, path);
     await deleteObject(filesRef);
+  });
+
+  const docRef = doc(db, "rooms", cryptedKey);
+
+  const q = query(collection(db, "rooms", cryptedKey, "data"));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach(async (doData) => {
+    await deleteDoc(doc(db, "rooms", cryptedKey, "data", doData.id));
   });
 
   await deleteDoc(docRef);
