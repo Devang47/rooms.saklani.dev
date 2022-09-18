@@ -84,7 +84,7 @@
   <div class="container">
     <div class="content opacity-0">
       <div class="relative w-fit mx-auto">
-        <h1 class="sans">Rooms</h1>
+        <h1 class="sans">ChatRooms</h1>
         <span class="heading-underline"><DashedUnderline /> </span>
       </div>
       <p>

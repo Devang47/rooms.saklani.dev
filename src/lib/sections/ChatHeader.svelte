@@ -16,7 +16,7 @@
 
 <header>
   <h1 role="link" on:click={() => goto("/")} class="sans cursor-pointer">
-    Rooms
+    ChatRooms
   </h1>
   <div class="flex items-center gap-5">
     <div class="room-id group" on:click={copyText}>
