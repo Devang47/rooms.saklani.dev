@@ -88,9 +88,10 @@
         <span class="heading-underline"><DashedUnderline /> </span>
       </div>
       <p>
-        In this website you can create a private chat room, when you click the
-        button below it will generate a 6 digit room code which can be then used
-        to join the room from different devices.
+        In this website you can create a private chat room and share data across
+        multiple devices. When you click the button below it will generate a 6
+        digit room code which can be then used to join the room from different
+        devices. The chat room will automatically delete after 15min.
       </p>
 
       <div class="relative w-fit mx-auto group">
