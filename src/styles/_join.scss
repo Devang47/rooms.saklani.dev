@@ -16,7 +16,7 @@ section.join-room-page {
   .roomid-input {
     @apply py-[15px] px-4 border-dashed border-2 border-[#7F8691] w-fit rounded-[10px] mx-auto mt-14 relative;
     input {
-      @apply py-3 px-6 tracking-[0.8rem] pr-[10px] rounded-[10px] bg-[#818791] outline-none border-none w-[170px] font-bold placeholder:text-white placeholder:text-opacity-50 text-white duration-100 ease-in;
+      @apply py-3 px-6 tracking-[0.8rem] pr-[10px] rounded-[10px] bg-[#818791] outline-none border-none w-[170px] font-bold placeholder:text-white placeholder:text-opacity-50 text-white duration-100 ease-in uppercase;
       box-shadow: 0px 0.4px 0.5px rgba(0, 0, 0, 0.012),
         0px 1px 1.1px rgba(0, 0, 0, 0.017), 0px 1.7px 1.9px rgba(0, 0, 0, 0.021),
         0px 2.6px 3px rgba(0, 0, 0, 0.025), 0px 4.1px 4.6px rgba(0, 0, 0, 0.029),
