@@ -14,40 +14,36 @@
   let roomId = "";
 
   let formLoading = "false";
-  const handleCreateRoom = async () => {
-    formLoading = "true";
-    roomId = await createRoom();
-    formLoading = "complete";
 
-    gsap.to(".moveable-block", {
-      opacity: 0,
-      duration: 0.1,
-    });
-
-    gsap.to(".arrow-button", {
-      scale: 100,
-      duration: 0.3,
-      ease: "linear",
-    });
-
-    setTimeout(() => {
-      $loading = true;
-      goto(`/room/${roomId}`);
-    }, 800);
-  };
-
-  const handleGotoJoinPage = () => {
+  const transitionJoinPageStart = (callback: () => void) => {
     gsap
       .to(".transition-join-page", {
         height: "100%",
         duration: 0.7,
         ease: Power3.easeOut,
       })
-      .then(() => {
-        setTimeout(() => {
-          goto("/room");
-        }, 100);
-      });
+      .then(callback);
+  };
+
+  const handleCreateRoom = async () => {
+    formLoading = "true";
+    roomId = await createRoom();
+    formLoading = "complete";
+
+    transitionJoinPageStart(() => {
+      setTimeout(() => {
+        $loading = true;
+        goto(`/room/${roomId}`);
+      }, 100);
+    });
+  };
+
+  const handleGotoJoinPage = () => {
+    transitionJoinPageStart(() => {
+      setTimeout(() => {
+        goto("/room");
+      }, 100);
+    });
   };
 
   onMount(() => {

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import Dustbin from "$lib/icons/Dustbin.svelte";
+  import { roomMessages } from "$stores/app";
   import { addNotification } from "$utils/notifications";
 
   export let roomId: string;
@@ -15,7 +16,14 @@
 </script>
 
 <header>
-  <h1 role="link" on:click={() => goto("/")} class="sans cursor-pointer">
+  <h1
+    role="link"
+    on:click={() => {
+      $roomMessages = [];
+      goto("/", { replaceState: true });
+    }}
+    class="sans cursor-pointer"
+  >
     ChatRooms
   </h1>
   <div class="flex items-center gap-5">

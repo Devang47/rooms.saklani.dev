@@ -14,7 +14,6 @@
   } from "$utils/Room";
   import { uploadFile } from "$utils/storage";
   import { onMount } from "svelte";
-  import gsap from "gsap";
 
   let roomId: string;
   let scrollToElement: HTMLDivElement;
@@ -24,24 +23,11 @@
     roomId = $page.params.id.toUpperCase() as string;
 
     if (!(await checkIfRoomExists(roomId))) {
-      goto("/");
+      goto("/", { replaceState: true });
     } else {
       await getRoomMessages(roomId, scrollToBottom);
       loading.set(false);
     }
-
-    const tl = gsap.timeline();
-
-    tl.to(".chat-ui", {
-      delay: 0.5,
-      opacity: 1,
-      duration: 0.6,
-    }).to(".container", {
-      y: 0,
-      delay: -0.3,
-      opacity: 1,
-      duration: 0.4,
-    });
   });
 
   $: roomId = ($page.params.id || "").toUpperCase() as string;

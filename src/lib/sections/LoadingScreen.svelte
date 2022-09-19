@@ -3,12 +3,8 @@
 </script>
 
 <section transition:fade class="loading-screen">
-  <div class="loadingscreen-chase">
-    <div class="loadingscreen-chase-dot" />
-    <div class="loadingscreen-chase-dot" />
-    <div class="loadingscreen-chase-dot" />
-    <div class="loadingscreen-chase-dot" />
-    <div class="loadingscreen-chase-dot" />
-    <div class="loadingscreen-chase-dot" />
+  <div class="spinner">
+    <div class="double-bounce1" />
+    <div class="double-bounce2" />
   </div>
 </section>
