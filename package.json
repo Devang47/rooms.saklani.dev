@@ -32,6 +32,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@builder.io/partytown": "^0.7.0",
 		"crypto-js": "^4.1.1",
 		"firebase": "^9.9.4",
 		"gsap": "^3.11.1",
