@@ -109,7 +109,7 @@
           maxlength="6"
           type="text"
           name=""
-          id=" "
+          id=""
         />
         <span class="curved-arrow-line">
           <CurvedArrowLine />

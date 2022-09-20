@@ -18,27 +18,40 @@
   let roomId: string;
   let scrollToElement: HTMLDivElement;
   let chatInput = "";
+  let chatInputBox: HTMLTextAreaElement;
 
   onMount(async () => {
     roomId = $page.params.id.toUpperCase() as string;
 
     if (!(await checkIfRoomExists(roomId))) {
+      $roomMessages = [];
       goto("/", { replaceState: true });
     } else {
       await getRoomMessages(roomId, scrollToBottom);
       loading.set(false);
     }
+
+    chatInputBox.addEventListener("keypress", (e) => {
+      if (e.key === "Enter" && e.shiftKey) {
+        e.preventDefault();
+        chatInput += "\r\n";
+      } else if (e.key === "Enter") {
+        handleAddMsg();
+      }
+    });
   });
 
   $: roomId = ($page.params.id || "").toUpperCase() as string;
 
   const handleAddMsg = async () => {
+    chatInput = chatInput.trim();
     if (!chatInput) return;
 
     let msg = chatInput;
     chatInput = "";
     await addMessage({ roomId, message: msg });
     scrollToBottom();
+    chatInputBox.focus();
   };
 
   const handleInputChange = async (e: any) => {
@@ -77,9 +90,28 @@
 
     <div class="chat-messages-wrapper">
       <div class="messages-wrapper">
-        {#each $roomMessages as item}
-          <Message {roomId} messageData={item} />
-        {/each}
+        {#if !$roomMessages.length}
+          <div class="placeholder">
+            <h2 class="">Type and send a message to get started!</h2>
+
+            <div class="commands-table">
+              <table class="">
+                <tr>
+                  <td> <code> enter </code> </td>
+                  <td>Send Message</td>
+                </tr>
+                <tr>
+                  <td> <code> shift + enter </code> </td>
+                  <td>New line</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        {:else}
+          {#each $roomMessages as item}
+            <Message {roomId} messageData={item} />
+          {/each}
+        {/if}
 
         <div class="scroll-bottom" bind:this={scrollToElement} />
       </div>
@@ -91,6 +123,7 @@
           id="input"
           cols="30"
           rows="10"
+          bind:this={chatInputBox}
           bind:value={chatInput}
         />
         <div class="buttons">

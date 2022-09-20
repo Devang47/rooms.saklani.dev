@@ -1,5 +1,5 @@
 .loading-screen {
-  @apply bg-white backdrop-blur-[1px] fixed inset-0 w-full h-full flex items-center justify-center z-50;
+  @apply bg-white/90 fixed inset-0 w-full h-full flex items-center justify-center z-50;
 
   .spinner {
     width: 40px;

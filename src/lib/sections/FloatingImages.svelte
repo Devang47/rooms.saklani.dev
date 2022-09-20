@@ -14,6 +14,10 @@
 
   function animateCircle(event: any, elements: any) {
     if (browser) {
+      if (document.querySelector(".block-3") == null || document.querySelector(".block-2") == null) {
+        return;
+      }
+
       let mouseX = event.clientX / window.innerWidth - 0.5;
       let mouseY = event.clientY / window.innerHeight - 0.5;
 
