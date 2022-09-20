@@ -33,6 +33,8 @@
     }
 
     chatInputBox.addEventListener("keypress", (e) => {
+      if (innerWidth < 640) return;
+
       if (e.key === "Enter" && e.shiftKey) {
         e.preventDefault();
         chatInput += "\r\n";
@@ -52,7 +54,9 @@
     chatInput = "";
     await addMessage({ roomId, message: msg });
     scrollToBottom();
-    chatInputBox.focus();
+    if (innerWidth > 640) {
+      chatInputBox.focus();
+    }
   };
 
   const handleInputChange = async (e: any) => {

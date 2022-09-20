@@ -37,7 +37,7 @@ export const createRoom = async () => {
     timestamp: Timestamp.fromDate(new Date()),
   });
 
-  logEvent(analytics, "room_created");
+  logEvent(analytics, "login");
 
   return roomId;
 };

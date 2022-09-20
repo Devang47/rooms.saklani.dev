@@ -23,8 +23,9 @@ export interface Env {
 }
 
 async function deleteRoom(db: any, cryptedKey: string) {
-  const q = query(collection(db, "rooms", cryptedKey, "data"));
-  const querySnapshot = await getDocs(q);
+  const querySnapshot = await getDocs(
+    collection(db, "rooms", cryptedKey, "data")
+  );
 
   querySnapshot.forEach(async (doData) => {
     await deleteDoc(doc(db, "rooms", cryptedKey, "data", doData.id));
@@ -76,13 +77,13 @@ export default {
 
     const docs = await getRooms(db);
 
-    docs.forEach((e) => {
+    docs.forEach(async (e) => {
       const dateBefore15Min = new Date(new Date().getTime() - 15 * 60000);
       const docDate = new Date(e.timestamp.seconds * 1000);
 
       if (docDate < dateBefore15Min) {
-        deleteRoom(db, e._id);
-        deleteAllFiles(storage, e._id);
+        await deleteRoom(db, e._id);
+        await deleteAllFiles(storage, e._id);
       }
     });
 
