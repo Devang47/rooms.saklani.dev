@@ -18,40 +18,21 @@
 </script>
 
 <svelte:head>
-  <!-- Google tag (gtag.js) -->
-  <script
-    type="text/partytown"
-    async
-    src="https://saklani.dev/proxytown/gtm.js?id=G-3Y8ZTH1T0T">
-  </script>
-
-  <script type="text/partytown">
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "G-3Y8ZTH1T0T", {
-      page_path: window.location.pathname,
-    });
-  </script>
-
   <script>
     partytown = {
       forward: ["dataLayer.push"],
       resolveUrl: (url) => {
-        const siteUrl = "https://saklani.dev/proxytown";
+        const siteUrl = "https://rooms.saklani.dev/proxytown";
 
         if (url.hostname === "www.googletagmanager.com") {
-          const proxyUrl = new URL(`${siteUrl}/gtm.js`);
+          const proxyUrl = new URL(`${siteUrl}/gtm`);
 
           const gtmId = new URL(url).searchParams.get("id");
           gtmId && proxyUrl.searchParams.append("id", gtmId);
 
           return proxyUrl;
         } else if (url.hostname === "www.google-analytics.com") {
-          const proxyUrl = new URL(`${siteUrl}/ga.js`);
+          const proxyUrl = new URL(`${siteUrl}/ga`);
 
           return proxyUrl;
         }
@@ -63,6 +44,22 @@
 
   <!-- `partytownSnippet` is inserted here -->
   <script bind:this={scriptEl}></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script
+    type="text/partytown"
+    src="https://www.googletagmanager.com/gtag/js?id=G-3Y8ZTH1T0T">
+  </script>
+
+  <script type="text/partytown">
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-3Y8ZTH1T0T");
+  </script>
 </svelte:head>
 
 {#if $loading}
