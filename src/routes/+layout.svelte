@@ -41,7 +41,7 @@
       forward: ["dataLayer.push"],
       resolveUrl: (url) => {
         const siteUrl =
-          "https://rooms-saklani-dev-2-git-partytown-devang47.vercel.app/proxytown";
+          "https://rooms.saklani.dev/proxytown";
 
         if (url.hostname === "www.googletagmanager.com") {
           const proxyUrl = new URL(`${siteUrl}/gtm`);
