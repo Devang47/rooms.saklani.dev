@@ -2,6 +2,7 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Message from "$lib/components/Message.svelte";
+  import Msg from "$lib/icons/Msg.svelte";
   import SendIcon from "$lib/icons/SendIcon.svelte";
   import UploadIcon from "$lib/icons/UploadIcon.svelte";
   import ChatHeader from "$lib/sections/ChatHeader.svelte";
@@ -92,10 +93,12 @@
       <div class="messages-wrapper">
         {#if !$roomMessages.length}
           <div class="placeholder">
+            <Msg />
+
             <h2 class="">Type and send a message to get started!</h2>
 
             <div class="commands-table">
-              <table class="">
+              <table class="" border={1}>
                 <tr>
                   <td> <code> enter </code> </td>
                   <td>Send Message</td>
