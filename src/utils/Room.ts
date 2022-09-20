@@ -1,4 +1,4 @@
-import { app } from "./config";
+import { analytics, app } from "./config";
 import {
   doc,
   addDoc,
@@ -13,6 +13,7 @@ import {
   Timestamp,
   getDocs,
 } from "firebase/firestore";
+import { logEvent } from "firebase/analytics";
 
 // import {  } from "firebase/firestore/lite";
 
@@ -36,6 +37,8 @@ export const createRoom = async () => {
     timestamp: Timestamp.fromDate(new Date()),
   });
 
+  logEvent(analytics, "room_created");
+
   return roomId;
 };
 
@@ -58,6 +61,8 @@ export const addMessage = async ({
     timestamp: new Date(),
     device: cryptedDeviceDetails,
   });
+
+  logEvent(analytics, "message_pushed");
 };
 
 export const getRoomMessages = async (
@@ -98,6 +103,8 @@ export const checkIfRoomExists = async (roomId: string) =>
       .catch((error) => {
         reject("Error getting document: " + error.message);
       });
+
+    logEvent(analytics, "check_for_room_existance");
   });
 
 export const deleteRoom = async (roomId: string) => {
@@ -125,4 +132,5 @@ export const deleteRoom = async (roomId: string) => {
   });
 
   await deleteDoc(docRef);
+  logEvent(analytics, "room_deleted");
 };

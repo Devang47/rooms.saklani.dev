@@ -9,7 +9,7 @@
 
 <svelte:head>
   <!-- Google tag (gtag.js) -->
-  <script
+  <!-- <script
     async
     src="https://www.googletagmanager.com/gtag/js?id=G-3Y8ZTH1T0T"></script>
   <script>
@@ -20,7 +20,7 @@
     gtag("js", new Date());
 
     gtag("config", "G-3Y8ZTH1T0T");
-  </script>
+  </script> -->
 </svelte:head>
 
 {#if $loading}

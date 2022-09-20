@@ -1,6 +1,6 @@
 import { browser } from "$app/environment";
 import { initializeApp } from "firebase/app";
-import { getPerformance } from "firebase/performance";
+import { getAnalytics, type Analytics } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -13,6 +13,7 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
-if (browser) {
-  const perf = getPerformance(app);
-}
+
+let analytics: Analytics;
+if (typeof window !== "undefined") analytics = getAnalytics();
+export { analytics };
