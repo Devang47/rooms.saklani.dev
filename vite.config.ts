@@ -9,7 +9,7 @@ const config: UserConfig = {
     sveltekit(),
     partytownVite({
       // `dest` specifies where files are copied to in production
-      dest: join(process.cwd(), "static", "~partytown"),
+      dest: join(process.cwd(), ".vercel/output/static", "~partytown"),
     }),
   ],
   resolve: {

@@ -9,7 +9,7 @@
   import { loading } from "$stores/app";
   import { createRoom } from "$utils/Room";
   import { onMount } from "svelte";
-  import gsap, { Power3, Power2 } from "gsap";
+  import gsap, { Power3 } from "gsap";
 
   let roomId = "";
 
