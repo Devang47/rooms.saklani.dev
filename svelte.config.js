@@ -9,6 +9,7 @@ const config = {
 	preprocess: [
 		preprocess({
 			postcss: true,
+			preserve: ['partytown']
 		}),
 	],
 
