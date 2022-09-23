@@ -39,6 +39,7 @@
         e.preventDefault();
         chatInput += "\r\n";
       } else if (e.key === "Enter") {
+        e.preventDefault();
         handleAddMsg();
       }
     });
