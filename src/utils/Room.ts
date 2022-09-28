@@ -34,7 +34,7 @@ export const createRoom = async () => {
   const cryptedRoomId = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
 
   await setDoc(doc(db, "rooms", cryptedRoomId), {
-    timestamp: Timestamp.fromDate(new Date()),
+    timestamp: new Date().getTime(),
   });
 
   logEvent(analytics, "login");
@@ -58,7 +58,7 @@ export const addMessage = async ({
 
   await addDoc(collection(db, "rooms", cryptedKey, "data"), {
     data: encryptedMessage,
-    timestamp: new Date(),
+    timestamp: new Date().getTime(),
     device: cryptedDeviceDetails,
   });
 
