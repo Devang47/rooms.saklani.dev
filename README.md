@@ -12,5 +12,6 @@ devices. The chat room will automatically delete after 15min.
 - [Firebase & Firestore](https://firebase.google.com/)
 - [Gsap](https://greensock.com/)
 - [Vercel](https://vercel.com/) for Frontend
-- [Cloudflare Workers](https://workers.cloudflare.com/) for Backend
+- [Firebase Functions](https://firebase.google.com/) for Backend
 - [Cron Job](https://cron-job.org/en/)
+- [Short.io](https://short.io/) 
