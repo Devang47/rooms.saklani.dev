@@ -9,6 +9,7 @@ import { get } from "svelte/store";
 import { app } from "./config";
 import { addNotification } from "./notifications";
 import CryptoJS from "crypto-js";
+import axios from "axios";
 
 export const uploadFile = (roomId: string, file: any) =>
   new Promise((resolve, reject) => {
@@ -38,10 +39,34 @@ export const uploadFile = (roomId: string, file: any) =>
         reject(error);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((e) => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (e) => {
           loading.set(false);
-          resolve(e);
+
+          resolve(await minifyURL(e));
         });
       }
     );
+  });
+
+export const minifyURL = async (e: string) =>
+  new Promise((resolve, reject) => {
+    var data = {
+      domain: "links.saklani.dev",
+      originalURL: e,
+    };
+    fetch("https://api.short.io/links/public", {
+      method: "post",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        authorization: import.meta.env.VITE_SHORTIO_API_KEY,
+      },
+      body: JSON.stringify(data),
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        resolve(data.shortURL);
+      });
   });

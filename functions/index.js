@@ -35,7 +35,7 @@ exports.deleteData = functions.https.onRequest((req, res) => {
             const dateBefore15Min = new Date().getTime() - 15 * 60000;
             const docDate = e.timestamp;
 
-            if (docDate > dateBefore15Min) {
+            if (docDate < dateBefore15Min) {
                 await deleteRoom(e._id);
                 await deleteAllFiles(e._id);
             }
