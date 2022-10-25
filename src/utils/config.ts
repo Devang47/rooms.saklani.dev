@@ -1,6 +1,7 @@
 import { browser } from "$app/environment";
 import { initializeApp } from "firebase/app";
 import { getAnalytics, type Analytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -16,4 +17,5 @@ export const app = initializeApp(firebaseConfig);
 
 let analytics: Analytics;
 if (typeof window !== "undefined") analytics = getAnalytics();
-export { analytics };
+let auth = getAuth(app);
+export { analytics, auth };

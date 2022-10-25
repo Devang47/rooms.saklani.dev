@@ -1,10 +1,14 @@
 <script lang="ts">
   import Notification from "$lib/sections/Notifications.svelte";
   import LoadingScreen from "$lib/sections/LoadingScreen.svelte";
-  import { loading } from "$stores/app";
+  import { loading, user } from "$stores/app";
   import SvelteSeo from "svelte-seo";
   import { partytownSnippet } from "@builder.io/partytown/integration";
   import { onMount } from "svelte";
+  import { signInAnonymously } from "firebase/auth";
+  import "$styles/global.scss";
+  import { auth } from "$utils/config";
+  import { addNotification } from "$utils/notifications";
 
   // Add the Partytown script to the DOM head
   let scriptEl: any;
@@ -12,9 +16,16 @@
     if (scriptEl) {
       scriptEl.textContent = partytownSnippet();
     }
-  });
 
-  import "$styles/global.scss";
+    signInAnonymously(auth)
+      .then((authUser) => {
+        user.set(authUser.user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        addNotification(errorMessage, true);
+      });
+  });
 </script>
 
 <svelte:head>
@@ -40,8 +51,7 @@
     partytown = {
       forward: ["dataLayer.push"],
       resolveUrl: (url) => {
-        const siteUrl =
-          "https://rooms.saklani.dev/proxytown";
+        const siteUrl = "https://rooms.saklani.dev/proxytown";
 
         if (url.hostname === "www.googletagmanager.com") {
           const proxyUrl = new URL(`${siteUrl}/gtm`);
