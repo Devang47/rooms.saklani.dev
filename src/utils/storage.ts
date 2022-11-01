@@ -41,7 +41,7 @@ export const uploadFile = (roomId: string, file: any) =>
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (e) => {
           loading.set(false);
-          resolve(await minifyURL(e));
+          resolve((await minifyURL(e)) || e);
         });
       }
     );
