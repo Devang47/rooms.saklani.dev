@@ -14,7 +14,10 @@
 
   function animateCircle(event: any, elements: any) {
     if (browser) {
-      if (document.querySelector(".block-3") == null || document.querySelector(".block-2") == null) {
+      if (
+        document.querySelector(".block-3") == null ||
+        document.querySelector(".block-2") == null
+      ) {
         return;
       }
 

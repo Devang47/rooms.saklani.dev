@@ -1,16 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{html,js,svelte,ts}'],
+  content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
     extend: {
       colors: {
-        "dark": "#38404A",
-        "light": "#F6F6F6"
+        dark: "#38404A",
+        light: "#F6F6F6",
       },
       transitionTimingFunction: {
-        "cubic-ease": 'cubic-bezier(.77,0,.175,1)'
-      }
+        "cubic-ease": "cubic-bezier(.77,0,.175,1)",
+      },
     },
   },
   plugins: [],
-}
+};

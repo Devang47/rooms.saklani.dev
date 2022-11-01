@@ -14,4 +14,4 @@ devices. The chat room will automatically delete after 15min.
 - [Vercel](https://vercel.com/) for Frontend
 - [Firebase Functions](https://firebase.google.com/) for Backend
 - [Cron Job](https://cron-job.org/en/)
-- [Short.io](https://short.io/) 
+- [Short.io](https://short.io/)
