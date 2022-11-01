@@ -66,7 +66,6 @@ export const minifyURL = async (e: string) =>
         return response.json();
       })
       .then(function (data) {
-        console.log(data);
         resolve(data.shortURL);
       });
   });
