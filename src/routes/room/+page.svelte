@@ -101,44 +101,54 @@
         <span class="heading-underline"><DashedUnderline /> </span>
       </div>
 
-      <div class="roomid-input">
-        <input
-          bind:value={inputVal}
-          class=""
-          placeholder="xxxxxx"
-          maxlength="6"
-          type="text"
-          name=""
-          id=""
-        />
-        <span class="curved-arrow-line">
-          <CurvedArrowLine />
-        </span>
-      </div>
-
-      <div class="relative w-fit mx-auto group">
-        <Button error={!roomExists} class="arrow-button" on:click={joinRoom}>
-          {#if formLoading === "true"}
-            <CircleAnimation class="w-[80px]" />
-          {:else if !roomExists}
-            <span in:fly={{ y: 12 }}> Not Found </span>
-          {/if}
-
-          <span class:btn-remove-text={formLoading !== "false" || !roomExists}>
-            Join <ArrowRight />
-          </span>
-        </Button>
-
-        <div class="create-btn">
-          or <button
-            title="Create room"
-            on:click={handleGotoCreatePage}
+      <form action="" on:click|preventDefault={joinRoom}>
+        <div class="roomid-input">
+          <input
+            bind:value={inputVal}
             class=""
-          >
-            Create room
-          </button>
+            placeholder="xxxxxx"
+            maxlength="6"
+            type="text"
+            name=""
+            id=""
+          />
+          <span class="curved-arrow-line">
+            <CurvedArrowLine />
+          </span>
         </div>
-      </div>
+
+        <div class="relative w-fit mx-auto group">
+          <Button
+            type="submit"
+            error={!roomExists}
+            class="arrow-button"
+            on:click={joinRoom}
+          >
+            {#if formLoading === "true"}
+              <CircleAnimation class="w-[80px]" />
+            {:else if !roomExists}
+              <span in:fly={{ y: 12 }}> Not Found </span>
+            {/if}
+
+            <span
+              class:btn-remove-text={formLoading !== "false" || !roomExists}
+            >
+              Join <ArrowRight />
+            </span>
+          </Button>
+
+          <div class="create-btn">
+            or <button
+              type="button"
+              title="Create room"
+              on:click={handleGotoCreatePage}
+              class=""
+            >
+              Create room
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
 
     <div class="bg" />

@@ -25,7 +25,7 @@ export const uploadFile = (roomId: string, file: any) =>
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        if (snapshot.totalBytes > 20485760) {
+        if (snapshot.totalBytes > 204857600) {
           uploadTask.cancel();
           loading.set(false);
 
@@ -41,7 +41,9 @@ export const uploadFile = (roomId: string, file: any) =>
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (e) => {
           loading.set(false);
-          resolve((await minifyURL(e)) || e);
+          let tinyUrl = await minifyURL(e);
+          console.log({ tinyUrl });
+          resolve(tinyUrl || e);
         });
       }
     );
