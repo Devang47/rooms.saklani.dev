@@ -17,6 +17,6 @@
   }
 
   a {
-    @apply text-blue-500 underline w-fit block mx-auto text-center;
+    @apply text-gray-800 underline w-fit block mx-auto text-center;
   }
 </style>

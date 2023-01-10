@@ -25,12 +25,30 @@ import { getStorage, listAll, ref, deleteObject } from "firebase/storage";
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-const getRand = () => {
-  return (Math.random() + 1).toString(36).substring(6);
-};
+const getRand = (() => {
+  const gen = (min: number, max: number) =>
+    max++ && [...Array(max - min)].map((s, i) => String.fromCharCode(min + i));
+
+  const sets = {
+    num: gen(48, 57),
+    alphaLower: gen(97, 122),
+    alphaUpper: gen(65, 90),
+    special: [...``],
+  };
+
+  function* iter(len: number, set: any) {
+    if (set.length < 1) set = Object.values(sets).flat();
+    for (let i = 0; i < len; i++) yield set[(Math.random() * set.length) | 0];
+  }
+
+  return Object.assign(
+    (len: number, ...set: any) => [...iter(len, set.flat())].join(""),
+    sets
+  );
+})();
 
 export const createRoom = async () => {
-  const roomId = getRand().toUpperCase();
+  const roomId = getRand(6).toUpperCase();
   const cryptedRoomId = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
 
   await setDoc(doc(db, "rooms", cryptedRoomId), {

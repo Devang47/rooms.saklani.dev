@@ -14,12 +14,13 @@
     getRoomMessages,
   } from "$utils/Room";
   import { uploadFile } from "$utils/storage";
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
 
   let roomId: string;
   let scrollToElement: HTMLDivElement;
   let chatInput = "";
   let chatInputBox: HTMLTextAreaElement;
+  let uploadLabel: HTMLLabelElement;
 
   onMount(async () => {
     roomId = $page.params.id.toUpperCase() as string;
@@ -41,9 +42,20 @@
       } else if (e.key === "Enter") {
         e.preventDefault();
         handleAddMsg();
+      } else if (e.key === "/") {
       }
     });
+
+    window.addEventListener("keypress", focusOnInput);
   });
+
+  const focusOnInput = (e: KeyboardEvent) => {
+    if (innerWidth < 640) return;
+
+    if (e.key === "/") {
+      chatInputBox.focus();
+    }
+  };
 
   $: roomId = ($page.params.id || "").toUpperCase() as string;
 
@@ -66,7 +78,8 @@
       try {
         let url = await uploadFile(roomId, e.target.files[0]);
 
-        chatInput += " " + url;
+        if (chatInput.trim()) return (chatInput += " " + url);
+        chatInput += url;
       } catch (error) {
         console.log(error);
       }
@@ -98,7 +111,7 @@
       <div class="messages-wrapper">
         {#if !$roomMessages.length}
           <div class="placeholder">
-            <Msg />
+            <SendIcon color="#555E69" />
 
             <h2 class="">Type and send a message to get started!</h2>
 
@@ -111,6 +124,10 @@
                 <tr>
                   <td> <code> shift + enter </code> </td>
                   <td>New line</td>
+                </tr>
+                <tr>
+                  <td> <code> / </code> </td>
+                  <td>Focus on input</td>
                 </tr>
               </table>
             </div>
@@ -138,16 +155,23 @@
           <button on:click={handleAddMsg} title="Send message">
             <SendIcon />
           </button>
-          <label title="Upload media" class="upload-icon" for="fileinput">
-            <UploadIcon />
-          </label>
-          <input
-            type="file"
-            class="hidden"
-            name="fileinput"
-            id="fileinput"
-            on:change={handleInputChange}
-          />
+          <button class="upload" on:click={() => uploadLabel.click()}>
+            <label
+              bind:this={uploadLabel}
+              title="Upload media"
+              class="upload-icon"
+              for="fileinput"
+            >
+              <UploadIcon />
+            </label>
+            <input
+              type="file"
+              class="hidden"
+              name="fileinput"
+              id="fileinput"
+              on:change={handleInputChange}
+            />
+          </button>
         </div>
       </div>
     </div>

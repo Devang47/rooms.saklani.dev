@@ -34,10 +34,13 @@ body {
   @apply fixed top-0 w-full bg-light h-0 z-40 left-0 right-0;
 }
 
+button {
+  @apply focus:outline-2 outline-offset-4 focus:outline-gray-800 flex-shrink-0;
+}
+
 @import "homepage";
 @import "join";
 @import "chat";
-@import "loading-screen";
 @import "button";
 
 @tailwind utilities;

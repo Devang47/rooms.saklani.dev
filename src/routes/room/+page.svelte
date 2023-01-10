@@ -101,7 +101,7 @@
         <span class="heading-underline"><DashedUnderline /> </span>
       </div>
 
-      <form action="" on:click|preventDefault={joinRoom}>
+      <form action="#" on:submit|preventDefault={joinRoom}>
         <div class="roomid-input">
           <input
             bind:value={inputVal}
@@ -118,12 +118,7 @@
         </div>
 
         <div class="relative w-fit mx-auto group">
-          <Button
-            type="submit"
-            error={!roomExists}
-            class="arrow-button"
-            on:click={joinRoom}
-          >
+          <Button type="submit" error={!roomExists} class="arrow-button">
             {#if formLoading === "true"}
               <CircleAnimation class="w-[80px]" />
             {:else if !roomExists}

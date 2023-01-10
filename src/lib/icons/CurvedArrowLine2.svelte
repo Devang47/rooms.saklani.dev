@@ -3,6 +3,7 @@
   height="14"
   viewBox="0 0 468 14"
   fill="none"
+  class="flex-shrink-0"
   xmlns="http://www.w3.org/2000/svg"
 >
   <line

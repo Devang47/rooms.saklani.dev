@@ -52,15 +52,16 @@ export const uploadFile = (roomId: string, file: any) =>
 export const minifyURL = async (e: string) =>
   new Promise((resolve, reject) => {
     var data = {
-      domain: "links.saklani.dev",
-      originalURL: e,
+      url: e,
+      domain: "tiny.one",
     };
-    fetch("https://api.short.io/links/public", {
+
+    fetch("https://api.tinyurl.com/create", {
       method: "post",
       headers: {
         accept: "application/json",
-        "Content-Type": "application/json",
-        authorization: import.meta.env.VITE_SHORTIO_API_KEY,
+        "content-Type": "application/json",
+        authorization: `Bearer ${import.meta.env.VITE_SHORTIO_API_KEY}`,
       },
       body: JSON.stringify(data),
     })
@@ -68,6 +69,6 @@ export const minifyURL = async (e: string) =>
         return response.json();
       })
       .then(function (data) {
-        resolve(data.shortURL);
+        resolve(data.data.tiny_url);
       });
   });

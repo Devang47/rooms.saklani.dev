@@ -29,75 +29,73 @@ section.chat-ui {
         0px 0.751293px 3.13039px rgba(0, 0, 0, 0.055),
         0px 0.399006px 1.66253px rgba(0, 0, 0, 0.0444282),
         0px 0.166035px 0.691814px rgba(0, 0, 0, 0.030926);
-
-      .copy-btn {
-        @apply absolute inset-0 w-full h-full opacity-0 bg-light flex items-center justify-center text-center font-extrabold hover:opacity-100 backdrop-blur-md duration-100 ease-in;
-      }
-    }
-
-    .delete-btn {
-      @apply border border-light border-opacity-30 flex items-center justify-center w-8 h-8 md:w-9 md:h-9 rounded-full hover:bg-light hover:bg-opacity-10 duration-150 cursor-pointer;
-      svg {
-        @apply w-3.5 md:w-4;
-      }
-
-      box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.11),
-        0px 2.50666px 10.4444px rgba(0, 0, 0, 0.079074),
-        0px 1.34018px 5.58408px rgba(0, 0, 0, 0.0655718),
-        0px 0.751293px 3.13039px rgba(0, 0, 0, 0.055),
-        0px 0.399006px 1.66253px rgba(0, 0, 0, 0.0444282),
-        0px 0.166035px 0.691814px rgba(0, 0, 0, 0.030926);
     }
   }
 
-  .chat-messages-wrapper {
-    @apply w-full overflow-y-scroll h-[calc(90vh-65.6px)] pb-[200px] px-4 sm:px-6 md:px-12 py-10;
+  .delete-btn {
+    @apply border border-light border-opacity-30 flex items-center justify-center w-8 h-8 md:w-9 md:h-9 rounded-full hover:bg-light hover:bg-opacity-10 duration-150 cursor-pointer;
+    svg {
+      @apply w-3.5 md:w-4;
+    }
 
+    box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.11),
+      0px 2.50666px 10.4444px rgba(0, 0, 0, 0.079074),
+      0px 1.34018px 5.58408px rgba(0, 0, 0, 0.0655718),
+      0px 0.751293px 3.13039px rgba(0, 0, 0, 0.055),
+      0px 0.399006px 1.66253px rgba(0, 0, 0, 0.0444282),
+      0px 0.166035px 0.691814px rgba(0, 0, 0, 0.030926);
+  }
+}
+
+.chat-messages-wrapper {
+  @apply w-full overflow-y-scroll h-[calc(90vh-65.6px)] pb-[200px] px-4 sm:px-6 md:px-12 py-10;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & {
+    scrollbar-width: none;
+  }
+}
+
+.chat-input {
+  @apply absolute bottom-0 left-0 right-0 flex items-start gap-x-4 md:gap-x-6 pb-8 px-4 sm:px-6 md:px-12 bg-gradient-to-t from-light to-transparent rounded-b-[30px] md:rounded-b-[40px];
+
+  textarea {
+    @apply resize-none rounded-[20px] md:rounded-[38px] h-32 bg-light py-4 md:py-6 w-full px-6 md:px-10 outline-none text-[15px] text-dark border-black/10 font-medium focus:border-black/40 focus:outline-[2px] focus:outline-offset-4 focus:outline-dark/70;
+
+    box-shadow: 0px 0.4px 1.1px rgba(0, 0, 0, 0.005),
+      0px 1px 2.5px rgba(0, 0, 0, 0.007), 0px 1.7px 4.4px rgba(0, 0, 0, 0.009),
+      0px 2.6px 7px rgba(0, 0, 0, 0.01), 0px 4.1px 10.8px rgba(0, 0, 0, 0.011),
+      0px 6.3px 16.9px rgba(0, 0, 0, 0.013),
+      0px 10.5px 28px rgba(0, 0, 0, 0.015), 0px 21px 56px rgba(0, 0, 0, 0.02);
+
+    scrollbar-width: none;
     &::-webkit-scrollbar {
       display: none;
     }
-
-    & {
-      scrollbar-width: none;
-    }
   }
 
-  .chat-input {
-    @apply absolute bottom-0 left-0 right-0 flex items-start gap-x-4 md:gap-x-6 pb-8 px-4 sm:px-6 md:px-12 bg-gradient-to-t from-light to-transparent rounded-b-[30px] md:rounded-b-[40px];
+  .buttons {
+    @apply flex flex-col gap-2 md:gap-4;
 
-    textarea {
-      @apply resize-none rounded-[20px] md:rounded-[38px] h-32 bg-light py-4 md:py-6 w-full px-6 md:px-10 outline-none text-[15px] text-dark border-black/10 font-medium focus:border-black/40 focus:outline-[2px] focus:outline-offset-4 focus:outline-dark/70;
-
-      box-shadow: 0px 0.4px 1.1px rgba(0, 0, 0, 0.005),
-        0px 1px 2.5px rgba(0, 0, 0, 0.007), 0px 1.7px 4.4px rgba(0, 0, 0, 0.009),
-        0px 2.6px 7px rgba(0, 0, 0, 0.01), 0px 4.1px 10.8px rgba(0, 0, 0, 0.011),
-        0px 6.3px 16.9px rgba(0, 0, 0, 0.013),
-        0px 10.5px 28px rgba(0, 0, 0, 0.015), 0px 21px 56px rgba(0, 0, 0, 0.02);
-
-      scrollbar-width: none;
-      &::-webkit-scrollbar {
-        display: none;
-      }
+    button {
+      @apply rounded-full px-3 py-3 bg-dark cursor-pointer hover:bg-dark/80 duration-100 flex items-center justify-center;
+      box-shadow: 0px 0.2px 1.2px rgba(0, 0, 0, 0.034),
+        0px 0.5px 2.8px rgba(0, 0, 0, 0.048),
+        0px 0.9px 5.3px rgba(0, 0, 0, 0.06),
+        0px 1.6px 9.4px rgba(0, 0, 0, 0.072),
+        0px 2.9px 17.5px rgba(0, 0, 0, 0.086), 0px 7px 42px rgba(0, 0, 0, 0.12);
     }
 
-    .buttons {
-      @apply flex flex-col gap-2 md:gap-4;
+    .upload {
+      @apply py-3.5;
+    }
 
-      button,
-      label {
-        @apply rounded-full px-[0.9rem] py-4 bg-dark cursor-pointer hover:scale-105 duration-100 flex items-center justify-center;
-        box-shadow: 0px 0.2px 1.2px rgba(0, 0, 0, 0.034),
-          0px 0.5px 2.8px rgba(0, 0, 0, 0.048),
-          0px 0.9px 5.3px rgba(0, 0, 0, 0.06),
-          0px 1.6px 9.4px rgba(0, 0, 0, 0.072),
-          0px 2.9px 17.5px rgba(0, 0, 0, 0.086),
-          0px 7px 42px rgba(0, 0, 0, 0.12);
-      }
-      .upload-icon {
-        @apply py-3.5 px-3;
-        svg {
-          @apply w-5 h-4;
-        }
+    .upload-icon {
+      svg {
+        @apply w-5 h-4;
       }
     }
   }
@@ -107,7 +105,7 @@ section.chat-ui {
   @apply grid gap-5 items-center content-center w-full;
 
   h2 {
-    @apply text-[17px] text-dark/90 mx-auto font-medium w-10/12 mt-8;
+    @apply text-dark/90 mx-auto font-medium w-10/12 mt-8;
   }
 }
 
@@ -169,10 +167,10 @@ section.chat-ui {
   }
 
   table {
-    @apply text-left gap-6 text-sm md:text-[15px] font-medium border-dark/40 border-[1.2px];
+    @apply text-left gap-6 text-sm md:text-[15px] font-medium border-collapse;
 
     td {
-      @apply px-3 md:px-4 py-2 md:py-3 mr-1 sm:mr-2 text-dark/70 whitespace-nowrap border-dark/40 border-[1.2px];
+      @apply px-3 md:px-4 py-2 md:py-3 mr-1 sm:mr-2 text-dark/70 whitespace-nowrap border-dark/40 border-[1.2px] border-collapse;
     }
 
     code {

@@ -7,8 +7,8 @@
 
 <div
   class:bg-red-600={error}
-  class:bg-green-700={!error}
-  class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg   shadow-lg ring-1 ring-black ring-opacity-5"
+  class:bg-sky-500={!error}
+  class="pointer-events-auto w-full max-w-[250px] overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
   transition:scale={{ start: 0.9, opacity: 0 }}
 >
   <div class="p-4">
