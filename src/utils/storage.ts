@@ -41,9 +41,7 @@ export const uploadFile = (roomId: string, file: any) =>
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (e) => {
           loading.set(false);
-          let tinyUrl = await minifyURL(e);
-          console.log({ tinyUrl });
-          resolve(tinyUrl || e);
+          resolve(e);
         });
       }
     );
