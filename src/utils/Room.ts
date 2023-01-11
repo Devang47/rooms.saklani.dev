@@ -113,7 +113,7 @@ export const checkIfRoomExists = async (roomId: string) =>
     getDoc(docRef)
       .then((doc) => {
         if (doc.exists()) {
-          resolve(true);
+          resolve(doc.data());
         } else {
           resolve(false);
         }

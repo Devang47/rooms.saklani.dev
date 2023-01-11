@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { loading } from "$stores/app";
+  import { loading, roomData } from "$stores/app";
   import { checkIfRoomExists } from "$utils/Room";
   import Button from "$lib/components/Button.svelte";
   import CircleAnimation from "$lib/components/CircleAnimation.svelte";
@@ -20,7 +20,8 @@
     if (!inputVal || inputVal.length < 6) return;
     formLoading = "true";
 
-    if (!(await checkIfRoomExists(inputVal))) {
+    $roomData = await checkIfRoomExists(inputVal);
+    if (!$roomData) {
       formLoading = "false";
       roomExists = false;
 

@@ -2,11 +2,11 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Message from "$lib/components/Message.svelte";
-  import Msg from "$lib/icons/Msg.svelte";
   import SendIcon from "$lib/icons/SendIcon.svelte";
   import UploadIcon from "$lib/icons/UploadIcon.svelte";
   import ChatHeader from "$lib/sections/ChatHeader.svelte";
-  import { loading, roomMessages } from "$stores/app";
+  import { loading, roomData, roomMessages } from "$stores/app";
+  import { addNotification } from "$utils/notifications";
   import {
     addMessage,
     checkIfRoomExists,
@@ -25,9 +25,11 @@
   onMount(async () => {
     roomId = $page.params.id.toUpperCase() as string;
 
-    if (!(await checkIfRoomExists(roomId))) {
+    $roomData = await checkIfRoomExists(roomId);
+    if (!$roomData) {
       $roomMessages = [];
-      goto("/", { replaceState: true });
+      addNotification("Room doesn't exists", true);
+      goto("/");
     } else {
       await getRoomMessages(roomId, scrollToBottom);
       loading.set(false);
@@ -90,7 +92,7 @@
     $loading = true;
     await deleteRoom(roomId);
     $roomMessages = [];
-    goto("/", { replaceState: true });
+    goto("/");
   };
 
   const scrollToBottom = () => {
@@ -115,7 +117,7 @@
 
             <h2 class="">Type and send a message to get started!</h2>
 
-            <div class="commands-table">
+            <div class="commands-table hidden sm:block">
               <table class="" border={1}>
                 <tr>
                   <td> <code> enter </code> </td>
