@@ -20,7 +20,7 @@
   let scrollToElement: HTMLDivElement;
   let chatInput = "";
   let chatInputBox: HTMLTextAreaElement;
-  let uploadLabel: HTMLLabelElement;
+  let uploadFileInput: HTMLInputElement;
 
   onMount(async () => {
     roomId = $page.params.id.toUpperCase() as string;
@@ -75,7 +75,7 @@
   };
 
   const handleInputChange = async (e: any) => {
-    if (e?.target?.files) {
+    if (e?.target?.files.length > 0) {
       $loading = true;
       try {
         let url = await uploadFile(roomId, e.target.files[0]);
@@ -157,16 +157,15 @@
           <button on:click={handleAddMsg} title="Send message">
             <SendIcon />
           </button>
-          <button class="upload" on:click={() => uploadLabel.click()}>
-            <label
-              bind:this={uploadLabel}
-              title="Upload media"
-              class="upload-icon"
-              for="fileinput"
-            >
+          <button
+            class="upload cursor-pointer"
+            on:click={() => uploadFileInput.click()}
+          >
+            <div title="Upload media" class="upload-icon">
               <UploadIcon />
-            </label>
+            </div>
             <input
+              bind:this={uploadFileInput}
               type="file"
               class="hidden"
               name="fileinput"
