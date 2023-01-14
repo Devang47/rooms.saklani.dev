@@ -2,6 +2,7 @@
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import Message from "$lib/components/Message.svelte";
+  import Github from "$lib/icons/Github.svelte";
   import SendIcon from "$lib/icons/SendIcon.svelte";
   import UploadIcon from "$lib/icons/UploadIcon.svelte";
   import ChatHeader from "$lib/sections/ChatHeader.svelte";
@@ -14,7 +15,7 @@
     getRoomMessages,
   } from "$utils/Room";
   import { uploadFile } from "$utils/storage";
-  import { onDestroy, onMount } from "svelte";
+  import { onMount } from "svelte";
 
   let roomId: string;
   let scrollToElement: HTMLDivElement;
@@ -145,6 +146,7 @@
 
       <div class="chat-input">
         <textarea
+          title="Chat input"
           placeholder="Enter something..."
           name="chat-input"
           id="input"
@@ -154,17 +156,26 @@
           bind:value={chatInput}
         />
         <div class="buttons">
-          <button on:click={handleAddMsg} title="Send message">
+          <button
+            on:click={handleAddMsg}
+            aria-label="send message button"
+            title="Send message"
+          >
+            <div class="sr-only">Send message</div>
             <SendIcon />
           </button>
           <button
             class="upload cursor-pointer"
+            title="Upload media"
+            aria-label="Upload media button"
             on:click={() => uploadFileInput.click()}
           >
+            <label for="fileinput" class="sr-only">Upload media</label>
             <div title="Upload media" class="upload-icon">
               <UploadIcon />
             </div>
             <input
+              multiple={false}
               bind:this={uploadFileInput}
               type="file"
               class="hidden"
@@ -178,3 +189,16 @@
     </div>
   </div>
 </section>
+
+<div
+  class="hidden md:block absolute top-4 md:right- lg:right-6 text-white text-sm w-7"
+>
+  <a
+    href="https://github.com/Devang47/rooms.saklani.dev"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="underline w-full"
+  >
+    <Github />
+  </a>
+</div>

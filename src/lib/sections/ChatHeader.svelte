@@ -2,6 +2,7 @@
   import Dustbin from "$lib/icons/Dustbin.svelte";
   import { roomData, roomMessages } from "$stores/app";
   import { addNotification } from "$utils/notifications";
+  import { onDestroy } from "svelte";
 
   export let roomId: string;
   export let handleDeleteRoom: () => void;
@@ -13,14 +14,17 @@
   };
 
   let timeRemainingBeforeRoomDeletion = "";
+  let interval: NodeJS.Timer;
 
   function startTimer(duration: number) {
+    if (interval) clearInterval(interval);
+
     let timer = duration,
       minutes,
       seconds;
-    setInterval(function () {
-      minutes = parseInt(timer / 60, 10);
-      seconds = parseInt(timer % 60, 10);
+    interval = setInterval(function () {
+      minutes = parseInt("" + timer / 60, 10);
+      seconds = parseInt("" + (timer % 60), 10);
 
       if (minutes === 0 && seconds === 0) {
         return (timeRemainingBeforeRoomDeletion = "00:00");
@@ -40,18 +44,22 @@
   let time: number = 0;
   $: time = 15 * 60000 - (new Date().getTime() - $roomData.timestamp);
   $: if (time) startTimer(time / 1000);
+
+  onDestroy(() => {
+    if (interval) clearInterval(interval);
+  });
 </script>
 
 <header>
-  <h1 role="link" class="sans cursor-pointer">
-    <a href="/" on:click={() => ($roomMessages = [])}> ChatRooms </a>
-  </h1>
+  <a href="/" on:click={() => ($roomMessages = [])}>
+    <h1 role="link" class="sans cursor-pointer">ChatRooms</h1>
+  </a>
   <div class="flex items-center gap-5">
-    <div class="text-light">
+    <div class="text-light text-[15px] hidden sm:block">
       {timeRemainingBeforeRoomDeletion}
     </div>
 
-    <button class="room-id group" on:click={copyText}>
+    <button aria-label="copy room id" class="room-id group" on:click={copyText}>
       {#each (roomId || "").split("") as letter}
         <span class="letter">
           {letter}
@@ -59,7 +67,12 @@
       {/each}
     </button>
 
-    <button title="delete room" on:click={handleDeleteRoom} class="delete-btn">
+    <button
+      aria-label="delete room"
+      title="delete room"
+      on:click={handleDeleteRoom}
+      class="delete-btn"
+    >
       <Dustbin />
     </button>
   </div>

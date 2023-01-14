@@ -6,6 +6,7 @@
   import { fade, fly, scale } from "svelte/transition";
   import CodeInput from "./CodeInput.svelte";
   import CopyIcon from "$lib/icons/CopyIcon.svelte";
+  import { formatLinks } from "$utils/format";
 
   export let messageData: Message;
   export let roomId = "";
@@ -42,10 +43,17 @@
   class:left-aligned={!sameDevice}
 >
   <p class="w-full font-medium">
-    {message}
+    {@html formatLinks(message)}
   </p>
 
-  <button class:done on:click={copyText} class="copy-btn">
+  <button
+    aria-label="copy text"
+    class:done
+    on:click={copyText}
+    title="copy text"
+    class="copy-btn"
+  >
+    <div class="sr-only">copy text</div>
     <CopyIcon />
   </button>
 </div>

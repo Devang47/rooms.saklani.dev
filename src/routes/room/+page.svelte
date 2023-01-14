@@ -119,7 +119,12 @@
         </div>
 
         <div class="relative w-fit mx-auto group">
-          <Button type="submit" error={!roomExists} class="arrow-button">
+          <Button
+            label="Join room"
+            type="submit"
+            error={!roomExists}
+            class="arrow-button"
+          >
             {#if formLoading === "true"}
               <CircleAnimation class="w-[80px]" />
             {:else if !roomExists}
@@ -135,6 +140,7 @@
 
           <div class="create-btn">
             or <button
+              aria-label="create a new room"
               type="button"
               title="Create room"
               on:click={handleGotoCreatePage}
