@@ -27,6 +27,7 @@
     roomId = $page.params.id.toUpperCase() as string;
 
     $roomData = await checkIfRoomExists(roomId);
+    console.log({ data: $roomData });
     if (!$roomData) {
       $roomMessages = [];
       addNotification("Room doesn't exists", true);

@@ -1,6 +1,5 @@
 <script>
   import { fade } from "svelte/transition";
-  import clsx from "clsx";
 </script>
 
 <section
