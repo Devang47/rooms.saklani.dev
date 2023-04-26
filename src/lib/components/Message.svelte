@@ -2,9 +2,8 @@
   import { onMount } from "svelte";
   import CryptoJS from "crypto-js";
   import { decrypt } from "$utils/crypt";
-  import { addNotification, formatMessage } from "$utils/notifications";
+  import { addNotification } from "$utils/notifications";
   import { fade, fly, scale } from "svelte/transition";
-  import CodeInput from "./CodeInput.svelte";
   import CopyIcon from "$lib/icons/CopyIcon.svelte";
   import { formatLinks } from "$utils/format";
 

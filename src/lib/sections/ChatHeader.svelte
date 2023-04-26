@@ -52,7 +52,7 @@
 
 <header>
   <a href="/" on:click={() => ($roomMessages = [])}>
-    <h1 role="link" class="sans cursor-pointer">ChatRooms</h1>
+    <h1 class="sans cursor-pointer">ChatRooms</h1>
   </a>
   <div class="flex items-center gap-5">
     <div class="text-light text-[15px] hidden sm:block">
