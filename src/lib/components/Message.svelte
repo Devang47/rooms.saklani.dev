@@ -3,7 +3,7 @@
   import CryptoJS from "crypto-js";
   import { decrypt } from "$utils/crypt";
   import { addNotification } from "$utils/notifications";
-  import { fade, fly, scale } from "svelte/transition";
+  import { scale } from "svelte/transition";
   import CopyIcon from "$lib/icons/CopyIcon.svelte";
   import { formatLinks } from "$utils/format";
 
