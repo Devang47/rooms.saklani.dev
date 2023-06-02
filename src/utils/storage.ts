@@ -1,25 +1,21 @@
-import { loading } from "$stores/app";
+import { loading, loadingUpload } from "$stores/app";
 import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
   getStorage,
 } from "firebase/storage";
-import { get } from "svelte/store";
 import { app } from "./config";
 import { addNotification } from "./notifications";
 import CryptoJS from "crypto-js";
-import axios from "axios";
+import { gsap } from "gsap";
 
 export const uploadFile = (roomId: string, file: any) =>
   new Promise((resolve, reject) => {
     const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
 
     const storage = getStorage(app);
-    const storageRef = ref(
-      storage,
-      cryptedKey + "/" + CryptoJS.SHA256(file.name).toString(CryptoJS.enc.Hex)
-    );
+    const storageRef = ref(storage, cryptedKey + "/" + file.name);
 
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
@@ -28,19 +24,29 @@ export const uploadFile = (roomId: string, file: any) =>
         if (snapshot.totalBytes > 204857600) {
           uploadTask.cancel();
           loading.set(false);
+          loadingUpload.set(false);
 
           addNotification("File size exceeds 20mb limit!", true);
           return;
         }
+
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+        gsap.to(".loading-bar-width", {
+          width: Math.max(progress, 30) + "%",
+        });
       },
       (error) => {
         loading.set(false);
+        loadingUpload.set(false);
         addNotification("Error while uploading file!", true);
         reject(error);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (e) => {
           loading.set(false);
+          loadingUpload.set(false);
           resolve(e);
         });
       }

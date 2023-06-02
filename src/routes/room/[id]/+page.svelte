@@ -6,7 +6,7 @@
   import SendIcon from "$lib/icons/SendIcon.svelte";
   import UploadIcon from "$lib/icons/UploadIcon.svelte";
   import ChatHeader from "$lib/sections/ChatHeader.svelte";
-  import { loading, roomData, roomMessages } from "$stores/app";
+  import { loading, loadingUpload, roomData, roomMessages } from "$stores/app";
   import { addNotification } from "$utils/notifications";
   import {
     addMessage,
@@ -27,7 +27,6 @@
     roomId = $page.params.id.toUpperCase() as string;
 
     $roomData = await checkIfRoomExists(roomId);
-    console.log({ data: $roomData });
     if (!$roomData) {
       $roomMessages = [];
       addNotification("Room doesn't exists", true);
@@ -79,6 +78,7 @@
   const handleInputChange = async (e: any) => {
     if (e?.target?.files.length > 0) {
       $loading = true;
+      $loadingUpload = true;
       try {
         let url = await uploadFile(roomId, e.target.files[0]);
 
@@ -192,7 +192,7 @@
 </section>
 
 <div
-  class="hidden md:block absolute top-4 md:right- lg:right-6 text-white text-sm w-7"
+  class="hidden md:block absolute top-4 md:right-4 lg:right-6 text-white text-sm w-7"
 >
   <a
     href="https://github.com/Devang47/rooms.saklani.dev"
