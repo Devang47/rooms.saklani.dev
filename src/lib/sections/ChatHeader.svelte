@@ -17,12 +17,15 @@
   let interval: NodeJS.Timer;
 
   function startTimer(duration: number) {
+    if (!$roomData.timestamp) return;
     if (interval) clearInterval(interval);
 
     let timer = duration,
       minutes,
       seconds;
     interval = setInterval(function () {
+      if (!$roomData.timestamp) return clearInterval(interval);
+
       minutes = parseInt("" + timer / 60, 10);
       seconds = parseInt("" + (timer % 60), 10);
 
@@ -44,6 +47,8 @@
   let time: number = 0;
   $: time = 15 * 60000 - (new Date().getTime() - $roomData.timestamp);
   $: if (time) startTimer(time / 1000);
+
+  $: !$roomData.timestamp ? (timeRemainingBeforeRoomDeletion = "Deleted") : "";
 
   onDestroy(() => {
     if (interval) clearInterval(interval);
