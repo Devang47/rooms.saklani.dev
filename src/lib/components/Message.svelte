@@ -41,9 +41,7 @@
   class:right-aligned={sameDevice}
   class:left-aligned={!sameDevice}
 >
-  <p class="w-full font-medium">
-    {@html formatLinks(message)}
-  </p>
+  <p class="w-full font-medium">{message}</p>
 
   <button
     aria-label="copy text"
