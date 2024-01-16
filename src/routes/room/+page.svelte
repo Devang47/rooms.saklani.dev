@@ -51,7 +51,6 @@
 
   onMount(() => {
     loading.set(false);
-    loading.set(false);
 
     const tl = gsap.timeline({});
 
