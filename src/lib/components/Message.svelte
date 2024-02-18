@@ -5,7 +5,6 @@
   import { addNotification } from "$utils/notifications";
   import { scale } from "svelte/transition";
   import CopyIcon from "$lib/icons/CopyIcon.svelte";
-  import { formatLinks } from "$utils/format";
 
   export let messageData: Message;
   export let roomId = "";
