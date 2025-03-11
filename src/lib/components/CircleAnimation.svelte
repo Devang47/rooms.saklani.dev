@@ -2,7 +2,7 @@
   import { fly } from "svelte/transition";
 </script>
 
-<div class="spinner {$$props.class}" in:fly={{ y: -24 }}>
+<div class="spinner text-dark {$$props.class}" in:fly={{ y: -24 }}>
   <div class="bounce1" />
   <div class="bounce2" />
   <div class="bounce3" />
@@ -15,7 +15,7 @@
   }
 
   .spinner > div {
-    @apply bg-dark;
+    @apply bg-current;
     width: 9px;
     height: 9px;
     border-radius: 100%;

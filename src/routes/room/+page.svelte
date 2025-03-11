@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { loading, roomData } from "$stores/app";
-  import { checkIfRoomExists } from "$utils/Room";
+  import { loading, roomData } from "$stores";
+  import { checkIfRoomExists } from "$helpers/Room";
   import Button from "$lib/components/Button.svelte";
   import CircleAnimation from "$lib/components/CircleAnimation.svelte";
   import ArrowRight from "$lib/icons/ArrowRight.svelte";

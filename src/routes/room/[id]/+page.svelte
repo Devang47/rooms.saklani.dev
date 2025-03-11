@@ -1,20 +1,20 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
-  import Message from "$lib/components/Message.svelte";
+  import Message from "$lib/components/MessageItem.svelte";
   import Github from "$lib/icons/Github.svelte";
   import SendIcon from "$lib/icons/SendIcon.svelte";
   import UploadIcon from "$lib/icons/UploadIcon.svelte";
   import ChatHeader from "$lib/sections/ChatHeader.svelte";
-  import { loading, loadingUpload, roomData, roomMessages } from "$stores/app";
+  import { loading, loadingUpload, roomData, roomMessages } from "$stores";
   import { addNotification } from "$utils/notifications";
   import {
     addMessage,
     checkIfRoomExists,
     deleteRoom,
     getRoomMessages,
-  } from "$utils/Room";
-  import { uploadFile } from "$utils/storage";
+  } from "$helpers/Room";
+  import { uploadFile } from "$helpers/storage";
   import { onMount } from "svelte";
 
   let roomId: string;
@@ -111,7 +111,7 @@
   <div class="container">
     <ChatHeader {roomId} {handleDeleteRoom} />
 
-    <div class="chat-messages-wrapper">
+    <div class="chat-messages-wrapper h-[calc(90vh-65.6px)] pb-[200px]">
       <div class="messages-wrapper">
         {#if !$roomMessages.length}
           <div class="placeholder">
@@ -138,14 +138,16 @@
           </div>
         {:else}
           {#each $roomMessages as item}
-            <Message {roomId} messageData={item} />
+            <Message encrypted {roomId} messageData={item} />
           {/each}
         {/if}
 
         <div class="scroll-bottom" bind:this={scrollToElement} />
       </div>
 
-      <div class="chat-input">
+      <div
+        class="chat-input absolute bottom-0 left-0 right-0 flex items-start gap-x-4 md:gap-x-6 pb-8 px-4 sm:px-6 md:px-12 bg-gradient-to-t from-light to-transparent rounded-b-[30px] md:rounded-b-[40px]"
+      >
         <textarea
           title="Chat input"
           placeholder="Enter something..."
@@ -156,17 +158,18 @@
           bind:this={chatInputBox}
           bind:value={chatInput}
         />
-        <div class="buttons">
+        <div class="flex buttons flex-col gap-2 md:gap-4">
           <button
             on:click={handleAddMsg}
             aria-label="send message button"
             title="Send message"
+            class="button"
           >
             <div class="sr-only">Send message</div>
             <SendIcon />
           </button>
           <button
-            class="upload cursor-pointer"
+            class="upload cursor-pointer button"
             title="Upload media"
             aria-label="Upload media button"
             on:click={() => uploadFileInput.click()}

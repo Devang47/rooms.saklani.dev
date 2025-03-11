@@ -6,12 +6,14 @@
 </script>
 
 <div
-  class:bg-red-600={error}
+  class:bg-red-700={error}
+  class:border-red-300={error}
   class:bg-sky-500={!error}
-  class="pointer-events-auto w-full max-w-[250px] overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
+  class:border-sky-300={!error}
+  class="pointer-events-auto border w-full max-w-[200px] overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 font-sans"
   transition:scale={{ start: 0.9, opacity: 0 }}
 >
-  <div class="p-4">
+  <div class="py-2.5 px-4">
     <div class="flex items-center">
       <div class="flex w-0 flex-1 justify-between">
         <p class="w-0 flex-1 text-sm font-medium text-white">

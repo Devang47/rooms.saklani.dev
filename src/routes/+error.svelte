@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { loading } from "$stores/app";
+  import { loading } from "$stores";
 
   loading.set(false);
 </script>

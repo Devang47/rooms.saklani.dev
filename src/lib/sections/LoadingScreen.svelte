@@ -1,7 +1,7 @@
 <script>
   import { fade } from "svelte/transition";
   import LoadingBar from "./LoadingBar.svelte";
-  import { loadingUpload } from "$stores/app";
+  import { loadingUpload } from "$stores";
 </script>
 
 <section

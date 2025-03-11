@@ -5,12 +5,12 @@
   import ArrowRight from "$lib/icons/ArrowRight.svelte";
   import CurvedArrowLine from "$lib/icons/CurvedArrowLine.svelte";
   import DashedUnderline from "$lib/icons/DashedUnderline.svelte";
+  import Github from "$lib/icons/Github.svelte";
   import FloatingImages from "$lib/sections/FloatingImages.svelte";
-  import { loading } from "$stores/app";
-  import { createRoom } from "$utils/Room";
+  import { loading } from "$stores";
+  import { createRoom } from "$helpers/Room";
   import { onMount } from "svelte";
   import gsap, { Power3 } from "gsap";
-  import Github from "$lib/icons/Github.svelte";
 
   let roomId = "";
 
@@ -123,7 +123,7 @@
           Join room
         </button>
       </div>
-      <div class=" absolute top-4 right-6 text-white text-sm w-7">
+      <div class="absolute top-4 right-6 text-white text-sm w-7">
         <a
           href="https://github.com/Devang47/rooms.saklani.dev"
           target="_blank"

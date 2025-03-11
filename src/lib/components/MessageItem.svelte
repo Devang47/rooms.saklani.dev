@@ -1,18 +1,28 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import CryptoJS from "crypto-js";
-  import { decrypt } from "$utils/crypt";
+  import { decrypt } from "$helpers/crypt";
   import { addNotification } from "$utils/notifications";
   import { scale } from "svelte/transition";
   import CopyIcon from "$lib/icons/CopyIcon.svelte";
+  import { connectionState } from "$stores";
 
-  export let messageData: Message;
+  export let messageData: RelayMessage;
   export let roomId = "";
+  export let encrypted = false;
+
+  console.log({ messageData });
 
   let sameDevice = false;
   let message = "";
 
   onMount(async () => {
+    if (!encrypted) {
+      message = messageData.data;
+      sameDevice = messageData.deviceId === $connectionState.id;
+      return;
+    }
+
     const currentDeviceDetails = CryptoJS.SHA256(navigator.userAgent).toString(
       CryptoJS.enc.Hex
     );

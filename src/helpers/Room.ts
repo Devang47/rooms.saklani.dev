@@ -1,4 +1,4 @@
-import { analytics, app } from "./config";
+import { analytics, app } from "../utils/config";
 import {
   doc,
   addDoc,
@@ -19,13 +19,13 @@ import { logEvent } from "firebase/analytics";
 
 import CryptoJS from "crypto-js";
 import { encrypt } from "./crypt";
-import { roomMessages } from "$stores/app";
+import { roomMessages } from "$stores";
 import { getStorage, listAll, ref, deleteObject } from "firebase/storage";
 
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-const getRand = (() => {
+export const getRand = (() => {
   const gen = (min: number, max: number) =>
     max++ && [...Array(max - min)].map((s, i) => String.fromCharCode(min + i));
 

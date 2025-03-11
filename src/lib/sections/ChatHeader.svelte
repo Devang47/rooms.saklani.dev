@@ -1,7 +1,7 @@
 <script lang="ts">
   import QRCode from "qrcode";
   import Dustbin from "$lib/icons/Dustbin.svelte";
-  import { roomData, roomMessages } from "$stores/app";
+  import { roomData, roomMessages } from "$stores";
   import { addNotification } from "$utils/notifications";
   import { onDestroy, tick } from "svelte";
   import Modal from "./Modal.svelte";
@@ -85,7 +85,7 @@
 
     <button
       aria-label="view qr code"
-      class="room-id !px-2"
+      class="btn-secondary !px-2"
       on:click={createQrCode}
     >
       <svg
@@ -100,7 +100,11 @@
       >
     </button>
 
-    <button aria-label="copy room id" class="room-id group" on:click={copyText}>
+    <button
+      aria-label="copy room id"
+      class="btn-secondary group"
+      on:click={copyText}
+    >
       {#each (roomId || "").split("") as letter}
         <span class="letter">
           {letter}

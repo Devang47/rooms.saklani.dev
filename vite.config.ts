@@ -9,6 +9,7 @@ const config: UserConfig = {
       $stores: path.resolve("./src/stores"),
       $styles: path.resolve("./src/styles"),
       $utils: path.resolve("./src/utils"),
+      $helpers: path.resolve("./src/helpers"),
       $components: path.resolve("./src/lib/components"),
       $pages: path.resolve("./src/lib/pages"),
       $sections: path.resolve("./src/lib/sections"),
