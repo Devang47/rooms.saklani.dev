@@ -175,7 +175,7 @@
             on:click={() => uploadFileInput.click()}
           >
             <label for="fileinput" class="sr-only">Upload media</label>
-            <div title="Upload media" class="upload-icon">
+            <div title="Upload media" class="upload-icon text-white">
               <UploadIcon />
             </div>
             <input

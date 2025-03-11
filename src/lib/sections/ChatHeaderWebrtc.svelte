@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { connectionState } from "$stores";
+  import { connectionState, relayMessages } from "$stores";
   import { addNotification } from "$utils/notifications";
   import { PeerConnection } from "$helpers/peer";
   import { stopPeerSession } from "$helpers/peer/actions";
@@ -18,13 +18,15 @@
 
   const handleStopServer = async () => {
     await PeerConnection.closePeerSession();
+    relayMessages.set(new Map());
+
     stopPeerSession();
   };
 </script>
 
-<header class="!rounded-t-lg !px-6">
+<header class="!rounded-t-lg md:!px-6">
   <a href="/">
-    <h1 class="sans cursor-pointer">P2P Rooms</h1>
+    <h1 class="sans cursor-pointer whitespace-nowrap">P2P Rooms</h1>
   </a>
   <div class="flex items-center gap-3 lg:gap-5">
     {#if $connectionState.loading}
@@ -50,7 +52,7 @@
     {#if $connectionState.id}
       <button
         aria-label="copy room id"
-        class="btn-secondary text-sm py-2 group"
+        class="bg-[#D9D9D9] px-3 md:px-4 text-[#38404A] text-[15px] font-extrabold flex items-center justify-center gap-1 rounded cursor-pointer relative overflow-hidden text-sm py-1.5 md:py-2"
         on:click={copyText}
       >
         {$connectionState.id}
@@ -59,7 +61,7 @@
 
     <button
       aria-label="toggle peerjs server"
-      class="btn-secondary text-sm py-2 group"
+      class="bg-[#D9D9D9] px-3 md:px-4 text-[#38404A] text-[15px] font-extrabold flex items-center justify-center gap-1 rounded cursor-pointer relative overflow-hidden text-sm py-1.5 md:py-2"
       on:click={$connectionState.started ? handleStopServer : handleStartServer}
     >
       {#if $connectionState.started}

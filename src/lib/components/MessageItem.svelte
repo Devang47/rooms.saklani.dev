@@ -10,6 +10,7 @@
   export let messageData: RelayMessage;
   export let roomId = "";
   export let encrypted = false;
+  export let showMetadata = false;
 
   console.log({ messageData });
 
@@ -51,6 +52,22 @@
   class:left-aligned={!sameDevice}
 >
   <p class="w-full font-medium">{message}</p>
+
+  {#if showMetadata}
+    <div class="flex items-center gap-2 text-xs opacity-50 mt-2">
+      <div class="">
+        {messageData.deviceId}
+      </div>
+      |
+      <div class="">
+        {new Date(messageData.timestamp).toLocaleTimeString("en-US", {
+          hour12: true,
+          hour: "numeric",
+          minute: "numeric",
+        })}
+      </div>
+    </div>
+  {/if}
 
   <button
     aria-label="copy text"

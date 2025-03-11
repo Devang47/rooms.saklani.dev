@@ -15,3 +15,10 @@ devices. The chat room will automatically delete after 15min.
 - [Firebase Functions](https://firebase.google.com/) for Backend
 - [Cron Job](https://cron-job.org/en/)
 - [Short.io](https://short.io/)
+
+TODO:
+[] add prompt to confim if receiving file
+[] add prompt to confim if sending file
+[] move buttons to components
+[] move css to components and remove scss
+[] test with multiple devices

@@ -62,31 +62,35 @@ export const connectPeer = async (id: string) => {
       handleReceiveData(data, id);
     });
     addConnectionList(id);
-    loading.set(false);
   } catch (err: any) {
-    loading.set(false);
     addNotification(err.message, true);
-    console.log(err);
   }
+  loading.set(false);
 };
 
 export const handleReceiveData = (data: Data, id: string) => {
-  if (data.dataType === DataType.FILE)
-    addNotification("Receiving file " + data.fileName + " from " + id);
-
   if (data.dataType === DataType.FILE) {
-    download(data.file || "", data.fileName || "fileName", data.fileType);
+    if (
+      window.confirm(
+        "Do you want to download file " + data.fileName + " from " + id + "?"
+      )
+    ) {
+      addNotification("Receiving file " + data.fileName + " from " + id);
+      download(data.file || "", data.fileName || "fileName", data.fileType);
+    }
   } else {
-    addNotification('Received data "' + data.message + '" from ' + id);
+    relayMessages.update((msgs) => {
+      msgs.set(data.deviceId, [
+        ...(msgs.get(data.deviceId) ?? []),
+        {
+          data: data.message ?? "",
+          deviceId: data.deviceId,
+          timestamp: data.timestamp,
+          device: data.deviceId,
+        },
+      ]);
 
-    relayMessages.update((messages) => [
-      ...messages,
-      {
-        data: data.message ?? "",
-        deviceId: data.deviceId,
-        timestamp: data.timestamp,
-        device: data.deviceId,
-      },
-    ]);
+      return msgs;
+    });
   }
 };

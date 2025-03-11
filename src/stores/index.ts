@@ -28,4 +28,4 @@ export const connectionState = writable<{
   readonly selectedId?: string;
 }>(initialState);
 
-export const relayMessages = writable<RelayMessage[]>([]);
+export const relayMessages = writable<Map<string, RelayMessage[]>>(new Map());
