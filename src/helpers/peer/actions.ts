@@ -1,6 +1,6 @@
 import { connectionState, initialState, loading, relayMessages } from "$stores";
 import { addNotification } from "$utils/notifications";
-import { DataType, PeerConnection, type Data } from ".";
+import { closeCall, DataType, PeerConnection, type Data } from ".";
 import download from "js-file-download";
 
 export const startPeerSession = (id: string) => {
@@ -79,6 +79,17 @@ export const handleReceiveData = (data: Data, id: string) => {
       download(data.file || "", data.fileName || "fileName", data.fileType);
     }
   } else {
+    if (data.dataType === DataType.SYSTEM) {
+      switch (data.message) {
+        case "Call declined":
+        case "Call ended":
+          addNotification("Call closed by " + data.deviceId, false);
+          closeCall();
+          break;
+        default:
+      }
+    }
+
     relayMessages.update((msgs) => {
       msgs.set(data.deviceId, [
         ...(msgs.get(data.deviceId) ?? []),

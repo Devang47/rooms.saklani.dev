@@ -12,7 +12,7 @@ import ChatHeaderWebrtc from "$lib/sections/ChatHeaderWebrtc.svelte";
 import { connectPeer, selectConnection } from "$helpers/peer/actions";
 import StartServerScreen from "$lib/sections/rtc/StartServerScreen.svelte";
 import P2PChatUi from "$lib/sections/rtc/P2PChatUI.svelte";
-import { closeCall, PeerConnection } from "$helpers/peer";
+import { closeCall, PeerConnection, sendSystemMessage } from "$helpers/peer";
 import { clickOutside } from "$lib/hooks/useClickOutside";
 
 onMount(() => {
@@ -27,20 +27,18 @@ const handleStartVideoCall = (peerId: string) => {
 };
 
 const handleCloseVideoCall = () => {
-  $videoCallDialogOpen = false;
-  $currentUserVideoRef.srcObject = null;
-  $remoteUserVideoRef.srcObject = null;
   closeCall();
+  sendSystemMessage("Call ended");
 };
 
-const handleConnectOtherPeer = () => {
+const handleConnectOtherPeer = async () => {
   if (newConnectionIdInput.trim() !== "") {
     if (newConnectionIdInput !== $connectionState.id) {
-      connectPeer(newConnectionIdInput.toLowerCase());
+      await connectPeer(newConnectionIdInput.toLowerCase());
+      newConnectionIdInput = "";
     } else {
       addNotification("Cannot connect to self", true);
     }
-    newConnectionIdInput = "";
   } else addNotification("Please enter a valid ID", true);
 };
 
@@ -115,25 +113,35 @@ $: !$connectionState.id && (newConnectionIdInput = "");
   class:hidden={!$videoCallDialogOpen}
 >
   <div
-    use:clickOutside={handleCloseVideoCall}
-    class="grid h-full w-full max-w-2xl gap-4 rounded-xl bg-white p-4 md:max-h-[400px] md:grid-cols-2"
+    use:clickOutside={() => $videoCallDialogOpen && handleCloseVideoCall()}
+    class="relative flex h-[calc(680px+2rem)] w-fit flex-col gap-4 rounded-xl bg-white p-4 max-md:items-center md:h-[calc(340px+5rem)] md:flex-row"
   >
     <video
-      class="h-full w-full rounded-lg bg-neutral-50"
+      class="h-[340px] w-[340px] rounded-lg bg-neutral-100"
       autoplay
       muted
+      width="340px"
+      height="340px"
       bind:this={$currentUserVideoRef}
       src=""
     >
       <track kind="captions" />
     </video>
     <video
-      class="h-full w-full rounded-lg bg-neutral-50"
+      class="h-[340px] w-[340px] rounded-lg bg-neutral-100"
       autoplay
+      width="340px"
+      height="340px"
       bind:this={$remoteUserVideoRef}
       src=""
     >
       <track kind="captions" />
     </video>
+
+    <button
+      class="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-[#555E69] shadow-none md:absolute md:bottom-2 md:left-1/2 md:-translate-x-1/2"
+      on:click={handleCloseVideoCall}
+      >Close Call
+    </button>
   </div>
 </section>

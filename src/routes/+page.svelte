@@ -152,7 +152,7 @@ onMount(() => {
             </button>
           </div>
         </div>
-        <div class="md:hidden">
+        <div class="opacity-60 md:hidden">
           <svg
             width="296"
             height="2"
@@ -171,7 +171,7 @@ onMount(() => {
             />
           </svg>
         </div>
-        <div class="max-md:hidden">
+        <div class="opacity-60 max-md:hidden">
           <svg
             height="250"
             viewBox="0 0 2 296"

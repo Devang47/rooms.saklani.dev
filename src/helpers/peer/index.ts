@@ -8,7 +8,9 @@ import { addNotification } from "../../utils/notifications";
 import { generateRandomName } from "$utils";
 import { get } from "svelte/store";
 import {
+  connectionState,
   currentUserVideoRef,
+  relayMessages,
   remoteUserVideoRef,
   videoCallDialogOpen,
 } from "$stores";
@@ -21,6 +23,7 @@ let activeConnectionsMap: Map<string, DataConnection> = new Map<
 export enum DataType {
   FILE = "FILE",
   MESSAGE = "MESSAGE",
+  SYSTEM = "SYSTEM",
 }
 
 export interface Data {
@@ -61,7 +64,19 @@ export const PeerConnection = {
             try {
               const getUserMedia = navigator.mediaDevices.getUserMedia;
 
-              mediaStream = await getUserMedia({ video: true, audio: true });
+              mediaStream = await getUserMedia({
+                video: {
+                  width: { ideal: 340 },
+                  height: { ideal: 340 },
+                  frameRate: { ideal: 24 },
+                  aspectRatio: 1,
+                },
+                audio: {
+                  echoCancellation: true,
+                  noiseSuppression: true,
+                  autoGainControl: true,
+                },
+              });
 
               get(currentUserVideoRef).srcObject = mediaStream;
               call.answer(mediaStream);
@@ -80,6 +95,7 @@ export const PeerConnection = {
             }
           } else {
             call.close();
+            sendSystemMessage("Call declined");
             addNotification("Call declined");
           }
         });
@@ -206,17 +222,30 @@ export const PeerConnection = {
   },
 
   callPeer: async (remotePeerId: string) => {
+    if (!peer) {
+      throw new Error("Peer hasn't started yet");
+    }
+
     const getUserMedia = navigator.mediaDevices.getUserMedia;
-
     try {
-      mediaStream = await getUserMedia({ video: true, audio: true });
-
-      if (!peer) {
-        throw new Error("Peer hasn't started yet");
-      }
+      mediaStream = await getUserMedia({
+        video: {
+          width: { ideal: 340 },
+          height: { ideal: 340 },
+          frameRate: { ideal: 24 },
+          aspectRatio: 1,
+        },
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true,
+        },
+      });
 
       get(currentUserVideoRef).srcObject = mediaStream;
       call = peer.call(remotePeerId, mediaStream);
+
+      sendSystemMessage("Call started by " + get(connectionState).id);
 
       call.on("stream", (remoteStream: any) => {
         get(remoteUserVideoRef).srcObject = remoteStream;
@@ -244,4 +273,31 @@ export const closeCall = () => {
 
   get(currentUserVideoRef).srcObject = null;
   get(remoteUserVideoRef).srcObject = null;
+};
+
+export const sendSystemMessage = async (message: string) => {
+  const selectedId = get(connectionState).selectedId;
+  if (!selectedId) return;
+
+  const data = {
+    dataType: DataType.SYSTEM,
+    message,
+    deviceId: get(connectionState).id ?? "",
+    timestamp: new Date().toString(),
+  };
+
+  await PeerConnection.sendConnection(selectedId, data);
+  relayMessages.update((msgs) => {
+    msgs.set(selectedId, [
+      ...(msgs.get(selectedId) ?? []),
+      {
+        data: data.message,
+        device: data.deviceId,
+        deviceId: data.deviceId,
+        timestamp: data.timestamp,
+      },
+    ]);
+
+    return msgs;
+  });
 };
