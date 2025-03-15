@@ -128,7 +128,7 @@ onMount(() => {
 
           <Button
             label="create a room"
-            class="relative z-20 mt-5 w-[175px] md:w-[189px]"
+            class="relative z-20 mt-5 w-[175px] text-sm md:w-[189px]"
             on:click={handleCreateRoom}
           >
             {#if formLoading === "true"}
@@ -199,7 +199,7 @@ onMount(() => {
             </li>
 
             <li>
-              <span>✅</span> 2 Device limit
+              <span>✅</span> 2 Device limit per room
             </li>
 
             <li>
@@ -222,7 +222,7 @@ onMount(() => {
           <a href="/p2p">
             <Button
               label="create a room"
-              class="relative z-20 mt-5 w-[175px] md:w-[189px]"
+              class="relative z-20 mt-5 w-[175px] text-sm md:w-[189px]"
             >
               {#if formLoading === "true"}
                 <CircleAnimation class="w-[80px]" />
