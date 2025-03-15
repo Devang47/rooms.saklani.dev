@@ -27,7 +27,7 @@ const handleConnectOtherPeer = () => {
 $: !$connectionState.id && (newConnectionIdInput = "");
 </script>
 
-<section class="chat-ui min-h-screen">
+<section class="chat-ui !h-fit min-h-screen !py-20">
   <div class="container !h-fit !rounded-xl">
     <ChatHeaderWebrtc />
 

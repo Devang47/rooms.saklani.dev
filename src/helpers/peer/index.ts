@@ -33,6 +33,7 @@ export const PeerConnection = {
         peer = new Peer(id, {
           host: import.meta.env.VITE_PEERJS_HOST,
           port: import.meta.env.VITE_PEERJS_PORT,
+          secure: true,
         });
         peer.on("open", (id) => {
           console.log("My ID: " + id);
