@@ -42,8 +42,13 @@ const handleConnectOtherPeer = async () => {
   } else addNotification("Please enter a valid ID", true);
 };
 
+let innerWidth = 0;
+
 $: !$connectionState.id && (newConnectionIdInput = "");
+$: videoWidth = innerWidth > 768 ? 340 : innerWidth > 400 ? 300 : 250;
 </script>
+
+<svelte:window bind:innerWidth={innerWidth} />
 
 <section class="chat-ui !h-fit min-h-screen !py-20">
   <div class="container !h-fit !rounded-xl">
@@ -114,24 +119,26 @@ $: !$connectionState.id && (newConnectionIdInput = "");
 >
   <div
     use:clickOutside={() => $videoCallDialogOpen && handleCloseVideoCall()}
-    class="relative flex h-[calc(680px+2rem)] w-fit flex-col gap-4 rounded-xl bg-white p-4 max-md:items-center md:h-[calc(340px+5rem)] md:flex-row"
+    class="relative flex w-fit flex-col gap-4 rounded-xl bg-white p-4 max-md:items-center md:h-[calc(340px+5rem)] md:flex-row"
   >
     <video
-      class="h-[340px] w-[340px] rounded-lg bg-neutral-100"
+      class="rounded-lg bg-neutral-100"
+      style="height: {videoWidth}px; width: {videoWidth}px;"
       autoplay
       muted
-      width="340px"
-      height="340px"
+      width="{videoWidth}px"
+      height="{videoWidth}px"
       bind:this={$currentUserVideoRef}
       src=""
     >
       <track kind="captions" />
     </video>
     <video
-      class="h-[340px] w-[340px] rounded-lg bg-neutral-100"
+      class="rounded-lg bg-neutral-100"
+      style="height: {videoWidth}px; width: {videoWidth}px;"
       autoplay
-      width="340px"
-      height="340px"
+      width="{videoWidth}px"
+      height="{videoWidth}px"
       bind:this={$remoteUserVideoRef}
       src=""
     >
@@ -139,9 +146,9 @@ $: !$connectionState.id && (newConnectionIdInput = "");
     </video>
 
     <button
-      class="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-[#555E69] shadow-none md:absolute md:bottom-2 md:left-1/2 md:-translate-x-1/2"
+      class="rounded-lg border border-red-300 px-4 py-2 text-sm font-medium text-red-600 shadow-none hover:bg-red-50 md:absolute md:bottom-3 md:left-1/2 md:-translate-x-1/2"
       on:click={handleCloseVideoCall}
-      >Close Call
+      >End Call
     </button>
   </div>
 </section>
