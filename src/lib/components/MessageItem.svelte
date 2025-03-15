@@ -1,48 +1,46 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import CryptoJS from "crypto-js";
-  import { decrypt } from "$helpers/crypt";
-  import { addNotification } from "$utils/notifications";
-  import { scale } from "svelte/transition";
-  import CopyIcon from "$lib/icons/CopyIcon.svelte";
-  import { connectionState } from "$stores";
+import { onMount } from "svelte";
+import CryptoJS from "crypto-js";
+import { decrypt } from "$helpers/crypt";
+import { addNotification } from "$utils/notifications";
+import { scale } from "svelte/transition";
+import CopyIcon from "$lib/icons/CopyIcon.svelte";
+import { connectionState } from "$stores";
 
-  export let messageData: RelayMessage;
-  export let roomId = "";
-  export let encrypted = false;
-  export let showMetadata = false;
+export let messageData: RelayMessage;
+export let roomId = "";
+export let encrypted = false;
+export let showMetadata = false;
 
-  console.log({ messageData });
+let sameDevice = false;
+let message = "";
 
-  let sameDevice = false;
-  let message = "";
+onMount(async () => {
+  if (!encrypted) {
+    message = messageData.data;
+    sameDevice = messageData.deviceId === $connectionState.id;
+    return;
+  }
 
-  onMount(async () => {
-    if (!encrypted) {
-      message = messageData.data;
-      sameDevice = messageData.deviceId === $connectionState.id;
-      return;
-    }
+  const currentDeviceDetails = CryptoJS.SHA256(navigator.userAgent).toString(
+    CryptoJS.enc.Hex,
+  );
 
-    const currentDeviceDetails = CryptoJS.SHA256(navigator.userAgent).toString(
-      CryptoJS.enc.Hex
-    );
+  if (currentDeviceDetails === messageData.device) {
+    sameDevice = true;
+  }
 
-    if (currentDeviceDetails === messageData.device) {
-      sameDevice = true;
-    }
+  const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
 
-    const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
+  message = decrypt(cryptedKey, messageData.data);
+});
 
-    message = decrypt(cryptedKey, messageData.data);
-  });
-
-  let done = false;
-  const copyText = () => {
-    navigator.clipboard.writeText(message);
-    done = true;
-    addNotification("Copied to clipboard!", false);
-  };
+let done = false;
+const copyText = () => {
+  navigator.clipboard.writeText(message);
+  done = true;
+  addNotification("Copied to clipboard!", false);
+};
 </script>
 
 <div
@@ -54,7 +52,7 @@
   <p class="w-full font-medium">{message}</p>
 
   {#if showMetadata}
-    <div class="flex items-center gap-2 text-xs opacity-50 mt-2">
+    <div class="mt-2 flex items-center gap-2 text-xs opacity-50">
       <div class="">
         {messageData.deviceId}
       </div>
@@ -71,7 +69,7 @@
 
   <button
     aria-label="copy text"
-    class:done
+    class:done={done}
     on:click={copyText}
     title="copy text"
     class="copy-btn"

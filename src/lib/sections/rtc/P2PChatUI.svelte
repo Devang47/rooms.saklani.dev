@@ -32,6 +32,10 @@ const handleInputChange = async (e: any) => {
       });
     } catch (error) {
       console.log(error);
+      addNotification(
+        "Failed to deliver file to " + $connectionState.selectedId,
+        true,
+      );
     }
     $loading = false;
   }
