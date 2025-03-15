@@ -1,23 +1,22 @@
 section.homepage {
-  @apply bg-[#F2F2F2] px-4 py-4 md:px-14 pb-10 md:py-8 h-fit md:min-h-screen md:h-screen w-full max-w-[1500px] mx-auto text-center;
+  @apply mx-auto h-fit w-full max-w-[1500px] bg-[#F2F2F2] px-4 py-4 pb-10 text-center md:h-screen md:min-h-screen md:px-14 md:py-8;
   .bg {
-      @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-full bg-[#555E69] rounded-[30px] mx-auto z-[-1] bg-center bg-cover;
-      background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/q_80/v1663210261/bg2_m6wgnr.webp);
+    @apply absolute left-1/2 top-1/2 z-[-1] mx-auto h-full w-0 -translate-x-1/2 -translate-y-1/2 rounded-[30px] bg-[#555E69] bg-cover bg-center;
+    background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/q_80/v1663210261/bg2_m6wgnr.webp);
   }
 
-
   .join-btn {
-    @apply mt-5 text-white text-sm;
+    @apply mt-5 text-sm text-white;
 
     button {
       @apply relative z-[1] duration-[0.3s] ease-cubic-ease;
       &::before {
         content: "";
-        @apply bg-white h-[1px] w-full left-0 bottom-0 absolute ease-cubic-ease duration-[0.5s] z-[-1];
+        @apply absolute bottom-0 left-0 z-[-1] h-[1px] w-full bg-white duration-[0.5s] ease-cubic-ease;
       }
 
       &:hover {
-        @apply text-dark font-medium;
+        @apply font-medium text-dark;
         &::before {
           @apply h-full;
         }
@@ -26,7 +25,7 @@ section.homepage {
   }
 
   .curved-arrow-line {
-    @apply absolute left-[110%] bottom-4;
+    @apply absolute bottom-4 left-[110%];
     svg {
       @apply w-14;
     }

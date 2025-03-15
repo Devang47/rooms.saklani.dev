@@ -43,7 +43,7 @@ export const getRand = (() => {
 
   return Object.assign(
     (len: number, ...set: any) => [...iter(len, set.flat())].join(""),
-    sets
+    sets,
   );
 })();
 
@@ -69,7 +69,7 @@ export const addMessage = async ({
 }) => {
   const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
   const cryptedDeviceDetails = CryptoJS.SHA256(navigator.userAgent).toString(
-    CryptoJS.enc.Hex
+    CryptoJS.enc.Hex,
   );
 
   const encryptedMessage = encrypt(cryptedKey, message);
@@ -85,7 +85,7 @@ export const addMessage = async ({
 
 export const getRoomMessages = async (
   roomId: string,
-  scrollToBottom: () => void
+  scrollToBottom: () => void,
 ) => {
   const cryptedKey = CryptoJS.SHA512(roomId).toString(CryptoJS.enc.Hex);
 

@@ -1,22 +1,30 @@
 .arrow-button {
-  @apply bg-[#F2F2F2] text-dark py-2 px-5 mx-auto rounded-[10px] font-extrabold text-[14px] md:text-[16px] transition-all duration-[0.3s] ease-cubic-ease relative h-[40px];
+  @apply relative mx-auto h-[40px] rounded-[10px] bg-[#F2F2F2] px-5 py-2 text-[14px] font-extrabold text-dark transition-all duration-[0.3s] ease-cubic-ease md:text-[16px];
 
-  box-shadow: 0px 0.7px 1px rgba(0, 0, 0, 0.014),
-    0px 1.5px 2.2px rgba(0, 0, 0, 0.021), 0px 2.6px 3.8px rgba(0, 0, 0, 0.026),
-    0px 4.1px 6px rgba(0, 0, 0, 0.03), 0px 6.4px 9.3px rgba(0, 0, 0, 0.034),
-    0px 9.9px 14.5px rgba(0, 0, 0, 0.039), 0px 16.5px 24px rgba(0, 0, 0, 0.046),
+  box-shadow:
+    0px 0.7px 1px rgba(0, 0, 0, 0.014),
+    0px 1.5px 2.2px rgba(0, 0, 0, 0.021),
+    0px 2.6px 3.8px rgba(0, 0, 0, 0.026),
+    0px 4.1px 6px rgba(0, 0, 0, 0.03),
+    0px 6.4px 9.3px rgba(0, 0, 0, 0.034),
+    0px 9.9px 14.5px rgba(0, 0, 0, 0.039),
+    0px 16.5px 24px rgba(0, 0, 0, 0.046),
     0px 33px 48px rgba(0, 0, 0, 0.06);
 
   &:hover {
-    box-shadow: 0px 0.8px 0.6px rgba(0, 0, 0, 0.019),
-      0px 1.8px 1.4px rgba(0, 0, 0, 0.028), 0px 3.1px 2.4px rgba(0, 0, 0, 0.034),
-      0px 4.9px 3.9px rgba(0, 0, 0, 0.04), 0px 7.5px 6px rgba(0, 0, 0, 0.046),
+    box-shadow:
+      0px 0.8px 0.6px rgba(0, 0, 0, 0.019),
+      0px 1.8px 1.4px rgba(0, 0, 0, 0.028),
+      0px 3.1px 2.4px rgba(0, 0, 0, 0.034),
+      0px 4.9px 3.9px rgba(0, 0, 0, 0.04),
+      0px 7.5px 6px rgba(0, 0, 0, 0.046),
       0px 11.8px 9.3px rgba(0, 0, 0, 0.052),
-      0px 19.5px 15.5px rgba(0, 0, 0, 0.061), 0px 39px 31px rgba(0, 0, 0, 0.08);
+      0px 19.5px 15.5px rgba(0, 0, 0, 0.061),
+      0px 39px 31px rgba(0, 0, 0, 0.08);
   }
 
   span {
-    @apply absolute top-1/2 left-1/2 -translate-x-1/2 whitespace-nowrap -translate-y-1/2 flex items-center gap-2 justify-center duration-150 ease-linear opacity-100;
+    @apply absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-2 whitespace-nowrap opacity-100 duration-150 ease-linear;
   }
 
   .btn-remove-text {

@@ -12,7 +12,7 @@ export function decrypt(key: string, message: string) {
   let decrypted = message;
   for (let i = 0; i < 5; i++) {
     decrypted = CryptoJS.AES.decrypt(decrypted, key).toString(
-      CryptoJS.enc.Utf8
+      CryptoJS.enc.Utf8,
     );
   }
   return decrypted;

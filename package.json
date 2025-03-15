@@ -22,7 +22,7 @@
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.22",
     "prettier": "^3.5.3",
-    "prettier-plugin-svelte": "^2.10.0",
+    "prettier-plugin-svelte": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "svelte": "^3.58.0",
     "svelte-check": "^3.2.0",

@@ -1,35 +1,42 @@
 section.join-room-page {
-  @apply bg-[#F2F2F2] px-4 py-4 md:px-14 md:py-8 h-full w-full max-w-[1500px] mx-auto text-center;
+  @apply mx-auto h-full w-full max-w-[1500px] bg-[#F2F2F2] px-4 py-4 text-center md:px-14 md:py-8;
 
   .container {
-    @apply rounded-[30px] md:rounded-[40px] w-full h-full py-3 px-6 mx-auto relative z-[1] min-h-[460px] mb-5;
+    @apply relative z-[1] mx-auto mb-5 h-full min-h-[460px] w-full rounded-[30px] px-6 py-3 md:rounded-[40px];
     .bg {
-      @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-full bg-[#555E69] rounded-[30px] mx-auto z-[-1] bg-center bg-cover;
+      @apply absolute left-1/2 top-1/2 z-[-1] mx-auto h-full w-0 -translate-x-1/2 -translate-y-1/2 rounded-[30px] bg-[#555E69] bg-cover bg-center;
       background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/q_80/v1663210261/bg2_m6wgnr.webp);
     }
   }
 
   h1 {
-    @apply text-white text-opacity-90 mt-20 relative text-[40px] sm:text-[55px] md:text-[70px] lg:text-[80px] font-bold;
+    @apply relative mt-20 text-[40px] font-bold text-white text-opacity-90 sm:text-[55px] md:text-[70px] lg:text-[80px];
   }
 
   .roomid-input {
-    @apply py-[15px] px-4 border-dashed border-2 border-[#7F8691] w-fit rounded-[10px] mx-auto mt-14 relative;
+    @apply relative mx-auto mt-14 w-fit rounded-[10px] border-2 border-dashed border-[#7F8691] px-4 py-[15px];
     input {
-      @apply py-3 px-6 tracking-[0.8rem] pr-[10px] rounded-[10px] bg-[#818791] outline-none border-none w-[170px] font-bold placeholder:text-white placeholder:text-opacity-50 text-white duration-100 ease-in uppercase;
-      box-shadow: 0px 0.4px 0.5px rgba(0, 0, 0, 0.012),
-        0px 1px 1.1px rgba(0, 0, 0, 0.017), 0px 1.7px 1.9px rgba(0, 0, 0, 0.021),
-        0px 2.6px 3px rgba(0, 0, 0, 0.025), 0px 4.1px 4.6px rgba(0, 0, 0, 0.029),
+      @apply w-[170px] rounded-[10px] border-none bg-[#818791] px-6 py-3 pr-[10px] font-bold uppercase tracking-[0.8rem] text-white outline-none duration-100 ease-in placeholder:text-white placeholder:text-opacity-50;
+      box-shadow:
+        0px 0.4px 0.5px rgba(0, 0, 0, 0.012),
+        0px 1px 1.1px rgba(0, 0, 0, 0.017),
+        0px 1.7px 1.9px rgba(0, 0, 0, 0.021),
+        0px 2.6px 3px rgba(0, 0, 0, 0.025),
+        0px 4.1px 4.6px rgba(0, 0, 0, 0.029),
         0px 6.3px 7.2px rgba(0, 0, 0, 0.033),
-        0px 10.5px 12px rgba(0, 0, 0, 0.038), 0px 21px 24px rgba(0, 0, 0, 0.05);
+        0px 10.5px 12px rgba(0, 0, 0, 0.038),
+        0px 21px 24px rgba(0, 0, 0, 0.05);
 
       &:focus {
-        box-shadow: 0px 0.6px 0.5px rgba(0, 0, 0, 0.012),
+        box-shadow:
+          0px 0.6px 0.5px rgba(0, 0, 0, 0.012),
           0px 1.4px 1.1px rgba(0, 0, 0, 0.017),
-          0px 2.5px 1.9px rgba(0, 0, 0, 0.021), 0px 4px 3px rgba(0, 0, 0, 0.025),
+          0px 2.5px 1.9px rgba(0, 0, 0, 0.021),
+          0px 4px 3px rgba(0, 0, 0, 0.025),
           0px 6.2px 4.6px rgba(0, 0, 0, 0.029),
           0px 9.6px 7.2px rgba(0, 0, 0, 0.033),
-          0px 16px 12px rgba(0, 0, 0, 0.038), 0px 32px 24px rgba(0, 0, 0, 0.05);
+          0px 16px 12px rgba(0, 0, 0, 0.038),
+          0px 32px 24px rgba(0, 0, 0, 0.05);
       }
     }
   }
@@ -39,24 +46,24 @@ section.join-room-page {
   }
 
   .curved-arrow-line {
-    @apply absolute left-[115%] bottom-8;
+    @apply absolute bottom-8 left-[115%];
     svg {
       @apply w-14;
     }
   }
 
   .create-btn {
-    @apply mt-5 text-white text-sm;
+    @apply mt-5 text-sm text-white;
 
     button {
       @apply relative z-[1] duration-[0.3s] ease-cubic-ease;
       &::before {
         content: "";
-        @apply bg-white h-[1px] w-full left-0 bottom-0 absolute ease-cubic-ease duration-[0.5s] z-[-1];
+        @apply absolute bottom-0 left-0 z-[-1] h-[1px] w-full bg-white duration-[0.5s] ease-cubic-ease;
       }
 
       &:hover {
-        @apply text-dark font-medium;
+        @apply font-medium text-dark;
         &::before {
           @apply h-full;
         }

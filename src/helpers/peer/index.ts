@@ -1,6 +1,17 @@
-import Peer, { type DataConnection, PeerErrorType, PeerError } from "peerjs";
+import Peer, {
+  type DataConnection,
+  type MediaConnection,
+  PeerErrorType,
+  PeerError,
+} from "peerjs";
 import { addNotification } from "../../utils/notifications";
 import { generateRandomName } from "$utils";
+import { get } from "svelte/store";
+import {
+  currentUserVideoRef,
+  remoteUserVideoRef,
+  videoCallDialogOpen,
+} from "$stores";
 
 let activeConnectionsMap: Map<string, DataConnection> = new Map<
   string,
@@ -23,6 +34,8 @@ export interface Data {
 }
 
 let peer: Peer | undefined;
+let call: MediaConnection | undefined;
+let mediaStream: MediaStream | undefined;
 
 export const PeerConnection = {
   getPeer: () => peer,
@@ -35,10 +48,42 @@ export const PeerConnection = {
           port: import.meta.env.VITE_PEERJS_PORT,
           secure: true,
         });
+
         peer.on("open", (id) => {
           console.log("My ID: " + id);
           resolve(id);
         });
+
+        peer.on("call", async (call) => {
+          if (
+            window.confirm("Do you want to accept video call from " + id + "?")
+          ) {
+            try {
+              const getUserMedia = navigator.mediaDevices.getUserMedia;
+
+              mediaStream = await getUserMedia({ video: true, audio: true });
+
+              get(currentUserVideoRef).srcObject = mediaStream;
+              call.answer(mediaStream);
+
+              call.on("stream", function (remoteStream) {
+                get(remoteUserVideoRef).srcObject = remoteStream;
+                videoCallDialogOpen.set(true);
+              });
+
+              call.on("close", () => {
+                addNotification("Call closed", false);
+                closeCall();
+              });
+            } catch (error) {
+              addNotification("Error when trying to call peer", true);
+            }
+          } else {
+            call.close();
+            addNotification("Call declined");
+          }
+        });
+
         peer.on("error", (err) => {
           console.log(err);
           addNotification(err.message, true);
@@ -159,4 +204,44 @@ export const PeerConnection = {
       });
     }
   },
+
+  callPeer: async (remotePeerId: string) => {
+    const getUserMedia = navigator.mediaDevices.getUserMedia;
+
+    try {
+      mediaStream = await getUserMedia({ video: true, audio: true });
+
+      if (!peer) {
+        throw new Error("Peer hasn't started yet");
+      }
+
+      get(currentUserVideoRef).srcObject = mediaStream;
+      call = peer.call(remotePeerId, mediaStream);
+
+      call.on("stream", (remoteStream: any) => {
+        get(remoteUserVideoRef).srcObject = remoteStream;
+      });
+
+      call.on("close", () => {
+        addNotification("Call closed", false);
+        closeCall();
+      });
+    } catch (err) {
+      addNotification("Error when trying to call peer", true);
+    }
+  },
+};
+
+export const closeCall = () => {
+  call?.close();
+  call = undefined;
+
+  videoCallDialogOpen.set(false);
+  mediaStream?.getTracks().forEach((track) => {
+    track.stop();
+  });
+  mediaStream = undefined;
+
+  get(currentUserVideoRef).srcObject = null;
+  get(remoteUserVideoRef).srcObject = null;
 };

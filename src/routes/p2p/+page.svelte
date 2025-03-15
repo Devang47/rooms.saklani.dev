@@ -1,17 +1,37 @@
 <script lang="ts">
-import { connectionState, loading } from "$stores";
+import {
+  connectionState,
+  currentUserVideoRef,
+  videoCallDialogOpen,
+  loading,
+  remoteUserVideoRef,
+} from "$stores";
 import { addNotification } from "$utils/notifications";
 import { onMount } from "svelte";
 import ChatHeaderWebrtc from "$lib/sections/ChatHeaderWebrtc.svelte";
 import { connectPeer, selectConnection } from "$helpers/peer/actions";
 import StartServerScreen from "$lib/sections/rtc/StartServerScreen.svelte";
 import P2PChatUi from "$lib/sections/rtc/P2PChatUI.svelte";
+import { closeCall, PeerConnection } from "$helpers/peer";
+import { clickOutside } from "$lib/hooks/useClickOutside";
 
 onMount(() => {
   loading.set(false);
 });
 
 let newConnectionIdInput = "";
+
+const handleStartVideoCall = (peerId: string) => {
+  $videoCallDialogOpen = true;
+  PeerConnection.callPeer(peerId);
+};
+
+const handleCloseVideoCall = () => {
+  $videoCallDialogOpen = false;
+  $currentUserVideoRef.srcObject = null;
+  $remoteUserVideoRef.srcObject = null;
+  closeCall();
+};
 
 const handleConnectOtherPeer = () => {
   if (newConnectionIdInput.trim() !== "") {
@@ -82,10 +102,38 @@ $: !$connectionState.id && (newConnectionIdInput = "");
           </div>
 
           {#if $connectionState.started}
-            <P2PChatUi />
+            <P2PChatUi handleCallPeer={handleStartVideoCall} />
           {/if}
         {/if}
       </div>
     </div>
+  </div>
+</section>
+
+<section
+  class="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50 px-4 py-4"
+  class:hidden={!$videoCallDialogOpen}
+>
+  <div
+    use:clickOutside={handleCloseVideoCall}
+    class="grid h-full w-full max-w-2xl gap-4 rounded-xl bg-white p-4 md:max-h-[400px] md:grid-cols-2"
+  >
+    <video
+      class="h-full w-full rounded-lg bg-neutral-50"
+      autoplay
+      muted
+      bind:this={$currentUserVideoRef}
+      src=""
+    >
+      <track kind="captions" />
+    </video>
+    <video
+      class="h-full w-full rounded-lg bg-neutral-50"
+      autoplay
+      bind:this={$remoteUserVideoRef}
+      src=""
+    >
+      <track kind="captions" />
+    </video>
   </div>
 </section>

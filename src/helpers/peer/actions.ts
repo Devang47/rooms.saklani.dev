@@ -72,7 +72,7 @@ export const handleReceiveData = (data: Data, id: string) => {
   if (data.dataType === DataType.FILE) {
     if (
       window.confirm(
-        "Do you want to download file " + data.fileName + " from " + id + "?"
+        "Do you want to download file " + data.fileName + " from " + id + "?",
       )
     ) {
       addNotification("Receiving file " + data.fileName + " from " + id);
