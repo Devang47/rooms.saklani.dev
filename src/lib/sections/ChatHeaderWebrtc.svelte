@@ -1,27 +1,23 @@
 <script lang="ts">
-  import { connectionState, relayMessages } from "$stores";
-  import { addNotification } from "$utils/notifications";
-  import { PeerConnection } from "$helpers/peer";
-  import { stopPeerSession } from "$helpers/peer/actions";
-  import { startPeer } from "$helpers/peer/peerActions";
+import { connectionState, relayMessages } from "$stores";
+import { addNotification } from "$utils/notifications";
+import { PeerConnection } from "$helpers/peer";
+import { stopPeerSession } from "$helpers/peer/actions";
+import { startPeer } from "$helpers/peer/peerActions";
 
-  const copyText = () => {
-    if (!$connectionState.id) return;
-    navigator.clipboard.writeText($connectionState.id);
+const copyText = () => {
+  if (!$connectionState.id) return;
+  navigator.clipboard.writeText($connectionState.id);
 
-    addNotification("Copied to clipboard!", false);
-  };
+  addNotification("Copied to clipboard!", false);
+};
 
-  const handleStartServer = async () => {
-    startPeer();
-  };
+const handleStopServer = async () => {
+  await PeerConnection.closePeerSession();
+  relayMessages.set(new Map());
 
-  const handleStopServer = async () => {
-    await PeerConnection.closePeerSession();
-    relayMessages.set(new Map());
-
-    stopPeerSession();
-  };
+  stopPeerSession();
+};
 </script>
 
 <header class="!rounded-t-lg md:!px-6">
@@ -35,7 +31,7 @@
           width="18"
           viewBox="0 0 16 16"
           fill="none"
-          class={"stroke-white animate-spin"}
+          class={"animate-spin stroke-white"}
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -52,7 +48,7 @@
     {#if $connectionState.id}
       <button
         aria-label="copy room id"
-        class="bg-[#D9D9D9] px-3 md:px-4 text-[#38404A] text-[15px] font-extrabold flex items-center justify-center gap-1 rounded cursor-pointer relative overflow-hidden text-sm py-1.5 md:py-2"
+        class="relative flex cursor-pointer items-center justify-center gap-1 overflow-hidden rounded bg-[#D9D9D9] px-3 py-1.5 text-[15px] text-sm font-extrabold text-[#38404A] md:px-4 md:py-2"
         on:click={copyText}
       >
         {$connectionState.id}
@@ -61,8 +57,9 @@
 
     <button
       aria-label="toggle peerjs server"
-      class="bg-[#D9D9D9] px-3 md:px-4 text-[#38404A] text-[15px] font-extrabold flex items-center justify-center gap-1 rounded cursor-pointer relative overflow-hidden text-sm py-1.5 md:py-2"
-      on:click={$connectionState.started ? handleStopServer : handleStartServer}
+      class="relative flex cursor-pointer items-center justify-center gap-1 overflow-hidden rounded bg-[#D9D9D9] px-3 py-1.5 text-[15px] text-sm font-extrabold text-[#38404A] md:px-4 md:py-2"
+      disabled={$connectionState.loading}
+      on:click={$connectionState.started ? handleStopServer : startPeer}
     >
       {#if $connectionState.started}
         Stop

@@ -1,33 +1,38 @@
 section.chat-ui {
-  @apply bg-dark px-3 sm:px-4 py-4 md:px-14 md:py-8 md:pb-14 h-screen w-full mx-auto text-center bg-center bg-cover flex items-center justify-center;
+  @apply mx-auto flex h-screen w-full items-center justify-center bg-dark bg-cover bg-center px-3 py-4 text-center sm:px-4 md:px-14 md:py-8 md:pb-14;
   background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/q_80/v1663210261/bg2_m6wgnr.webp);
 
   .container {
-    @apply bg-[#ebebeb] rounded-[30px] md:rounded-[40px] w-full h-[90vh] mx-auto relative max-w-[1000px] bg-center bg-cover;
+    @apply relative mx-auto h-[90vh] w-full max-w-[1000px] rounded-[30px] bg-[#ebebeb] bg-cover bg-center md:rounded-[40px];
     background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/v1663409445/bg-3_ttnqmb.webp);
-    box-shadow: 0px 0px 1.2px rgba(0, 0, 0, 0.017),
-      0px 0px 2.8px rgba(0, 0, 0, 0.024), 0px 0px 4.8px rgba(0, 0, 0, 0.03),
-      0px 0px 7.6px rgba(0, 0, 0, 0.035), 0px 0px 11.8px rgba(0, 0, 0, 0.04),
-      0px 0px 18.4px rgba(0, 0, 0, 0.046), 0px 0px 30.5px rgba(0, 0, 0, 0.053),
+    box-shadow:
+      0px 0px 1.2px rgba(0, 0, 0, 0.017),
+      0px 0px 2.8px rgba(0, 0, 0, 0.024),
+      0px 0px 4.8px rgba(0, 0, 0, 0.03),
+      0px 0px 7.6px rgba(0, 0, 0, 0.035),
+      0px 0px 11.8px rgba(0, 0, 0, 0.04),
+      0px 0px 18.4px rgba(0, 0, 0, 0.046),
+      0px 0px 30.5px rgba(0, 0, 0, 0.053),
       0px 0px 61px rgba(0, 0, 0, 0.07);
   }
 
   header {
     background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/c_scale,w_2200/v1663294019/Group_7_jjdeln.webp);
-    @apply bg-cover bg-center w-full py-4 px-4 sm:px-6 md:px-12 flex gap-3 items-center justify-between rounded-t-[30px] bg-dark;
+    @apply flex w-full items-center justify-between gap-3 rounded-t-[30px] bg-dark bg-cover bg-center px-4 py-4 sm:px-6 md:px-12;
 
     h1 {
-      @apply text-white text-lg md:text-xl;
+      @apply text-lg text-white md:text-xl;
     }
   }
 
   .delete-btn {
-    @apply border border-light border-opacity-30 flex items-center justify-center w-8 h-8 md:w-9 md:h-9 rounded-full hover:bg-light hover:bg-opacity-10 duration-150 cursor-pointer;
+    @apply flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-light border-opacity-30 duration-150 hover:bg-light hover:bg-opacity-10 md:h-9 md:w-9;
     svg {
       @apply w-3.5 md:w-4;
     }
 
-    box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.11),
+    box-shadow:
+      0px 6px 25px rgba(0, 0, 0, 0.11),
       0px 2.50666px 10.4444px rgba(0, 0, 0, 0.079074),
       0px 1.34018px 5.58408px rgba(0, 0, 0, 0.0655718),
       0px 0.751293px 3.13039px rgba(0, 0, 0, 0.055),
@@ -37,9 +42,10 @@ section.chat-ui {
 }
 
 .btn-secondary {
-  @apply bg-[#D9D9D9] py-1 px-4 text-[#38404A] text-[15px] font-extrabold flex items-center justify-center gap-1 rounded cursor-pointer relative overflow-hidden;
+  @apply relative flex cursor-pointer items-center justify-center gap-1 overflow-hidden rounded bg-[#D9D9D9] px-4 py-1 text-[15px] font-extrabold text-[#38404A];
 
-  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.11),
+  box-shadow:
+    0px 6px 25px rgba(0, 0, 0, 0.11),
     0px 2.50666px 10.4444px rgba(0, 0, 0, 0.079074),
     0px 1.34018px 5.58408px rgba(0, 0, 0, 0.0655718),
     0px 0.751293px 3.13039px rgba(0, 0, 0, 0.055),
@@ -48,7 +54,7 @@ section.chat-ui {
 }
 
 .chat-messages-wrapper {
-  @apply w-full overflow-y-scroll px-4 sm:px-6 md:px-12 py-10;
+  @apply w-full overflow-y-scroll px-4 py-10 sm:px-6 md:px-12;
 
   &::-webkit-scrollbar {
     display: none;
@@ -61,13 +67,17 @@ section.chat-ui {
 
 .chat-input {
   textarea {
-    @apply resize-none rounded-[20px] md:rounded-[38px] h-32 bg-light py-4 md:py-6 w-full px-6 md:px-10 outline-none text-[15px] text-dark border-black/10 border font-medium focus:outline-[2px] focus:outline-offset-4 focus:outline-dark/70;
+    @apply h-32 w-full resize-none rounded-[20px] border border-black/10 bg-light px-6 py-4 text-[15px] font-medium text-dark outline-none focus:outline-[2px] focus:outline-offset-4 focus:outline-dark/70 md:rounded-[38px] md:px-10 md:py-6;
 
-    box-shadow: 0px 0.4px 1.1px rgba(0, 0, 0, 0.005),
-      0px 1px 2.5px rgba(0, 0, 0, 0.007), 0px 1.7px 4.4px rgba(0, 0, 0, 0.009),
-      0px 2.6px 7px rgba(0, 0, 0, 0.01), 0px 4.1px 10.8px rgba(0, 0, 0, 0.011),
+    box-shadow:
+      0px 0.4px 1.1px rgba(0, 0, 0, 0.005),
+      0px 1px 2.5px rgba(0, 0, 0, 0.007),
+      0px 1.7px 4.4px rgba(0, 0, 0, 0.009),
+      0px 2.6px 7px rgba(0, 0, 0, 0.01),
+      0px 4.1px 10.8px rgba(0, 0, 0, 0.011),
       0px 6.3px 16.9px rgba(0, 0, 0, 0.013),
-      0px 10.5px 28px rgba(0, 0, 0, 0.015), 0px 21px 56px rgba(0, 0, 0, 0.02);
+      0px 10.5px 28px rgba(0, 0, 0, 0.015),
+      0px 21px 56px rgba(0, 0, 0, 0.02);
 
     scrollbar-width: none;
     &::-webkit-scrollbar {
@@ -77,12 +87,14 @@ section.chat-ui {
 
   .buttons {
     .button {
-      @apply rounded-full px-3 py-3 bg-dark cursor-pointer hover:bg-dark/80 duration-100 flex items-center justify-center;
-      box-shadow: 0px 0.2px 1.2px rgba(0, 0, 0, 0.034),
+      @apply flex cursor-pointer items-center justify-center rounded-full bg-dark px-3 py-3 duration-100 hover:bg-dark/80;
+      box-shadow:
+        0px 0.2px 1.2px rgba(0, 0, 0, 0.034),
         0px 0.5px 2.8px rgba(0, 0, 0, 0.048),
         0px 0.9px 5.3px rgba(0, 0, 0, 0.06),
         0px 1.6px 9.4px rgba(0, 0, 0, 0.072),
-        0px 2.9px 17.5px rgba(0, 0, 0, 0.086), 0px 7px 42px rgba(0, 0, 0, 0.12);
+        0px 2.9px 17.5px rgba(0, 0, 0, 0.086),
+        0px 7px 42px rgba(0, 0, 0, 0.12);
     }
 
     .upload {
@@ -91,22 +103,22 @@ section.chat-ui {
 
     .upload-icon {
       svg {
-        @apply w-5 h-4;
+        @apply h-4 w-5;
       }
     }
   }
 }
 
 .messages-wrapper {
-  @apply grid gap-5 items-center content-center w-full;
+  @apply grid w-full content-center items-center gap-5;
 
   h2 {
-    @apply text-dark/90 mx-auto font-medium w-10/12 mt-8;
+    @apply mx-auto mt-8 w-10/12 font-medium text-dark/90;
   }
 }
 
 .message-item {
-  @apply w-full min-w-[0] max-w-fit rounded-[20px] md:rounded-[24px] border-black/10 border bg-light text-[15px] sm:w-fit sm:max-w-md text-left py-3 sm:py-5 px-4 sm:px-6 md:px-8 pr-12 sm:pr-14 md:pr-14 leading-6 text-[#38404A] relative rounded-tr-md md:rounded-tr-xl;
+  @apply relative w-full min-w-[0] max-w-fit rounded-[20px] rounded-tr-md border border-black/10 bg-light px-4 py-3 pr-12 text-left text-[15px] leading-6 text-[#38404A] sm:w-fit sm:max-w-md sm:px-6 sm:py-5 sm:pr-14 md:rounded-[24px] md:rounded-tr-xl md:px-8 md:pr-14;
 
   p {
     @apply w-full break-words;
@@ -119,30 +131,37 @@ section.chat-ui {
   }
 
   .copy-btn {
-    @apply top-2 sm:top-3 w-7 h-8 sm:w-8 sm:h-9 duration-150 bg-dark border-white/20 rounded-md lg:rounded-lg flex items-center justify-center absolute right-2 sm:right-3;
+    @apply absolute right-2 top-2 flex h-8 w-7 items-center justify-center rounded-md border-white/20 bg-dark duration-150 sm:right-3 sm:top-3 sm:h-9 sm:w-8 lg:rounded-lg;
 
     svg {
       @apply w-3 sm:w-4;
     }
   }
 
-  box-shadow: 0px 0.4px 1.1px rgba(0, 0, 0, 0.005),
-    0px 1px 2.5px rgba(0, 0, 0, 0.007), 0px 1.7px 4.4px rgba(0, 0, 0, 0.009),
-    0px 2.6px 7px rgba(0, 0, 0, 0.01), 0px 4.1px 10.8px rgba(0, 0, 0, 0.011),
-    0px 6.3px 16.9px rgba(0, 0, 0, 0.013), 0px 10.5px 28px rgba(0, 0, 0, 0.015),
+  box-shadow:
+    0px 0.4px 1.1px rgba(0, 0, 0, 0.005),
+    0px 1px 2.5px rgba(0, 0, 0, 0.007),
+    0px 1.7px 4.4px rgba(0, 0, 0, 0.009),
+    0px 2.6px 7px rgba(0, 0, 0, 0.01),
+    0px 4.1px 10.8px rgba(0, 0, 0, 0.011),
+    0px 6.3px 16.9px rgba(0, 0, 0, 0.013),
+    0px 10.5px 28px rgba(0, 0, 0, 0.015),
     0px 21px 56px rgba(0, 0, 0, 0.02);
 }
 
 .message-item.right-aligned {
-  @apply ml-auto bg-[#555E69] text-white border-none;
+  @apply ml-auto border-none bg-[#555E69] text-white;
 
   .copy-btn {
     @apply opacity-40 hover:opacity-60;
   }
 
-  box-shadow: 0px 0.2px 1.2px rgba(0, 0, 0, 0.034),
-    0px 0.5px 2.8px rgba(0, 0, 0, 0.048), 0px 0.9px 5.3px rgba(0, 0, 0, 0.06),
-    0px 1.6px 9.4px rgba(0, 0, 0, 0.072), 0px 2.9px 17.5px rgba(0, 0, 0, 0.086),
+  box-shadow:
+    0px 0.2px 1.2px rgba(0, 0, 0, 0.034),
+    0px 0.5px 2.8px rgba(0, 0, 0, 0.048),
+    0px 0.9px 5.3px rgba(0, 0, 0, 0.06),
+    0px 1.6px 9.4px rgba(0, 0, 0, 0.072),
+    0px 2.9px 17.5px rgba(0, 0, 0, 0.086),
     0px 7px 42px rgba(0, 0, 0, 0.12);
 }
 
@@ -153,25 +172,25 @@ section.chat-ui {
 }
 
 .placeholder {
-  @apply text-center mt-6;
+  @apply mt-6 text-center;
 
   svg {
-    @apply w-20 mx-auto;
+    @apply mx-auto w-20;
   }
 
   .commands-table {
-    @apply py-2.5 md:py-3 px-3 md:px-4 bg-opacity-[3%] mt-12 rounded mx-auto w-fit;
+    @apply mx-auto mt-12 w-fit rounded bg-opacity-[3%] px-3 py-2.5 md:px-4 md:py-3;
   }
 
   table {
-    @apply text-left gap-6 text-sm md:text-[15px] font-medium border-collapse;
+    @apply border-collapse gap-6 text-left text-sm font-medium md:text-[15px];
 
     td {
-      @apply px-3 md:px-4 py-2 md:py-3 mr-1 sm:mr-2 text-dark/70 whitespace-nowrap border-dark/40 border-[1.2px] border-collapse;
+      @apply mr-1 border-collapse whitespace-nowrap border-[1.2px] border-dark/40 px-3 py-2 text-dark/70 sm:mr-2 md:px-4 md:py-3;
     }
 
     code {
-      @apply bg-dark/10 p-1 px-1 rounded text-xs md:text-sm text-dark/70 whitespace-nowrap;
+      @apply whitespace-nowrap rounded bg-dark/10 p-1 px-1 text-xs text-dark/70 md:text-sm;
     }
   }
 }

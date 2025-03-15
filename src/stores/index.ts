@@ -28,4 +28,8 @@ export const connectionState = writable<{
   readonly selectedId?: string;
 }>(initialState);
 
+export const currentUserVideoRef = writable<HTMLVideoElement>();
+export const remoteUserVideoRef = writable<HTMLVideoElement>();
+export const videoCallDialogOpen = writable<boolean>(false);
+
 export const relayMessages = writable<Map<string, RelayMessage[]>>(new Map());

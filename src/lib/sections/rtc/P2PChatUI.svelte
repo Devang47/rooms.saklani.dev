@@ -6,10 +6,12 @@ import MessageItem from "$lib/components/MessageItem.svelte";
 import { DataType, PeerConnection } from "$helpers/peer";
 import UploadIcon from "$lib/icons/UploadIcon.svelte";
 import { browser } from "$app/environment";
+import CallIcon from "$lib/icons/CallIcon.svelte";
 
 let chatInput = "";
 let chatInputBox: HTMLTextAreaElement;
 let uploadFileInput: HTMLInputElement;
+export let handleCallPeer: (id: string) => void;
 
 const handleInputChange = async (e: any) => {
   if (!$connectionState.selectedId) {
@@ -190,6 +192,18 @@ relayMessages.subscribe((msgs) => {
         id="fileinput"
         on:change={handleInputChange}
       />
+    </button>
+
+    <button
+      class="btn-secondary w-full rounded-md bg-light px-4 py-1.5 text-xs font-bold shadow disabled:cursor-not-allowed"
+      title="Upload media"
+      aria-label="Upload media button"
+      disabled={!$connectionState.selectedId}
+      on:click={() => handleCallPeer($connectionState.selectedId ?? "")}
+    >
+      <div title="Upload media" class="w-5 text-dark">
+        <CallIcon class="w-5" />
+      </div>
     </button>
   </div>
 </div>

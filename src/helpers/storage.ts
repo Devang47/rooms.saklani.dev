@@ -49,7 +49,7 @@ export const uploadFile = (roomId: string, file: any) =>
           loadingUpload.set(false);
           resolve(e);
         });
-      }
+      },
     );
   });
 

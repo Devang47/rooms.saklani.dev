@@ -1,6 +1,19 @@
-import Peer, { type DataConnection, PeerErrorType, PeerError } from "peerjs";
+import Peer, {
+  type DataConnection,
+  type MediaConnection,
+  PeerErrorType,
+  PeerError,
+} from "peerjs";
 import { addNotification } from "../../utils/notifications";
 import { generateRandomName } from "$utils";
+import { get } from "svelte/store";
+import {
+  connectionState,
+  currentUserVideoRef,
+  relayMessages,
+  remoteUserVideoRef,
+  videoCallDialogOpen,
+} from "$stores";
 
 let activeConnectionsMap: Map<string, DataConnection> = new Map<
   string,
@@ -10,6 +23,7 @@ let activeConnectionsMap: Map<string, DataConnection> = new Map<
 export enum DataType {
   FILE = "FILE",
   MESSAGE = "MESSAGE",
+  SYSTEM = "SYSTEM",
 }
 
 export interface Data {
@@ -23,6 +37,8 @@ export interface Data {
 }
 
 let peer: Peer | undefined;
+let call: MediaConnection | undefined;
+let mediaStream: MediaStream | undefined;
 
 export const PeerConnection = {
   getPeer: () => peer,
@@ -35,10 +51,55 @@ export const PeerConnection = {
           port: import.meta.env.VITE_PEERJS_PORT,
           secure: true,
         });
+
         peer.on("open", (id) => {
           console.log("My ID: " + id);
           resolve(id);
         });
+
+        peer.on("call", async (call) => {
+          if (
+            window.confirm("Do you want to accept video call from " + id + "?")
+          ) {
+            try {
+              const getUserMedia = navigator.mediaDevices.getUserMedia;
+
+              mediaStream = await getUserMedia({
+                video: {
+                  width: { ideal: 340 },
+                  height: { ideal: 340 },
+                  frameRate: { ideal: 24 },
+                  aspectRatio: 1,
+                },
+                audio: {
+                  echoCancellation: true,
+                  noiseSuppression: true,
+                  autoGainControl: true,
+                },
+              });
+
+              get(currentUserVideoRef).srcObject = mediaStream;
+              call.answer(mediaStream);
+
+              call.on("stream", function (remoteStream) {
+                get(remoteUserVideoRef).srcObject = remoteStream;
+                videoCallDialogOpen.set(true);
+              });
+
+              call.on("close", () => {
+                addNotification("Call closed", false);
+                closeCall();
+              });
+            } catch (error) {
+              addNotification("Error when trying to call peer", true);
+            }
+          } else {
+            call.close();
+            sendSystemMessage("Call declined");
+            addNotification("Call declined");
+          }
+        });
+
         peer.on("error", (err) => {
           console.log(err);
           addNotification(err.message, true);
@@ -159,4 +220,84 @@ export const PeerConnection = {
       });
     }
   },
+
+  callPeer: async (remotePeerId: string) => {
+    if (!peer) {
+      throw new Error("Peer hasn't started yet");
+    }
+
+    const getUserMedia = navigator.mediaDevices.getUserMedia;
+    try {
+      mediaStream = await getUserMedia({
+        video: {
+          width: { ideal: 340 },
+          height: { ideal: 340 },
+          frameRate: { ideal: 24 },
+          aspectRatio: 1,
+        },
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true,
+        },
+      });
+
+      get(currentUserVideoRef).srcObject = mediaStream;
+      call = peer.call(remotePeerId, mediaStream);
+
+      sendSystemMessage("Call started by " + get(connectionState).id);
+
+      call.on("stream", (remoteStream: any) => {
+        get(remoteUserVideoRef).srcObject = remoteStream;
+      });
+
+      call.on("close", () => {
+        addNotification("Call closed", false);
+        closeCall();
+      });
+    } catch (err) {
+      addNotification("Error when trying to call peer", true);
+    }
+  },
+};
+
+export const closeCall = () => {
+  call?.close();
+  call = undefined;
+
+  videoCallDialogOpen.set(false);
+  mediaStream?.getTracks().forEach((track) => {
+    track.stop();
+  });
+  mediaStream = undefined;
+
+  get(currentUserVideoRef).srcObject = null;
+  get(remoteUserVideoRef).srcObject = null;
+};
+
+export const sendSystemMessage = async (message: string) => {
+  const selectedId = get(connectionState).selectedId;
+  if (!selectedId) return;
+
+  const data = {
+    dataType: DataType.SYSTEM,
+    message,
+    deviceId: get(connectionState).id ?? "",
+    timestamp: new Date().toString(),
+  };
+
+  await PeerConnection.sendConnection(selectedId, data);
+  relayMessages.update((msgs) => {
+    msgs.set(selectedId, [
+      ...(msgs.get(selectedId) ?? []),
+      {
+        data: data.message,
+        device: data.deviceId,
+        deviceId: data.deviceId,
+        timestamp: data.timestamp,
+      },
+    ]);
+
+    return msgs;
+  });
 };
