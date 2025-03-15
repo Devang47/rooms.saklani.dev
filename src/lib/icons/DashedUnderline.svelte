@@ -1,8 +1,6 @@
 <svg
-  width="297"
-  height="10"
+  class="w-full flex-shrink-0"
   viewBox="0 0 297 10"
-  class="flex-shrink-0"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
 >

@@ -1,5 +1,5 @@
 section.chat-ui {
-  @apply bg-dark px-3 sm:px-4 py-4 md:px-14 md:py-8 md:pb-14 h-full w-full  mx-auto text-center bg-center bg-cover flex items-center justify-center;
+  @apply bg-dark px-3 sm:px-4 py-4 md:px-14 md:py-8 md:pb-14 h-screen w-full mx-auto text-center bg-center bg-cover flex items-center justify-center;
   background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/q_80/v1663210261/bg2_m6wgnr.webp);
 
   .container {
