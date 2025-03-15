@@ -43,7 +43,6 @@
     "firebase": "^9.19.1",
     "gsap": "^3.11.5",
     "html-minifier": "^4.0.0",
-    "ioredis": "^5.5.0",
     "js-file-download": "^0.4.12",
     "peerjs": "^1.5.4",
     "qrcode": "^1.5.3",
