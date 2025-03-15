@@ -1,11 +1,11 @@
-import { notifications } from "$stores/app";
+import { notifications } from "$stores";
 import { get } from "svelte/store";
 
-export let addNotification = (msg: string, error: boolean) => {
+export let addNotification = (msg: string, error: boolean = false) => {
   notifications.set([...get(notifications), { data: msg, error }]);
 
   setTimeout(() => {
-    get(notifications).pop();
+    get(notifications).shift();
     notifications.set(get(notifications));
   }, 2000);
 };

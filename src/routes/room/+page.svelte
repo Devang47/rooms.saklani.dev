@@ -1,92 +1,92 @@
 <script lang="ts">
-  import { loading, roomData } from "$stores/app";
-  import { checkIfRoomExists } from "$utils/Room";
-  import Button from "$lib/components/Button.svelte";
-  import CircleAnimation from "$lib/components/CircleAnimation.svelte";
-  import ArrowRight from "$lib/icons/ArrowRight.svelte";
-  import DashedUnderline from "$lib/icons/DashedUnderline.svelte";
-  import CurvedArrowLine from "$lib/icons/CurvedArrowLine.svelte";
-  import { onMount } from "svelte";
-  import { fly } from "svelte/transition";
-  import { goto } from "$app/navigation";
-  import { addNotification } from "$utils/notifications";
-  import gsap, { Power3 } from "gsap";
-  import FloatingImages from "$lib/sections/FloatingImages.svelte";
+import { loading, roomData } from "$stores";
+import { checkIfRoomExists } from "$helpers/Room";
+import Button from "$lib/components/Button.svelte";
+import CircleAnimation from "$lib/components/CircleAnimation.svelte";
+import ArrowRight from "$lib/icons/ArrowRight.svelte";
+import DashedUnderline from "$lib/icons/DashedUnderline.svelte";
+import CurvedArrowLine from "$lib/icons/CurvedArrowLine.svelte";
+import { onMount } from "svelte";
+import { fly } from "svelte/transition";
+import { goto } from "$app/navigation";
+import { addNotification } from "$utils/notifications";
+import gsap, { Power3 } from "gsap";
+import FloatingImages from "$lib/sections/FloatingImages.svelte";
 
-  let inputVal = "";
-  let formLoading = "false";
-  let roomExists = true;
-  const joinRoom = async () => {
-    if (!inputVal || inputVal.length < 6) return;
-    formLoading = "true";
+let inputVal = "";
+let formLoading = "false";
+let roomExists = true;
+const joinRoom = async () => {
+  if (!inputVal || inputVal.length < 6) return;
+  formLoading = "true";
 
-    $roomData = await checkIfRoomExists(inputVal);
-    if (!$roomData) {
-      formLoading = "false";
-      roomExists = false;
+  $roomData = await checkIfRoomExists(inputVal);
+  if (!$roomData) {
+    formLoading = "false";
+    roomExists = false;
 
-      addNotification("404 Not found!", true);
+    addNotification("404 Not found!", true);
 
-      return null;
-    }
+    return null;
+  }
 
-    roomExists = true;
-    formLoading = "complete";
+  roomExists = true;
+  formLoading = "complete";
 
-    gsap.to(".moveable-block", {
-      opacity: 0,
-      duration: 0.1,
-    });
-
-    gsap.to(".arrow-button", {
-      scale: 100,
-      duration: 0.3,
-      ease: "linear",
-    });
-
-    setTimeout(() => {
-      goto("/room/" + inputVal);
-    }, 800);
-  };
-
-  onMount(() => {
-    loading.set(false);
-
-    const tl = gsap.timeline({});
-
-    tl.to(".bg", {
-      delay: 0.2,
-      width: "100%",
-      duration: 0.8,
-      ease: Power3.easeOut,
-    })
-      .to(".content", {
-        delay: -0.5,
-        opacity: 1,
-        duration: 0.4,
-      })
-      .to(".moveable-block", {
-        delay: -0.6,
-        x: 0,
-        y: 0,
-        opacity: 1,
-        duration: 0.4,
-      });
+  gsap.to(".moveable-block", {
+    opacity: 0,
+    duration: 0.1,
   });
 
-  const handleGotoCreatePage = () => {
-    gsap
-      .to(".transition-join-page", {
-        height: "100%",
-        duration: 0.7,
-        ease: Power3.easeOut,
-      })
-      .then(() => {
-        setTimeout(() => {
-          goto("/");
-        }, 100);
-      });
-  };
+  gsap.to(".arrow-button", {
+    scale: 100,
+    duration: 0.3,
+    ease: "linear",
+  });
+
+  setTimeout(() => {
+    goto("/room/" + inputVal);
+  }, 800);
+};
+
+onMount(() => {
+  loading.set(false);
+
+  const tl = gsap.timeline({});
+
+  tl.to(".bg", {
+    delay: 0.2,
+    width: "100%",
+    duration: 0.8,
+    ease: Power3.easeOut,
+  })
+    .to(".content", {
+      delay: -0.5,
+      opacity: 1,
+      duration: 0.4,
+    })
+    .to(".moveable-block", {
+      delay: -0.6,
+      x: 0,
+      y: 0,
+      opacity: 1,
+      duration: 0.4,
+    });
+});
+
+const handleGotoCreatePage = () => {
+  gsap
+    .to(".transition-join-page", {
+      height: "100%",
+      duration: 0.7,
+      ease: Power3.easeOut,
+    })
+    .then(() => {
+      setTimeout(() => {
+        goto("/");
+      }, 100);
+    });
+};
 </script>
 
 <FloatingImages />
@@ -96,9 +96,12 @@
 <section class="join-room-page">
   <div class="container">
     <div class="content opacity-0">
-      <div class="relative w-fit mx-auto">
+      <div class="relative mx-auto w-fit">
         <h1 class="sans">Join Room</h1>
-        <span class="heading-underline"><DashedUnderline /> </span>
+        <span
+          class="absolute bottom-1 left-1/2 w-10/12 -translate-x-1/2 md:bottom-1"
+          ><DashedUnderline />
+        </span>
       </div>
 
       <form action="#" on:submit|preventDefault={joinRoom}>
@@ -117,7 +120,7 @@
           </span>
         </div>
 
-        <div class="relative w-fit mx-auto group">
+        <div class="group relative mx-auto w-fit">
           <Button
             label="Join room"
             type="submit"

@@ -10,6 +10,9 @@ module.exports = {
       transitionTimingFunction: {
         "cubic-ease": "cubic-bezier(.77,0,.175,1)",
       },
+      fontFamily: {
+        mono: ["JetBrains Mono", "monospace"],
+      },
     },
   },
   plugins: [],

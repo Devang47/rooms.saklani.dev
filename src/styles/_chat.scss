@@ -1,5 +1,5 @@
 section.chat-ui {
-  @apply bg-dark px-3 sm:px-4 py-4 md:px-14 md:py-8 md:pb-14 h-full w-full  mx-auto text-center bg-center bg-cover flex items-center justify-center;
+  @apply bg-dark px-3 sm:px-4 py-4 md:px-14 md:py-8 md:pb-14 h-screen w-full mx-auto text-center bg-center bg-cover flex items-center justify-center;
   background-image: url(https://res.cloudinary.com/dyn3sdtfm/image/upload/q_80/v1663210261/bg2_m6wgnr.webp);
 
   .container {
@@ -17,18 +17,7 @@ section.chat-ui {
     @apply bg-cover bg-center w-full py-4 px-4 sm:px-6 md:px-12 flex gap-3 items-center justify-between rounded-t-[30px] bg-dark;
 
     h1 {
-      @apply text-white text-[20px];
-    }
-
-    .room-id {
-      @apply bg-[#D9D9D9] py-1 px-4 text-[#38404A] text-[15px] font-extrabold flex items-center justify-center gap-1 rounded cursor-pointer relative overflow-hidden;
-
-      box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.11),
-        0px 2.50666px 10.4444px rgba(0, 0, 0, 0.079074),
-        0px 1.34018px 5.58408px rgba(0, 0, 0, 0.0655718),
-        0px 0.751293px 3.13039px rgba(0, 0, 0, 0.055),
-        0px 0.399006px 1.66253px rgba(0, 0, 0, 0.0444282),
-        0px 0.166035px 0.691814px rgba(0, 0, 0, 0.030926);
+      @apply text-white text-lg md:text-xl;
     }
   }
 
@@ -47,8 +36,19 @@ section.chat-ui {
   }
 }
 
+.btn-secondary {
+  @apply bg-[#D9D9D9] py-1 px-4 text-[#38404A] text-[15px] font-extrabold flex items-center justify-center gap-1 rounded cursor-pointer relative overflow-hidden;
+
+  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.11),
+    0px 2.50666px 10.4444px rgba(0, 0, 0, 0.079074),
+    0px 1.34018px 5.58408px rgba(0, 0, 0, 0.0655718),
+    0px 0.751293px 3.13039px rgba(0, 0, 0, 0.055),
+    0px 0.399006px 1.66253px rgba(0, 0, 0, 0.0444282),
+    0px 0.166035px 0.691814px rgba(0, 0, 0, 0.030926);
+}
+
 .chat-messages-wrapper {
-  @apply w-full overflow-y-scroll h-[calc(90vh-65.6px)] pb-[200px] px-4 sm:px-6 md:px-12 py-10;
+  @apply w-full overflow-y-scroll px-4 sm:px-6 md:px-12 py-10;
 
   &::-webkit-scrollbar {
     display: none;
@@ -60,8 +60,6 @@ section.chat-ui {
 }
 
 .chat-input {
-  @apply absolute bottom-0 left-0 right-0 flex items-start gap-x-4 md:gap-x-6 pb-8 px-4 sm:px-6 md:px-12 bg-gradient-to-t from-light to-transparent rounded-b-[30px] md:rounded-b-[40px];
-
   textarea {
     @apply resize-none rounded-[20px] md:rounded-[38px] h-32 bg-light py-4 md:py-6 w-full px-6 md:px-10 outline-none text-[15px] text-dark border-black/10 border font-medium focus:outline-[2px] focus:outline-offset-4 focus:outline-dark/70;
 
@@ -78,9 +76,7 @@ section.chat-ui {
   }
 
   .buttons {
-    @apply flex flex-col gap-2 md:gap-4;
-
-    button {
+    .button {
       @apply rounded-full px-3 py-3 bg-dark cursor-pointer hover:bg-dark/80 duration-100 flex items-center justify-center;
       box-shadow: 0px 0.2px 1.2px rgba(0, 0, 0, 0.034),
         0px 0.5px 2.8px rgba(0, 0, 0, 0.048),

@@ -1,9 +1,26 @@
 # ChatRooms
 
-In this website you can create a private chat room and share data across
-multiple devices. When you click the create btn it will generate a 6
-digit room code which can be then used to join the room from different
-devices. The chat room will automatically delete after 15min.
+In this website you can create a private chat room and share data across multiple devices.
+
+### Rooms are of two types:
+
+Traditional Chatrooms
+✅ Uses Firebase to store messages
+and files
+✅ Connect Multiple devices concurrently
+✅ Messages history
+✅ Auto delete all data after 15min
+✅ Secure
+❌ End to end encrypted
+
+WebRTC based Chatrooms
+✅ Uses WebRTC to transfer messages
+and files
+✅ Only 2 devices can connect a time
+✅ No messages history
+✅ End to end encrypted
+✅ File transfers
+✅ Video calls
 
 ## Tools / Libraries used:
 
@@ -14,4 +31,5 @@ devices. The chat room will automatically delete after 15min.
 - [Vercel](https://vercel.com/) for Frontend
 - [Firebase Functions](https://firebase.google.com/) for Backend
 - [Cron Job](https://cron-job.org/en/)
-- [Short.io](https://short.io/)
+- [WebRTC](https://webrtc.org/)
+- [Peer.js](https://github.com/peers/peerjs)

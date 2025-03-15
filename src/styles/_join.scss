@@ -64,11 +64,3 @@ section.join-room-page {
     }
   }
 }
-
-.heading-underline {
-  @apply absolute bottom-1 md:bottom-3.5 left-0 w-full;
-
-  svg {
-    @apply w-full;
-  }
-}

@@ -1,12 +1,12 @@
-import { loading, loadingUpload } from "$stores/app";
+import { loading, loadingUpload } from "$stores";
 import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
   getStorage,
 } from "firebase/storage";
-import { app } from "./config";
-import { addNotification } from "./notifications";
+import { app } from "../utils/config";
+import { addNotification } from "../utils/notifications";
 import CryptoJS from "crypto-js";
 import { gsap } from "gsap";
 

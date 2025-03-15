@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Notification from "$lib/sections/Notifications.svelte";
+  import Notifications from "$lib/sections/Notifications.svelte";
   import LoadingScreen from "$lib/sections/LoadingScreen.svelte";
-  import { loading, user } from "$stores/app";
+  import { loading, user } from "$stores";
   import SvelteSeo from "svelte-seo";
   import { onMount } from "svelte";
   import { signInAnonymously } from "firebase/auth";
@@ -25,7 +25,7 @@
   <LoadingScreen />
 {/if}
 
-<Notification />
+<Notifications />
 
 <slot />
 

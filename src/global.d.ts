@@ -4,6 +4,10 @@ interface Message {
   device: string;
 }
 
+interface RelayMessage extends Message {
+  deviceId: string;
+}
+
 interface CustomNotification {
   data: string;
   error: boolean;

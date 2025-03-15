@@ -19,6 +19,8 @@
       "$stores/*": ["src/stores/*"],
       "$utils": ["src/utils"],
       "$utils/*": ["src/utils/*"],
+      "$helpers": ["src/helpers"],
+      "$helpers/*": ["src/helpers/*"],
       "$components": ["src/lib/components"],
       "$components/*": ["src/lib/components/*"],
       "$pages": ["src/lib/pages"],
